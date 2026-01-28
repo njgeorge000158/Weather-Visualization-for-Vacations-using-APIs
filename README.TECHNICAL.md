@@ -42,6 +42,8 @@ matplotlibx.py
 
 pandasx.py
 
+timex.py
+
 vacationsx.py
 
 weather_api_keys.py
@@ -62,7 +64,7 @@ To place the Jupyter Notebook in Log Mode or Image Mode set the parameter for th
 
 #### Source code
 
-weather.ipynb, vacations.ipynb, logx.py, mathx.py, matplotlibx.py, pandasx.py, vacationsx.py, weather_api_keys.py, weather_constants.py, weatherx.py
+weather.ipynb, vacations.ipynb, logx.py, mathx.py, matplotlibx.py, pandasx.py, timex.py, vacationsx.py, weather_api_keys.py, weather_constants.py, weatherx.py
 
 #### Input files
 
