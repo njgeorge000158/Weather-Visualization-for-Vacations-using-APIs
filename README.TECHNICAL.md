@@ -1,4 +1,4 @@
-# **Weather Visualization for Ideal vacations from APIs**
+# **Weather Visualization for Ideal Vacations from APIs**
 
 ----
 
@@ -6,7 +6,7 @@
 
 ----
 
-If the computer has Anaconda, Jupyter Notebook, and a recent version of Python, the IPython notebook already has the following dependencies installed: datetime, io, json, matplotlib, numpy, pandas, pathlib, os, pandas, requests, requests_html, and scipy.
+If the computer has Anaconda, Jupyter Notebook, and a recent version of Python, the Jupyter Notebook already has the following dependencies installed: datetime, io, json, matplotlib, numpy, pandas, pathlib, os, pandas, requests, requests_html, and scipy.
 
 In addition to those modules, the Jupyter Notebook requires the following to execute: holoviews, hvplot, geoviews, geopy, aspose-words, dataframe-image, citypy.
 
@@ -32,7 +32,7 @@ pip3 install -U citypy
 
 ----
 
-The IPython notebook, weather.ipynb, generates the CSV file, cities_weather.csv, which acts as input to vacations.ipynb. These IPython Notebooks must have the following Python scripts in the same folder with it:
+The Jupyter Notebook, weather.ipynb, generates the CSV file, cities_weather.csv, which acts as input to vacations.ipynb. These Jupyter Notebooks must have the following Python scripts in the same folder with it:
 
 logx.py
 
@@ -50,9 +50,9 @@ weather_constants.py
 
 weatherx.py
 
-If the folders, logs and images, are not present, an IPython notebook will create them. The folder, resources, contains the output file from weather.ipynb, cities_weather.csv, which is the input file for vacations.ipynb; the folder, logs, contains log files from testing the IPython Notebooks; and the folder, images, has the PNG and HTML files of the IPython Notebooks' tables and plots.
+If the folders, logs and images, are not present, an Jupyter Notebook will create them. The folder, resources, contains the output file from weather.ipynb, cities_weather.csv, which is the input file for vacations.ipynb; the folder, logs, contains log files from testing the Jupyter Notebooks; and the folder, images, has the PNG and HTML files of the Jupyter Notebooks' tables and plots.
 
-To place the IPython notebook in Log Mode or Image Mode set the parameter for the appropriate subroutine in coding cell #2 to True. In Log Mode, the notebook writes log information to files in the folder, logs. If the program is in Image Mode, it writes all dataframes, hvplot maps, and matplotlib plots to PNG files in the folder, images.
+To place the Jupyter Notebook in Log Mode or Image Mode set the parameter for the appropriate subroutine in coding cell #2 to True. In Log Mode, the notebook writes log information to files in the folder, logs. If the program is in Image Mode, it writes all dataframes, hvplot maps, and matplotlib plots to PNG files in the folder, images.
 
 ----
 
