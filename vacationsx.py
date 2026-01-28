@@ -4,27 +4,27 @@
 # In[1]:
 
 
-#*******************************************************************************************
-#
-#  File Name:  vacationsx.py 
-#
-#  File Description:
-#      This Python script, vacationsx.py, provides functions for completing tasks 
-#      associated with the Jupyter Notebook, vacations.ipynb. Here is the list:
-#      
-#  set_vacation_temperature_range
-#  set_vacation_humidity_range
-#  set_vacation_cloudiness_range
-#  set_vacation_wind_speed_range
-#
-#  update_dataframe_location
-#
-#
-#  Date            Description                             Programmer
-#  ----------      ------------------------------------    ------------------
-#  08/26/2023      Initial Development                     Nicholas J. George
-#
-#******************************************************************************************/
+ #*******************************************************************************************
+ #
+ #  File Name:  vacationsx.py 
+ #
+ #  File Description:
+ #      This Python script, vacationsx.py, provides functions for completing tasks 
+ #      associated with the Jupyter Notebook, vacations.ipynb. Here is the list:
+ #      
+ #  set_vacation_temperature_range
+ #  set_vacation_humidity_range
+ #  set_vacation_cloudiness_range
+ #  set_vacation_wind_speed_range
+ #
+ #  update_dataframe_location
+ #
+ #
+ #  Date            Description                             Programmer
+ #  ----------      ------------------------------------    ------------------
+ #  08/26/2023      Initial Development                     Nicholas J. George
+ #
+ #******************************************************************************************/
 
 import logx
 import weather_constants
@@ -77,29 +77,29 @@ CONSTANT_LOCAL_FILE_NAME = 'vacationsx.py'
 def set_vacation_temperature_range \
         (minimum_temperature_integer,
          maximum_temperature_integer):
-    
+
     minimum_temperature_integer = int(minimum_temperature_integer)
-        
+
     maximum_temperature_integer = int(maximum_temperature_integer)
-        
-        
+
+
     if minimum_temperature_integer < weather_constants.CONSTANT_MINIMUM_TEMPERATURE:
-            
+
         minimum_temperature_integer = weather_constants.CONSTANT_MINIMUM_TEMPERATURE
-            
+
     if maximum_temperature_integer > weather_constants.CONSTANT_MAXIMUM_TEMPERATURE:
-            
+
         maximum_temperature_integer = weather_constants.CONSTANT_MAXIMUM_TEMPERATURE
 
     if minimum_temperature_integer > maximum_temperature_integer:
 
         minimum_temperature_integer, maximum_temperature_integer \
             = maximum_temperature_integer, minimum_temperature_integer
-            
-            
+
+
     weather_constants.weather_conditions_dictionary['temperature_range'][0] \
         = minimum_temperature_integer
-        
+
     weather_constants.weather_conditions_dictionary['temperature_range'][1] \
         = maximum_temperature_integer
 
@@ -139,27 +139,27 @@ def set_vacation_humidity_range \
          maximum_humidity_integer):
 
     minimum_humidity_integer = int(minimum_humidity_integer)
-        
+
     maximum_humidity_integer = int(maximum_humidity_integer)
-        
-        
+
+
     if minimum_humidity_integer < weather_constants.CONSTANT_MINIMUM_HUMIDITY:
-            
+
         minimum_humidity_integer = weather_constants.CONSTANT_MINIMUM_HUMIDITY
-            
+
     if maximum_humidity_integer > weather_constants.CONSTANT_MAXIMUM_HUMIDITY:
-            
+
         maximum_humidity_integer = weather_constants.CONSTANT_MAXIMUM_HUMIDITY
-            
+
     if minimum_humidity_integer > maximum_humidity_integer:
 
         minimum_humidity_integer, maximum_humidity_integer \
             = maximum_humidity_integer, minimum_humidity_integer
-        
-            
+
+
     weather_constants.weather_conditions_dictionary['humidity_range'][0] \
         = minimum_humidity_integer
-        
+
     weather_constants.weather_conditions_dictionary['humidity_range'][1] \
         = maximum_humidity_integer
 
@@ -199,27 +199,27 @@ def set_vacation_cloudiness_range \
          maximum_cloudiness_integer):
 
     minimum_cloudiness_integer = int(minimum_cloudiness_integer)
-        
+
     maximum_cloudiness_integer = int(maximum_cloudiness_integer)
-        
-        
+
+
     if minimum_cloudiness_integer < weather_constants.CONSTANT_MINIMUM_CLOUDINESS:
-            
+
         minimum_cloudiness_integer = weather_constants.CONSTANT_MINIMUM_CLOUDINESS
-            
+
     if maximum_cloudiness_integer > weather_constants.CONSTANT_MAXIMUM_CLOUDINESS:
-            
+
         maximum_cloudiness_integer = weather_constants.CONSTANT_MAXIMUM_CLOUDINESS
-            
+
     if minimum_cloudiness_integer > maximum_cloudiness_integer:
 
         minimum_cloudiness_integer, maximum_cloudiness_integer \
             = maximum_cloudiness_integer, minimum_cloudiness_integer
-            
-            
+
+
     weather_constants.weather_conditions_dictionary['cloudiness_range'][0] \
         = minimum_cloudiness_integer
-        
+
     weather_constants.weather_conditions_dictionary['cloudiness_range'][1] \
         = maximum_cloudiness_integer
 
@@ -259,27 +259,27 @@ def set_vacation_wind_speed_range \
          maximum_wind_speed_integer):
 
     minimum_wind_speed_integer = int(minimum_wind_speed_integer)
-        
+
     maximum_wind_speed_integer = int(maximum_wind_speed_integer)
-        
-        
+
+
     if minimum_wind_speed_integer < weather_constants.CONSTANT_MINIMUM_WIND_SPEED:
-            
+
         minimum_wind_speed_integer = weather_constants.CONSTANT_MINIMUM_WIND_SPEED
-            
+
     if maximum_wind_speed_integer > weather_constants.CONSTANT_MAXIMUM_WIND_SPEED:
-            
+
         maximum_wind_speed_integer = weather_constants.CONSTANT_MAXIMUM_WIND_SPEED
-        
+
     if minimum_wind_speed_integer > maximum_wind_speed_integer:
 
         minimum_wind_speed_integer, maximum_wind_speed_integer \
             = maximum_wind_speed_integer, minimum_wind_speed_integer
 
-        
+
     weather_constants.weather_conditions_dictionary['wind_speed_range'][0] \
         = minimum_wind_speed_integer
-        
+
     weather_constants.weather_conditions_dictionary['wind_speed_range'][1] \
         = maximum_wind_speed_integer
 
@@ -329,7 +329,7 @@ def update_dataframe_location \
          search_radius_integer = 10000,
          result_limit_integer = 20,
          language_string = 'en'):
-    
+
     parameters_dictionary \
         = {'categories': [category_string],
            'filter': '',
@@ -338,26 +338,26 @@ def update_dataframe_location \
            'lang': language_string,
            'apiKey': geoapify_key}
 
-            
+
     if category_string == 'accommodation.hotel':
-        
+
         category_name_string = 'hotel'
-    
+
     elif category_string == 'catering.restaurant':
-        
+
         category_name_string = 'restaurant'
-        
+
     elif category_string == 'tourism.attraction':
-        
+
         category_name_string = 'tourism attraction'
-        
+
     else: return input_dataframe
-        
-    
+
+
     logx.print_and_log_text \
         (f'STARTING {category_name_string.upper()} SEARCH...\n\n')
 
-             
+
     city_name_string_list = []
 
     location_name_string_list = []
@@ -366,36 +366,36 @@ def update_dataframe_location \
     for index, row in input_dataframe.iterrows():
 
         longitude_float = input_dataframe.at[index, 'longitude']
-        
+
         latitude_float = input_dataframe.at[index, 'latitude']
-        
-    
+
+
         parameters_dictionary['filter'] \
             = f'circle:{longitude_float},{latitude_float},{search_radius_integer}'
-             
+
         parameters_dictionary['bias'] \
             = f'proximity:{longitude_float},{latitude_float}'
-    
+
 
         url_string = 'https://api.geoapify.com/v2/places'
-    
-        
+
+
         response_dictionary \
             = requests.get(url = url_string, params = parameters_dictionary).json()
-        
+
         if len(response_dictionary['features']) <= 0:
-        
+
             continue
-        
-        
+
+
         for index, location in enumerate(response_dictionary['features']):
-        
+
             try:
-                
+
                 location_name_string = location['properties']['name']
 
                 location_name_string_list.append(location_name_string)
-                
+
                 logx.print_and_log_text \
                     (f'Located the following {category_name_string}...' \
                      + f'{location_name_string} ' \
@@ -403,26 +403,26 @@ def update_dataframe_location \
                      + f"{input_dataframe.at[index, 'country']}\n\n")
 
                 break
-            
+
             except:
-             
+
                 continue
-        
+
         city_name_string_list.append(row['city'])
 
-            
+
     temp_dataframe \
         = input_dataframe.apply \
             (lambda x: x[input_dataframe['city'].isin(city_name_string_list)])
-            
+
     temp_dataframe.reset_index(drop = True, inplace = True)
-             
+
     temp_dataframe[column_name_string] = pd.Series(location_name_string_list)
-    
-    
+
+
     logx.print_and_log_text(f'{category_name_string.upper()} SEARCH COMPLETE...\n\n')
-            
-             
+
+
     return temp_dataframe
 
 
