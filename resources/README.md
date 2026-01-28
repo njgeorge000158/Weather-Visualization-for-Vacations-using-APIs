@@ -1,4 +1,4 @@
-This folder includes the file, cities_weather.csv, which is the output file from the IPython notebook, weather.ipynb, and the input file for the IPython notebook, vacation.ipynb.
+This folder includes the file, cities_weather.csv, which is the output file from the Jupyter Notebook, weather.ipynb, and the input file for the Jupyter Notebook, vacation.ipynb.
 
 ----
 
