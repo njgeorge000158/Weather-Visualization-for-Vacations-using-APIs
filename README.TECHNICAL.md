@@ -92,11 +92,23 @@ Jupyter Notebook, Pandas, Python 3.11.5
 
 #### main branch 
 
+|&rarr; [./citipyx.py](./citipyx.py)
+
+|&rarr; [./logx.py](./logx.py)
+
+|&rarr; [./mathx.py](./mathx.py)
+
+|&rarr; [./matplotlibx.py](./matplotlibx.py)
+
+|&rarr; [./pandasx.py](./pandasx.py)
+
 |&rarr; [./README.md](./README.md)
 
 |&rarr; [./README.TECHNICAL.md](./README.TECHNICAL.md)
 
 |&rarr; [./table-of-contents.md](./table-of-contents.md)
+
+|&rarr; [./timex.py](./timex.py)
 
 |&rarr; [./vacations.ipynb](./vacations.ipynb)
 
