@@ -38,6 +38,8 @@ pip3 install -U citypy
 
 The Jupyter Notebook, weather.ipynb, generates the CSV file, cities_weather.csv, which acts as input to vacations.ipynb. These Jupyter Notebooks must have the following Python scripts in the same folder with it:
 
+citipyx.py
+
 logx.py
 
 mathx.py
@@ -48,13 +50,7 @@ pandasx.py
 
 timex.py
 
-vacationsx.py
-
 weather_api_keys.py
-
-weather_constants.py
-
-weatherx.py
 
 If the folders, logs and images, are not present, an Jupyter Notebook will create them. The folder, resources, contains the output file from weather.ipynb, cities_weather.csv, which is the input file for vacations.ipynb; the folder, logs, contains log files from testing the Jupyter Notebooks; and the folder, images, has the PNG and HTML files of the Jupyter Notebooks' tables and plots.
 
@@ -68,7 +64,7 @@ To place the Jupyter Notebook in Log Mode or Image Mode set the parameter for th
 
 #### Source code
 
-weather.ipynb, vacations.ipynb, logx.py, mathx.py, matplotlibx.py, pandasx.py, timex.py, vacationsx.py, weather_api_keys.py, weather_constants.py, weatherx.py
+weather.ipynb, vacations.ipynb, citipyx.py, logx.py, mathx.py, matplotlibx.py, pandasx.py, timex.py, weather_api_keys.py
 
 #### Input files
 
