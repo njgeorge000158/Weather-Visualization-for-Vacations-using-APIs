@@ -14,7 +14,7 @@
  #
  #  return_regression_model_equation_coefficients
  #  return_polynomial_line_series
- #  return_equation_as_string
+ #  return_equation_as_text
  #  return_r_squared_value
  #
  #  is_perfect_square
@@ -24,6 +24,7 @@
  #  Date            Description                             Programmer
  #  ----------      ------------------------------------    ------------------
  #  03/04/2024      Initial Development                     Nicholas J. George
+ #  02/10/2026      Abbreviated variable names              Nicholas J. George
  #
  #******************************************************************************************/
 
@@ -61,7 +62,7 @@ CONSTANT_LOCAL_FILE_NAME = 'mathx.py'
  #  -----   -------------   ----------------------------------------------
  #  series  x_series        The parameter is the series holding the x values.
  #  series  y_series        The parameter is the series holding the y values.
- #  integer degree_integer  This parameter is the degree of the polynomial.
+ #  integer degree_int      This parameter is the degree of the polynomial.
  #
  #
  #  Date                Description                                 Programmer
@@ -73,9 +74,9 @@ CONSTANT_LOCAL_FILE_NAME = 'mathx.py'
 def return_regression_model_equation_coefficients \
         (x_series, 
          y_series,
-         degree_integer):
+         degree_int):
 
-    equation_list = np.poly1d(np.polyfit(x_series, y_series, degree_integer))
+    equation_list = np.poly1d(np.polyfit(x_series, y_series, degree_int))
 
     return equation_list
 
@@ -112,9 +113,9 @@ def return_polynomial_line_series \
         (x_series, 
          y_series):
 
-    sample_number_integer = abs(int((x_series.max() - y_series.min()) / 2))
+    sample_number_int = abs(int((x_series.max() - y_series.min()) / 2))
 
-    return np.linspace(x_series.min(), x_series.max(), sample_number_integer)
+    return np.linspace(x_series.min(), x_series.max(), sample_number_int)
 
 
 # In[5]:
@@ -122,7 +123,7 @@ def return_polynomial_line_series \
 
 #*******************************************************************************************
  #
- #  Function Name:  return_equation_as_string
+ #  Function Name:  return_equation_as_text
  #
  #  Function Description:
  #      This function returns the model equation as a string.
@@ -137,7 +138,7 @@ def return_polynomial_line_series \
  #  -----   -------------   ----------------------------------------------
  #  list    model_equation_list
  #                          The parameter is a list of coefficients for a polynomial.
- #  integer coefficient_precision_integer
+ #  integer coefficient_precision_int
  #                          The parameter is the precision of the equation's coefficients.
  #
  #
@@ -147,40 +148,40 @@ def return_polynomial_line_series \
  #
  #******************************************************************************************/
 
-def return_equation_as_string \
+def return_equation_as_text \
         (model_equation_list,
-         coefficient_precision_integer = 4):
+         coefficient_precision_int = 4):
 
-    degree_integer = len(model_equation_list)
+    degree_int = len(model_equation_list)
 
 
     for index, term in enumerate(model_equation_list):
 
-        temp_string = str(round(float(term), coefficient_precision_integer))
+        temp_eqn = str(round(float(term), coefficient_precision_int))
 
-        if degree_integer > 1:
+        if degree_int > 1:
 
-            temp_string = temp_string + 'x' + '^' + str(degree_integer)
+            temp_eqn = temp_eqn + 'x' + '^' + str(degree_int)
 
-        elif degree_integer == 1:
+        elif degree_int == 1:
 
-            temp_string = temp_string + 'x'
+            temp_eqn = temp_eqn + 'x'
 
-        if degree_integer == len(model_equation_list):
+        if degree_int == len(model_equation_list):
 
-            equation_string = temp_string
+            final_eqn = temp_eqn
 
         else:
 
-            equation_string = equation_string + ' + ' + temp_string
+            final_eqn = final_eqn + ' + ' + temp_eqn
 
-        degree_integer -= 1
-
-
-    equation_string = 'y = ' + equation_string
+        degree_int -= 1
 
 
-    return equation_string
+    final_eqn = 'y = ' + final_eqn
+
+
+    return final_eqn
 
 
 # In[6]:
@@ -203,7 +204,7 @@ def return_equation_as_string \
  #  -----   -------------   ----------------------------------------------
  #  series  x_series        The parameter is the series holding the x values.
  #  series  y_series        The parameter is the series holding the y values.
- #  integer degree_integer  This parameter is the degree of the polynomial.
+ #  integer degree_int      This parameter is the degree of the polynomial.
  #
  #
  #  Date                Description                                 Programmer
@@ -215,24 +216,24 @@ def return_equation_as_string \
 def return_r_squared_value \
         (x_series, 
          y_series, 
-         degree_integer):
+         degree_int):
 
-    coefficients_float_nparray = np.polyfit(x_series, y_series, degree_integer)
+    coefficients_flt_nparray = np.polyfit(x_series, y_series, degree_int)
 
-    pPoly1D = np.poly1d(coefficients_float_nparray)
+    pPoly1D = np.poly1d(coefficients_flt_nparray)
 
 
     yhatList = pPoly1D(x_series)
 
-    ybar_float = y_series.sum() / len(y_series)
+    ybar_flt = y_series.sum() / len(y_series)
 
 
-    ssreg_float = ((yhatList - ybar_float) ** 2).sum()
+    ssreg_flt = ((yhatList - ybar_flt) ** 2).sum()
 
-    sstot_float = ((y_series - ybar_float) ** 2).sum()
+    sstot_flt = ((y_series - ybar_flt) ** 2).sum()
 
 
-    return ssreg_float / sstot_float
+    return ssreg_flt / sstot_flt
 
 
 # In[7]:
@@ -253,8 +254,7 @@ def return_r_squared_value \
  #
  #  Type    Name            Description
  #  -----   -------------   ----------------------------------------------
- #  integer positive_integer
- #                          The parameter is the input integer.
+ #  integer positive_int    The parameter is the input integer.
  #
  #
  #  Date                Description                                 Programmer
@@ -263,34 +263,34 @@ def return_r_squared_value \
  #
  #******************************************************************************************/
 
-def is_perfect_square(positive_integer):
+def is_perfect_square(positive_int):
 
-    positive_integer = int(positive_integer)
+    positive_int = int(positive_int)
 
 
-    if positive_integer < 0:
+    if positive_int < 0:
 
         return False
 
-    elif positive_integer >= 0 and positive_integer <= 1:
+    elif positive_int >= 0 and positive_int <= 1:
 
         return True
 
 
-    x_integer = positive_integer // 2
+    x_int = positive_int // 2
 
-    seen = set([x_integer])
+    seen = set([x_int])
 
 
-    while x_integer * x_integer != positive_integer:
+    while x_int * x_int != positive_int:
 
-        x_integer = (x_integer + (positive_integer // x_integer)) // 2
+        x_int = (x_int + (positive_int // x_int)) // 2
 
-        if x_integer in seen: 
+        if x_int in seen: 
 
             return False
 
-        seen.add(x_integer)
+        seen.add(x_int)
 
 
     return True
@@ -314,46 +314,45 @@ def is_perfect_square(positive_integer):
  #
  #  Type    Name            Description
  #  -----   -------------   ----------------------------------------------
- #  integer
- #          positive_integer
- #                          The parameter is the input integer.
+ #  integer positive_int    The parameter is the input integer.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
  #  03/04/2024          Initial Development                         Nicholas J. George
+ #  02/10/2026          Abbreviated variable names                  Nicholas J. George
  #
  #******************************************************************************************/
 
-def calculate_closest_factors(positive_integer):
+def calculate_closest_factors(positive_int):
 
-    positive_integer = int(positive_integer)
+    positive_int = int(positive_int)
 
-    if positive_integer <= 0:
+    if positive_int <= 0:
 
         return [0, 0]
 
 
-    a_integer, b_integer, i_integer = 1, positive_integer, 0
+    a_int, b_int, i_int = 1, positive_int, 0
 
 
-    while a_integer < b_integer:
+    while a_int < b_int:
 
-        i_integer += 1
+        i_int += 1
 
-        if positive_integer % i_integer == 0:
+        if positive_int % i_int == 0:
 
-            a_integer = i_integer
+            a_int = i_int
 
-            b_integer = positive_integer // a_integer
-
-
-    if positive_integer > 2 and a_integer > b_integer:
-
-        a_integer, b_integer = b_integer, a_integer
+            b_int = positive_int // a_int
 
 
-    return [b_integer, a_integer]
+    if positive_int > 2 and a_int > b_int:
+
+        a_int, b_int = b_int, a_int
+
+
+    return [b_int, a_int]
 
 
 # In[ ]:
