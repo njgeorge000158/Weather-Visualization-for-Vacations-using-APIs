@@ -12,19 +12,19 @@
  #      This Python script, mathx.py, contains Python functions for math calculations. 
  #      Here is the list:
  #
- #  return_regression_model_equation_coefficients
- #  return_polynomial_line_series
- #  return_equation_as_text
- #  return_r_squared_value
+ #  rtn_regr_model_eqn_coef
+ #  rtn_poly_line_array
+ #  rtn_eqn_as_text
+ #  rtn_r_sqr
  #
- #  is_perfect_square
- #  calculate_closest_factors
+ #  is_perf_sqr
+ #  calc_clst_factors
  #
  #
- #  Date            Description                             Programmer
- #  ----------      ------------------------------------    ------------------
- #  03/04/2024      Initial Development                     Nicholas J. George
- #  02/10/2026      Abbreviated variable names              Nicholas J. George
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  03/04/2024          Initial Development                         Nicholas J. George
+ #  02/24/2026          Upgraded Module                             Nicholas J. George
  #
  #******************************************************************************************/
 
@@ -47,38 +47,36 @@ CONSTANT_LOCAL_FILE_NAME = 'mathx.py'
 
 #*******************************************************************************************
  #
- #  Function Name:  return_regression_model_equation_coefficients
+ #  Function Name:  rtn_regr_model_eqn_coef
  #
  #  Function Description:
  #      This function returns the coefficients for a regression equation using x-y series.
  #
  #
- #  Return Type: list
+ #  Return Type: array
  #
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series        The parameter is the series holding the x values.
- #  series  y_series        The parameter is the series holding the y values.
- #  integer degree_int      This parameter is the degree of the polynomial.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          x_array          The parameter is the array holding the x values.
+ #  array          y_array          The parameter is the array holding the y values.
+ #  integer        degree_int       This parameter is the degree of the polynomial.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  03/04/2024          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def return_regression_model_equation_coefficients \
-        (x_series, 
-         y_series,
+def rtn_regr_model_eqn_coef \
+        (x_array, 
+         y_array,
          degree_int):
 
-    equation_list = np.poly1d(np.polyfit(x_series, y_series, degree_int))
-
-    return equation_list
+    return np.poly1d(np.polyfit(x_array, y_array, degree_int))
 
 
 # In[4]:
@@ -86,36 +84,36 @@ def return_regression_model_equation_coefficients \
 
 #*******************************************************************************************
  #
- #  Function Name:  return_polynomial_line_series
+ #  Function Name:  rtn_poly_line_array
  #
  #  Function Description:
- #      This function returns a polynomial line as an np array.
+ #      This function returns a polynomial line as an array.
  #
  #
- #  Return Type: np array
+ #  Return Type: array
  #
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series        The parameter is the series holding the x values.
- #  series  y_series        The parameter is the series holding the y values.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          x_array          The parameter is the array holding the x values.
+ #  array          y_array          The parameter is the array holding the y values.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  03/04/2024          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def return_polynomial_line_series \
-        (x_series, 
-         y_series):
+def rtn_poly_line_array \
+        (x_array, 
+         y_array):
 
-    sample_number_int = abs(int((x_series.max() - y_series.min()) / 2))
+    samples_int = abs(int((x_array.max() - y_array.min()) / 2))
 
-    return np.linspace(x_series.min(), x_series.max(), sample_number_int)
+    return np.linspace(x_array.min(), x_array.max(), samples_int)
 
 
 # In[5]:
@@ -123,7 +121,7 @@ def return_polynomial_line_series \
 
 #*******************************************************************************************
  #
- #  Function Name:  return_equation_as_text
+ #  Function Name:  rtn_eqn_as_text
  #
  #  Function Description:
  #      This function returns the model equation as a string.
@@ -134,30 +132,30 @@ def return_polynomial_line_series \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  list    model_equation_list
- #                          The parameter is a list of coefficients for a polynomial.
- #  integer coefficient_precision_int
- #                          The parameter is the precision of the equation's coefficients.
- #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          model_eqn_array  The parameter is a array of coefficients for a 
+ #                                  polynomial.
+ #  integer        coef_prec_int    The parameter is the precision of the equation's 
+ #                                  coefficients.
+ # 
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  03/04/2024          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def return_equation_as_text \
-        (model_equation_list,
-         coefficient_precision_int = 4):
+def rtn_eqn_as_text \
+        (model_eqn_array,
+         coef_prec_int):
 
-    degree_int = len(model_equation_list)
+    degree_int = len(model_eqn_array)
 
 
-    for index, term in enumerate(model_equation_list):
+    for idx, term in enumerate(model_eqn_array):
 
-        temp_eqn = str(round(float(term), coefficient_precision_int))
+        temp_eqn = str(round(float(term), coef_prec_int))
 
         if degree_int > 1:
 
@@ -165,15 +163,17 @@ def return_equation_as_text \
 
         elif degree_int == 1:
 
-            temp_eqn = temp_eqn + 'x'
+            temp_eqn += 'x'
 
-        if degree_int == len(model_equation_list):
+
+        if degree_int == len(model_eqn_array):
 
             final_eqn = temp_eqn
 
         else:
 
             final_eqn = final_eqn + ' + ' + temp_eqn
+
 
         degree_int -= 1
 
@@ -189,7 +189,7 @@ def return_equation_as_text \
 
 #*******************************************************************************************
  #
- #  Function Name:  return_r_squared_value
+ #  Function Name:  rtn_r_sqr
  #
  #  Function Description:
  #      This function returns the r-squared value from x-y series.
@@ -200,37 +200,37 @@ def return_equation_as_text \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series        The parameter is the series holding the x values.
- #  series  y_series        The parameter is the series holding the y values.
- #  integer degree_int      This parameter is the degree of the polynomial.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  series         x_array          The parameter is the array holding the x values.
+ #  series         y_array          The parameter is the array holding the y values.
+ #  integer        degree_int       The parameter is the degree of the polynomial.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  03/04/2024          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def return_r_squared_value \
-        (x_series, 
-         y_series, 
+def rtn_r_sqr \
+        (x_array, 
+         y_array, 
          degree_int):
 
-    coefficients_flt_nparray = np.polyfit(x_series, y_series, degree_int)
+    coef_flt_array = np.polyfit(x_array, y_array, degree_int)
 
-    pPoly1D = np.poly1d(coefficients_flt_nparray)
-
-
-    yhatList = pPoly1D(x_series)
-
-    ybar_flt = y_series.sum() / len(y_series)
+    pPoly1D = np.poly1d(coef_flt_array)
 
 
-    ssreg_flt = ((yhatList - ybar_flt) ** 2).sum()
+    yhatArray = pPoly1D(x_array)
 
-    sstot_flt = ((y_series - ybar_flt) ** 2).sum()
+    ybar_flt = np.sum(y_array) / len(y_array)
+
+
+    ssreg_flt = np.sum(((yhatArray - ybar_flt) ** 2))
+
+    sstot_flt = np.sum(((y_array - ybar_flt) ** 2))
 
 
     return ssreg_flt / sstot_flt
@@ -241,7 +241,7 @@ def return_r_squared_value \
 
 #*******************************************************************************************
  #
- #  Function Name:  is_perfect_square
+ #  Function Name:  is_perf_sqr
  #
  #  Function Description:
  #      This function indicates whether the input is a perfect square.
@@ -252,43 +252,41 @@ def return_r_squared_value \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  integer positive_int    The parameter is the input integer.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  03/04/2024          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def is_perfect_square(positive_int):
+def is_perf_sqr(input_obj):
 
-    positive_int = int(positive_int)
+    input_int = int(abs(input_obj))
 
 
-    if positive_int < 0:
-
-        return False
-
-    elif positive_int >= 0 and positive_int <= 1:
+    if input_int == 0 \
+        or input_int == 1:
 
         return True
 
 
-    x_int = positive_int // 2
+    x_int = input_int // 2
 
     seen = set([x_int])
 
 
-    while x_int * x_int != positive_int:
+    while x_int * x_int != input_int:
 
-        x_int = (x_int + (positive_int // x_int)) // 2
+        x_int = (x_int + (input_int // x_int)) // 2
 
         if x_int in seen: 
 
             return False
+
 
         seen.add(x_int)
 
@@ -301,58 +299,45 @@ def is_perfect_square(positive_int):
 
 #*******************************************************************************************
  #
- #  Function Name:  calculate_closest_factors
+ #  Function Name:  calc_clst_factors
  #
  #  Function Description:
- #      This function calculates the closest factors of an integer.
+ #      This function calculates and returns the two closest factors of an integer.
  #
  #
- #  Return Type: boolean
+ #  Return Type: integer, integer
  #
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  integer positive_int    The parameter is the input integer.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  integer        positive_int     The parameter is the input integer.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  03/04/2024          Initial Development                         Nicholas J. George
- #  02/10/2026          Abbreviated variable names                  Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def calculate_closest_factors(positive_int):
+def calc_clst_factors(positive_int):
 
-    positive_int = int(positive_int)
+    c = int(abs(positive_int))
 
-    if positive_int <= 0:
+    a, b, i = 1, c, 0
 
-        return [0, 0]
+    while a < b:
 
+        i += 1
 
-    a_int, b_int, i_int = 1, positive_int, 0
+        if c % i == 0:
 
+            a = i
 
-    while a_int < b_int:
+            b = c // a
 
-        i_int += 1
-
-        if positive_int % i_int == 0:
-
-            a_int = i_int
-
-            b_int = positive_int // a_int
-
-
-    if positive_int > 2 and a_int > b_int:
-
-        a_int, b_int = b_int, a_int
-
-
-    return [b_int, a_int]
+    return b, a
 
 
 # In[ ]:

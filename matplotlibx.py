@@ -12,48 +12,126 @@
  #      The Python script, matplotlibx.py, contains generic Python functions
  #      for matplotlib charts and processing.  Here is the list:
  #
- #  display_linear_regression_line
- #  display_regression_line
+ #  get_xylabels
+ #  set_xylabels
+ #  get_bar_chart_xylabels
+ #  set_bar_chart_xylabels
+ #  get_boxplot_chart_xylabels
+ #  set_boxplot_chart_xylabels
+ #  get_histogram_chart_xylabels
+ #  set_histogram_chart_xylabels
+ #  get_line_chart_xylabels
+ #  set_line_chart_xylabels
+ #  get_pie_chart_xylabels
+ #  set_pie_chart_xylabels
+ #  get_plot_chart_xylabels
+ #  set_plot_chart_xylabels
+ #  get_scatterplot_chart_xylabels
+ #  set_scatterplot_chart_xylabels
+ #  get_scatterplot_multichart_xylabels
+ #  set_scatterplot_multichart_xylabels
  #
- #  display_line_chart_from_xy_series
- #  display_line_chart_from_df
- #  display_stacked_line_subplots
+ #  get_regr_line_dict
+ #  set_regr_line_dict
+ #  get_regr_degree
+ #  set_regr_degree
+ #  get_regr_eqn_coords
+ #  set_regr_eqn_coords
  #
- #  display_boxplots_from_series_list
- #  display_boxplot_from_df
+ #  get_bar_chart_dict
+ #  set_bar_chart_dict
+ #  get_bar_chart_colors
+ #  set_bar_chart_colors
  #
- #  display_bar_chart_from_series
- #  display_bar_chart_from_df
- #  
- #  display_scatter_plot_from_xy_series
- #  display_multiple_scatter_plots_from_xy_series_list
+ #  get_boxplot_chart_dict
+ #  set_boxplot_chart_dict
  #
- #  display_pie_chart_from_series
- #  display_multiple_pie_charts_from_df
+ #  get_histogram_chart_dict
+ #  set_histogram_chart_dict
  #
- #  display_histogram_from_series
- #  display_histograms_from_series_list
- #  display_multiple_histograms_from_df
+ #  get_line_chart_dict
+ #  set_line_chart_dict
  #
- #  display_plot_from_series
- #  display_plots_from_series_list
+ #  get_pie_chart_dict
+ #  set_pie_chart_dict
+ #  get_pie_chart_colors
+ #  set_pie_chart_colors
+ #  get_pie_chart_explode
+ #  set_pie_chart_explode
+ #
+ #  get_plot_chart_dict
+ #  set_plot_chart_dict
+ #
+ #  get_scatterplot_chart_dict
+ #  set_scatterplot_chart_dict
+ #
+ #  get_scatterplot_multichart_dict
+ #  set_scatterplot_multichart_dict
+ #
+ #  proc_boxplot_chart_input
+ #  proc_bar_chart_input
+ #  proc_line_chart_input
+ #  proc_pie_chart_input
+ #  proc_plot_chart_input
+ #  proc_scatterplot_chart_input
+ #  proc_scatterplot_multichart_input
+ #  proc_chart_input
+ #
+ #  linear_regr_line
+ #  regr_line
+ #
+ #  plot_subplots
+ #  plot_subplot
+ #
+ #  plot_figsize
+ #  plot_title_axes
+ #  plot_limits
+ #  plot_ticks
+ #  plot_legend
+ #  plot_regr_line
+ #  plot_peaks
+ #  plot_suptitle_axes
+ #  plot_tight_layout
+ #
+ #  plot_bar_chart_series
+ #  plot_bar_chart_df
+ #  plot_bar_chart
+ #  plot_boxplot_chart
+ #  plot_histogram_chart
+ #  plot_line_chart
+ #  plot_pie_chart
+ #  plot_plot_chart
+ #  plot_scatterplot_chart
+ #
+ #  boxplot_chart
+ #  bar_chart
+ #  histogram_chart
+ #  line_chart
+ #  pie_chart
+ #  plot_chart
+ #  scatterplot_chart
+ #
+ #  scatterplot_multichart
  #
  #
- #  Date            Description                             Programmer
- #  ----------      ------------------------------------    ------------------
- #  08/18/2023      Initial Development                     Nicholas J. George
- #  02/10/2026      Abbreviated variable names              Nicholas J. George
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Upgraded Module                             Nicholas J. George
  #
  #******************************************************************************************/
 
 import logx
+import dtypesx
 import mathx
 
 import math
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
+from enum import Enum, auto
 from scipy import stats
 
 pd.options.mode.chained_assignment = None
@@ -68,1517 +146,473 @@ CONSTANT_LOCAL_FILE_NAME = 'matplotlibx.py'
 # In[3]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_linear_regression_line
- #
- #  Function Description:
- #      The function displays a linear regression line.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series        The parameter is the x-axis series.
- #  series  y_series        The parameter is the y-axis series.
- #  float   x_coord_flt     The parameter is the x-coordinate of the text.   
- #  float   y_coord_flt     The parameter is the y-coordinate of the text.  
- #  string  line_color      The parameter is the line color.
- #  string  line_width_flt  The parameter is the line type.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.  
- #  integer coef_precision_int
- #                          The parameter is the equation coefficient precision. 
- #  float   font_size_flt The parameter is the equation's font size. 
- #  string  font_weight     The parameter is the equation's font weight.
- #  string  font_color      The parameter is the equation's font color.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
+class chart_enum(Enum):
 
-def display_linear_regression_line \
-        (x_series,
-         y_series,
-         x_coord_flt,
-         y_coord_flt,
-         line_color = 'red',
-         line_width_flt = 3.0,
-         alpha_flt = 1.0,
-         coef_precision_int = 4,
-         font_size_flt = 16.0,
-         font_weight = 'bold',
-         font_color = 'blue'):
+    BAR = auto()
 
-    (slope, intercept, rvalue, pvalue, stderr) = stats.linregress(x_series, y_series)
+    BOXPLOT = auto()
 
-    linear_regression_series = (x_series * slope) + intercept
+    HISTOGRAM = auto()
 
-    r_squared_flt = rvalue * rvalue
+    LINE = auto()
 
+    PIE = auto()
 
-    plt.plot \
-        (x_series,
-         linear_regression_series,
-         color = line_color,
-         linewidth = line_width_flt,
-         alpha = alpha_flt)
+    PLOT = auto()
 
-    linear_equation \
-        = 'y = ' + str(round(slope, coef_precision_int)) \
-          + 'x + ' + str(round(intercept, coef_precision_int))
+    SCATTER = auto()
 
-    plt.annotate \
-        (linear_equation,
-         (x_coord_flt, y_coord_flt),
-         fontsize = font_size_flt,
-         fontweight = font_weight,
-         color = font_color)   
-
-
-    logx.print_and_log_text('r-value:     {:.4f}'.format(rvalue))
-
-    logx.print_and_log_text('r-squared:   {:.4f}\n'.format(r_squared_flt))
+    MULTISCATTER = auto()
 
 
 # In[4]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_polynomial_regression_line
- #
- #  Function Description:
- #      The function displays a single line chart from an x and y series and criteria.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series        The parameter is the x-axis series.
- #  series  y_series        The parameter is the y-axis series.
- #  float   x_coord_flt     The parameter is the x-coordinate of the text.   
- #  float   y_coord_flt     The parameter is the y-coordinate of the text.
- #  integer degree_int      The parameter is the regression polynomial degree.
- #  string  line_color      The parameter is the line color.
- #  string  line_width_flt  The parameter is the line type.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.  
- #  integer coef_precision_int
- #                          The parameter is the equation coefficient precision. 
- #  float   font_size_flt   The parameter is the equation's font size. 
- #  string  font_weight     The parameter is the equation's font weight.
- #  string  font_color      The parameter is the equation's font color.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_polynomial_regression_line \
-        (x_series,
-         y_series,
-         x_coord_flt,
-         y_coord_flt,
-         degree_int,
-         line_color = 'red',
-         line_width_flt = 3.0,
-         alpha_flt = 1.0,
-         coef_precision_int = 4,
-         font_size_flt = 16.0,
-         font_weight = 'bold',
-         font_color = 'blue'):
-
-    model_equation_list \
-        = mathx.return_regression_model_equation_coefficients \
-            (x_series, y_series, degree_int)
-
-    polynomial_line_series = mathx.return_polynomial_line_series(x_series, y_series)
-
-    plt.plot \
-        (polynomial_line_series, 
-         model_equation_list(polynomial_line_series),
-         color = line_color,
-         linewidth = line_width_flt,
-         alpha = alpha_flt)
-
-
-    equation_label = mathx.return_equation_as_text(model_equation_list)
-
-    plt.annotate \
-        (equation_label,
-         (x_coord_flt, y_coord_flt),
-          fontsize = font_size_flt,
-          fontweight = font_weight,
-          color = font_color)
-
-
-    r_squared_flt = mathx.return_r_squared_value(x_series, y_series, degree_int)
-
-    r_value_flt = math.sqrt(r_squared_flt)
-
-
-    logx.print_and_log_text('r-value:     {:.4f}'.format(r_value_flt))
-
-    logx.print_and_log_text('r-squared:   {:.4f}'.format(r_squared_flt))
+regr_line_dict \
+    = {'degree': 0,
+       'eqn_x_coord': 0.0,
+       'eqn_y_coord': 0.0,
+       'linecolor': 'red',
+       'linewidth': 3.0,
+       'alpha': 1.0,
+       'coef_prec': 4,
+       'fontsize': 16.0,
+       'fontweight': 'bold',
+       'fontcolor': 'blue'}
 
 
 # In[5]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_line_chart_from_xy_series
- #
- #  Function Description:
- #      The function displays a single line chart from an x and y series and criteria.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series        The parameter is the x-axis series.
- #  series  y_series        The parameter is the y-axis series.
- #  string  title           The parameter is the chart title.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  string  line_color      The parameter is the line color.
- #  string  line_type
- #                          The parameter is the line type.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.
- #  string  fill_style      The parameter is the line fills style.
- #  float   line_width_flt  The parameter is the line width.       
- #  string  marker          The parameter is the marker type.
- #  string  marker_face_color
- #                          The parameter is the marker face color.
- #  string  marker_edge_color
- #                          The parameter is the marker edge color.
- #  float   marker_size_flt The parameter is the marker size.
- #  float   marker_edge_width_flt
- #                          The parameter is the marker edge width. 
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xticks_font_size_flt
- #                          The parameter is the x-axis tick font size. 
- #  float   yticks_font_size_flt
- #                          The parameter is the y-axis tick font size. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_line_chart_from_xy_series \
-        (x_series,
-         y_series,
-         title,
-         xlabel,
-         ylabel,
-         line_color = 'darkslategray',
-         line_type = 'solid',
-         alpha_flt = 1.0,
-         fill_style = 'full',
-         line_width_flt = 3.0,
-         marker = 'o',
-         marker_face_color = 'red',
-         marker_edge_color = 'black',
-         marker_size_flt = 10.0,
-         marker_edge_width_flt = 1.0,
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xticks_font_size_flt = 14.0,
-         xticks_rotation_flt = 0.0,
-         yticks_font_size_flt = 14.0,
-         yticks_rotation_flt = 0.0,
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-    plt.figure(figsize = (figure_width_flt, figure_length_flt))
-
-    plt.plot \
-        (x_series,
-         y_series,
-         alpha = alpha_flt,
-         color = line_color,
-         fillstyle = fill_style,
-         linewidth = line_width_flt,
-         marker = marker,
-         markerfacecolor = marker_face_color,
-         markeredgecolor = marker_edge_color,
-         markersize = marker_size_flt,
-         markeredgewidth = marker_edge_width_flt,
-         linestyle = line_type)
-
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-    plt.xlabel \
-        (xlabel,
-         fontdict = {'fontsize': xlabel_font_size_flt,
-                     'fontstyle': xlabel_font_style},
-         labelpad = xlabel_pad_flt)
-
-    plt.ylabel \
-        (ylabel,
-         fontdict = {'fontsize': ylabel_font_size_flt,
-                     'fontstyle': ylabel_font_style},
-         labelpad = ylabel_pad_flt)
-
-    plt.xticks(fontsize = xticks_font_size_flt, rotation = xticks_rotation_flt)
-
-    plt.yticks(fontsize = yticks_font_size_flt, rotation = yticks_rotation_flt)
-
-
-    plt.grid()
-
-    logx.save_plot_image(title)
-
-    plt.show()
+bar_chart_dict \
+    = {'params': {'horizontal': False,
+                  'stacked': False,
+                  'align': 'center',
+                  'color': None,
+                  'edgecolor': 'black',
+                  'linewidth': 1.5,
+                  'tick_label': None,
+                  'log': False,
+                  'alpha': 1.0},
+       'vertical': {'width': 0.5,
+                    'bottom': 0},
+       'horizontal': {'height': 0.5,
+                      'left': 0},
+       'title': {'text': None,
+                 'fontsize': 20.0,
+                 'fontstyle': 'normal',
+                 'pad': 20.0},
+       'xlabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'ylabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'xlim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'ylim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'xticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 90.0},
+       'yticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 0.0},
+       'grid': {'display': True,
+                'visible': None,
+                'which': 'major',
+                'axis': 'y'},
+       'legend': {'display': False,
+                  'loc': 'center right',
+                  'fontsize': 14.0,
+                  'bbox_to_anchor': (1.5, 0.5)},
+       'figure': {'width': 9.708,
+                  'length': 6.0}}
 
 
 # In[6]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_line_chart_from_df
- #
- #  Function Description:
- #      The function displays a chart from a dataframe and criteria.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dataframe  
- #          input_df        The parameter is the input dataframe.
- #  string  title           The parameter is the chart title.
- #  list    colors_list
- #                          The parameter is the list of colors for the subplots.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.
- #  string  fill_style      The parameter is the line fills style.
- #  float   line_width_flt  The parameter is the line width.       
- #  string  marker          The parameter is the marker type.
- #  string  marker_face_color
- #                          The parameter is the marker face color.
- #  string  marker_edge_color
- #                          The parameter is the marker edge color.
- #  float   marker_edge_width_flt
- #                          The parameter is the marker size.
- #  boolean grid_bool       The parameter indicates whether the chart displays a grid.
- #  boolean display_legend_bool
- #                          The parameter indicates whether the legend will be present.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xticks_font_size_flt
- #                          The parameter is the subplot's x-tick label's font size.
- #  float   xticks_rotation_flt
- #                          The parameter is the subplot's x-tick label's rotation in degrees.
- #  float   yticks_font_size_flt
- #                          The parameter is the subplot's y-tick label's font size.
- #  float   yticks_rotation_flt
- #                          The parameter is the subplot's y-tick label's rotation in degrees.
- #  string  legend_loc      The parameter is the legend's general location.
- #  float   legend_font_size_flt
- #                          The parameter is legend's font size.
- #  tuple   legend_bbox_to_anchor_flt_tuple
- #                          The parameter is the legend's xy-coordinates. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_line_chart_from_df \
-        (input_df,
-         title,
-         colors_list,
-         xlabel = None,
-         ylabel = None,
-         alpha_flt = 0.8,
-         fill_style = 'full',
-         line_width_flt = 3.0,
-         marker = 'o',
-         marker_face_color = 'red',
-         marker_edge_color = 'black',
-         marker_size_flt = 0.0,
-         marker_edge_width_flt = 1.0,
-         grid_bool = True,
-         display_legend_bool = False,
-         title_font_size_flt = 16.0,
-         title_font_style = 'normal',
-         title_pad_flt = 10.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xticks_font_size_flt = 14.0,
-         xticks_rotation_flt = 90.0,
-         yticks_font_size_flt = 14.0,
-         yticks_rotation_flt = 0.0,
-         legend_loc = 'center right',
-         legend_font_size_flt = 14.0,
-         legend_bbox_to_anchor_flt_tuple = (1.5, 0.5),
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-    plt.figure(figsize = (figure_width_flt, figure_length_flt))
-
-    input_df \
-        .plot.line \
-            (label = [],
-             color = colors_list,
-             alpha = alpha_flt,
-             marker = marker,
-             markerfacecolor = marker_face_color,
-             markeredgecolor = marker_edge_color ,
-             markersize = marker_size_flt,
-             grid = grid_bool,
-             legend = display_legend_bool)
-
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-    if xlabel != None:
-
-        plt.xlabel \
-            (xlabel,
-             fontdict = {'fontsize': xlabel_font_size_flt,
-                         'fontstyle': xlabel_font_style},
-             labelpad = xlabel_pad_flt)
-
-    if ylabel != None:
-
-        plt.ylabel \
-            (ylabel,
-             fontdict = {'fontsize': ylabel_font_size_flt,
-                         'fontstyle': ylabel_font_style},
-             labelpad = ylabel_pad_flt)
-
-    plt.xticks(fontsize = xticks_font_size_flt, rotation = xticks_rotation_flt)
-
-    plt.yticks(fontsize = yticks_font_size_flt, rotation = yticks_rotation_flt)
-
-    if display_legend_bool == True:
-
-        plt.legend \
-            (loc = legend_loc,
-             fontsize = legend_font_size_flt,
-             bbox_to_anchor = legend_bbox_to_anchor_flt_tuple)
-
-
-    logx.save_plot_image(title)
-
-    plt.show()
+boxplot_chart_dict \
+    = {'params': {'notch': False, 
+                  'vert': True, 
+                  'orientation': 'vertical', 
+                  'whis': 1.5, 
+                  'widths': 0.45, 
+                  'patch_artist': False, 
+                  'autorange': False, 
+                  'meanline': True,
+                  'showmeans': True},
+       'title': {'text': None,
+                 'fontsize': 20.0,
+                 'fontstyle': 'normal',
+                 'pad': 20.0},
+       'xlabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'ylabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'xlim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'ylim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'xticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 90.0},
+       'yticks': {'display': False,
+                  'fontsize': 14.0,
+                  'rotation': 0.0},
+       'grid': {'display': True,
+                'visible': None,
+                'which': 'major',
+                'axis': 'y'},
+       'figure': {'width': 9.708,
+                  'length': 6.0}}
 
 
 # In[7]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_stacked_line_subplots
- #
- #  Function Description:
- #      The function receives a dictionary of series and formatting parameters 
- #      for the display of stacked line subplots.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dictionary
- #          input_frame_dict
- #                          The parameter is the input dictionary of plot series
- #  string  suptitle        The parameter is the chart title.
- #  list    colors_list     The parameter is the list of colors for the subplots.
- #  string  supxlabel       The parameter is the title for the figure's x-axis.
- #  string  supylabel       The parameter is the title for the figure's y-axis.
- #  string  xlabel          The parameter is the title for the plot's x-axis.
- #  string  ylabel          The parameter is the title for the plot's y-axis.
- #  boolean first_ylabel_pad_bool
- #                          The parameter indicates whether the first subplot 
- #                          should have a different pad value.
- #  float   first_ylabel_pad_flt
- #                          The parameter is first subplot pad value.
- #  boolean ylabel_default_bool
- #                          The parameter indicates whether the y label will 
- #                          have the default value.
- #  boolean display_legend_bool
- #                          The parameter indicates whether the legend will be present.
- #  string  legend_loc      The parameter is the legend's general location.
- #  float   legend_font_size_flt
- #                          The parameter is legend's font size.
- #  tuple   legend_bbox_to_anchor_flt_tuple
- #                          The parameter is the legend's xy-coordinates. 
- #  float   suptitle_x_flt  The parameter is the figure title's x-coordinate padding.
- #  float   suptitle_y_flt  The parameter is the figure title's y-coordinate padding.
- #  float   suptitle_font_size_flt
- #                          The parameter is the figure title's font size.
- #  string  suptitle_font_weight
- #                          The parameter is the figure title's font weight.
- #  float   supxlabel_x_flt The parameter is the figure's x-axis label's 
- #                          x-coordinate padding.
- #  float   supxlabel_y_flt The parameter is the figure's x-axis label's 
- #                          y-coordinate padding.
- #  float   supxlabel_font_size_flt
- #                          The parameter is the figure's x-axis label's font size.
- #  string  supxlabel_font_weight
- #                          The parameter is the figure's x-axis label's font weight.
- #  float   supylabel_x_flt The parameter is the figure's y-axis label's 
- #                          x-coordinate padding.
- #  float   supylabel_y_flt The parameter is the figure's y-axis label's 
- #                          y-coordinate padding.
- #  float   supylabel_font_size_flt
- #                          The parameter is the figure's y-axis label's font size.
- #  string  supylabel_font_weight
- #                          The parameter is the figure's y-axis label's font weight.
- #  float   xlabel_pad_flt  The parameter is the subplot's x-axis label's padding.
- #  float   xlabel_font_size_flt
- #                          The parameter is the subplot's x-axis label's font size.
- #  string  xlabel_loc      The parameter is the subplot's x-axis label's general location.
- #  string  xlabel_font_weight
- #                          The parameter is the subplot's x-axis label's font weight.
- #  float   ylabel_pad_flt  The parameter is the subplot's y-axis label's padding.
- #  float   ylabel_font_size_flt
- #                          The parameter is the subplot's y-axis label's font size.
- #  string  ylabel_loc      The parameter is the subplot's y-axis label's general location.
- #  string  ylabel_font_weight
- #                          The parameter is the subplot's y-axis label's font weight.
- #  float   xtick_label_size_flt
- #                          The parameter is the subplot's x-tick label's font size.
- #  float   xtick_label_rotation_flt
- #                          The parameter is the subplot's x-tick label's rotation in degrees.
- #  float   ytick_label_size_flt
- #                          The parameter is the subplot's y-tick label's font size.
- #  float   ytick_label_rotation_flt
- #                          The parameter is the subplot's y-tick label's rotation in degrees.
- #  float   subplot_width_space_flt
- #                          The parameter is the width of the space between subplots.
- #  float   subplot_height_space_flt
- #                          The parameter is the width of the space between subplots.
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/  
-
-def display_stacked_line_subplots \
-        (input_frame_dict,
-         suptitle,
-         colors_list,
-         supxlabel = None,
-         supylabel = None,
-         xlabel = None,
-         ylabel = None,
-         first_ylabel_pad_bool = False,
-         first_ylabel_pad_flt = 4.0,
-         ylabel_default_bool = True,
-         display_legend_bool = True,
-         legend_loc = 'center right',
-         legend_font_size_flt = 14.0,
-         legend_bbox_to_anchor_flt_tuple = (1.12, 0.5),
-         suptitle_x_flt = 0.5,  
-         suptitle_y_flt = 1.0,  
-         suptitle_font_size_flt = 20.0,
-         suptitle_font_weight = 'normal',
-         supxlabel_x_flt = 0.5,  
-         supxlabel_y_flt = -0.15,
-         supxlabel_font_size_flt = 16.0,
-         supxlabel_font_weight = 'normal',
-         supylabel_x_flt = 0.0,  
-         supylabel_y_flt = 0.5,  
-         supylabel_font_size_flt = 16.0,
-         supylabel_font_weight = 'normal',
-         xlabel_pad_flt = 4.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_loc = 'center',
-         xlabel_font_weight = 'normal',
-         ylabel_pad_flt = 4.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_loc = 'center',
-         ylabel_font_weight = 'normal',
-         xtick_label_size_flt = 14.0,
-         xtick_label_rotation_flt = 90.0,
-         ytick_label_size_flt = 14.0,
-         ytick_label_rotation_flt = 0.0,
-         subplot_width_space_flt = None,
-         subplot_height_space_flt = None,
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-    input_df = pd.DataFrame(input_frame_dict)
-
-    subplot_count_int = len(input_df.keys())
-
-
-    if xlabel == None:
-
-        xlabel = ''
-
-
-    fig, axs \
-        = plt.subplots \
-            (subplot_count_int, figsize = (figure_width_flt, figure_length_flt))
-
-    fig.suptitle \
-        (suptitle,
-         x = suptitle_x_flt,
-         y = suptitle_y_flt,
-         fontsize = suptitle_font_size_flt, 
-         fontweight = suptitle_font_weight)
-
-    if supxlabel != None:
-
-        fig.supxlabel \
-            (supxlabel,
-             x = supxlabel_x_flt,
-             y = supxlabel_y_flt,
-             fontsize = supxlabel_font_size_flt, 
-             fontweight = supxlabel_font_weight)
-
-    if supylabel != None:
-
-        fig.supylabel \
-            (supylabel,
-             x = supylabel_x_flt,
-             y = supylabel_y_flt,
-             fontsize = supylabel_font_size_flt, 
-             fontweight = supylabel_font_weight)
-
-
-    legend_line_plot_list = []
-
-    legend_line_names_list = []
-
-
-    for index, subplot in enumerate(axs):
-
-        line_subplot, \
-            = subplot.plot \
-                (input_df.iloc[:,index], color = colors_list[index])
-
-        legend_line_plot_list.append(line_subplot)
-
-        legend_line_names_list.append(input_df.iloc[:,index].name)
-
-        subplot.grid()
-
-
-        if index == (subplot_count_int - 1):
-
-            subplot.set_xlabel \
-                (xlabel, 
-                 labelpad = xlabel_pad_flt, 
-                 fontsize = xlabel_font_size_flt, 
-                 loc = xlabel_loc, 
-                 fontweight = xlabel_font_weight)
-
-        else:
-
-            subplot.set_xticklabels(labels = [])
-
-
-        if ylabel == None:
-
-            ylabel = input_df.iloc[:,index].name
-
-
-        if index == 0 and first_ylabel_pad_bool == True:
-
-            subplot.set_ylabel \
-                (ylabel, 
-                 labelpad = first_ylabel_pad_flt, 
-                 fontsize = ylabel_font_size_flt, 
-                 loc = ylabel_loc, 
-                 fontweight = ylabel_font_weight)
-
-        else:
-
-            subplot.set_ylabel \
-                (ylabel, 
-                 labelpad = ylabel_pad_flt, 
-                 fontsize = ylabel_font_size_flt, 
-                 loc = ylabel_loc, 
-                 fontweight = ylabel_font_weight)
-
-
-        subplot.tick_params \
-            (axis = 'x', 
-             labelrotation = xtick_label_rotation_flt, 
-             labelsize = xtick_label_size_flt)
-
-        subplot.tick_params \
-            (axis = 'y', 
-             labelrotation = ytick_label_rotation_flt, 
-             labelsize = ytick_label_size_flt)
-
-
-    if display_legend_bool == True:
-
-        fig.legend \
-            (legend_line_plot_list, 
-             legend_line_names_list, 
-             loc = legend_loc,
-             fontsize = legend_font_size_flt,
-             bbox_to_anchor = legend_bbox_to_anchor_flt_tuple)
-
-
-    plt.subplots_adjust \
-        (wspace = subplot_width_space_flt, 
-         hspace = subplot_height_space_flt)
-
-
-    logx.save_plot_image(suptitle)
-
-    plt.show()
+histogram_chart_dict \
+    = {'params': {'bins': 10,
+                  'range': None,
+                  'density': False,
+                  'weights': None,
+                  'cumulative': False,
+                  'bottom': 0,
+                  'histtype': 'bar',
+                  'align': 'mid',
+                  'orientation': 'vertical',
+                  'rwidth': None,
+                  'log': False,
+                  'color': None,
+                  'label': None,
+                  'stacked': False,
+                  'edgecolor': 'black',
+                  'color': 'white',
+                  'linewidth': 1.5,
+                  'alpha': 1.0},
+       'title': {'text': None,
+                 'fontsize': 20.0,
+                 'fontstyle': 'normal',
+                 'pad': 20.0},
+       'xlabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'ylabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'xlim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'ylim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'xticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 90.0},
+       'yticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 0.0},
+       'grid': {'display': False,
+                'visible': None,
+                'which': 'major',
+                'axis': 'both'},
+       'legend': {'display': False,
+                  'loc': 'center right',
+                  'fontsize': 14.0,
+                  'bbox_to_anchor': (1.5, 0.5)},
+       'figure': {'width': 9.708,
+                  'length': 6.0}}
 
 
 # In[8]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_boxplots_from_series_list
- #
- #  Function Description:
- #      The function displays a box plot from a list of series.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  list    input_series_list
- #                          The parameter is the input series list.
- #  list    xticks_label_list
- #                          The parameter is the list of a-axis tick labels.
- #  string  title           The parameter is the chart title.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  float   box_widths_flt  The parameter is the width of boxes in the chart.    
- #  boolean mean_line_bool  The parameter indicates whether the mean lines are present.
- #  boolean show_means_bool The parameter indicates whether the means are present.
- #  boolean vertical_bool   The parameter indicates whether the boxplot is vertical.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xticks_font_size_flt
- #                          The parameter is the x-axis tick font size. 
- #  float   xticks_rotation_flt
- #                          The parameter is the x-axis tick rotation in degrees.
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_boxplots_from_series_list \
-        (input_series_list,
-         xticks_label_list,
-         title,
-         xlabel = '',
-         ylabel = '',
-         box_widths_flt = 0.45,
-         mean_line_bool = True,
-         show_means_bool = True,
-         vertical_bool = True,
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xticks_font_size_flt = 14.0,
-         xticks_rotation_flt = 0.0,
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-    fig1, axs = plt.subplots(figsize = (figure_width_flt, figure_length_flt))
-
-    axs.boxplot \
-        (input_series_list,
-         vert = vertical_bool,
-         widths = box_widths_flt,
-         meanline = mean_line_bool, 
-         showmeans = show_means_bool)
-
-    axs.set_title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-    axs.set_xlabel \
-        (xlabel,
-         fontdict = {'fontsize': xlabel_font_size_flt, 
-                     'fontstyle': xlabel_font_style},
-         labelpad = xlabel_pad_flt)
-
-    axs.set_ylabel \
-        (ylabel,
-         fontdict = {'fontsize': ylabel_font_size_flt, 
-                     'fontstyle': ylabel_font_style},
-         labelpad = ylabel_pad_flt)
-
-
-    ticks_index_int_list = []
-
-    for index, regimen in enumerate(xticks_label_list):
-
-        ticks_index_int_list.append(index + 1)
-
-
-    axs.set_xticks \
-        (ticks_index_int_list, 
-         xticks_label_list,
-         fontsize = xticks_font_size_flt,
-         rotation = xticks_rotation_flt)
-
-
-    if vertical_bool == True:
-
-        plt.grid(axis = 'y')
-
-    else:
-
-        plt.grid(axis = 'x')
-
-
-    logx.save_plot_image(title)
-
-    plt.show()
+line_chart_dict \
+    = {'line': {'color': 'darkslategray',
+                'linestyle': 'solid',
+                'fillstyle': 'full',
+                'linewidth': 3.0,
+                'alpha': 1.0},
+       'marker': {'shape': 'o',
+                  'color': 'red',
+                  'edgecolor': 'black',
+                  'size': 10.0,
+                  'edgewidth': 1.0},
+       'params': {'logx': False,
+                  'logy': False,
+                  'loglog': False,
+                  'stacked': False,
+                  'use_index': True},
+       'title': {'text': None,
+                 'fontsize': 20.0,
+                 'fontstyle': 'normal',
+                 'pad': 20.0},
+       'xlabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'ylabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'xlim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'ylim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'xticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 0.0},
+       'yticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 0.0},
+       'grid': {'display': True,
+                'visible': None,
+                'which': 'major',
+                'axis': 'both'},
+       'legend': {'display': False,
+                  'loc': 'center right',
+                  'fontsize': 14.0,
+                  'bbox_to_anchor': (1.5, 0.5)},
+       'figure': {'width': 9.708,
+                  'length': 6.0}}
 
 
 # In[9]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_boxplot_from_df
- #
- #  Function Description:
- #      The function displays a box plot from a dataframe.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  list    input_df        The parameter is the input dataframe.
- #  string  x_column        The parameter is the dataframe column with the x-variable data.
- #  string  y_column        The parameter is the dataframe column with the y-variable data.
- #  string  suptitle        The parameter is the figure title.
- #  string  title           The parameter is the chart title.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  float   box_widths_flt  The parameter is the width of boxes in the chart.    
- #  boolean mean_line_bool  The parameter indicates whether the mean lines are present.
- #  boolean show_means_bool The parameter indicates whether the means are present.
- #  boolean vertical_bool   The parameter indicates whether the boxplot is vertical.
- #  boolean grid_bool       The parameter indicates whether the boxplot displays a grid.
- #  float   suptitle_x_flt  The parameter is the figure title's x-coordinate padding.
- #  float   suptitle_y_flt  The parameter is the figure title's y-coordinate padding.
- #  float   suptitle_font_size_flt
- #                          The parameter is the figure title's font size.
- #  string  suptitle_font_weight
- #                          The parameter is the figure title's font weight.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xticks_font_size_flt
- #                          The parameter is the x-axis tick font size. 
- #  float   xticks_rotation_flt
- #                          The parameter is the x-axis tick rotation in degrees. 
- #  float   yticks_font_size_flt
- #                          The parameter is the y-axis tick font size. 
- #  float   yticks_rotation_flt
- #                          The parameter is the y-axis tick rotation in degrees. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_boxplot_from_df \
-        (input_df,
-         x_column,
-         y_column,
-         suptitle = '',
-         title = '',
-         xlabel = '',
-         ylabel = '',
-         box_widths_flt = 0.45,
-         mean_line_bool = True,
-         show_means_bool = True,
-         vertical_bool = True,
-         grid_bool = True,
-         suptitle_x_flt = 0.5,  
-         suptitle_y_flt = 1.01, 
-         suptitle_font_size_flt = 20.0,
-         suptitle_font_style = 'normal',
-         title_font_size_flt = 16.0,
-         title_font_style = 'normal',
-         title_pad_flt = 10.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xticks_font_size_flt = 14.0,
-         xticks_rotation_flt = 90.0,
-         yticks_font_size_flt = 14.0,
-         yticks_rotation_flt = 0.0,
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-
-    box_plot_axes \
-        = input_df \
-            .boxplot \
-                (by = x_column,
-                 column = [y_column], 
-                 fontsize = xticks_font_size_flt,
-                 widths = box_widths_flt,
-                 meanline = mean_line_bool,
-                 showmeans = show_means_bool,
-                 vert = vertical_bool,
-                 grid = grid_bool,
-                 figsize = (figure_width_flt, figure_length_flt))
-
-    plt.suptitle \
-        (suptitle,
-         x = suptitle_x_flt,
-         y = suptitle_y_flt,
-         fontsize = suptitle_font_size_flt, 
-         fontstyle = suptitle_font_style)
-
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-    plt.xlabel \
-        (xlabel,
-         fontdict = {'fontsize': xlabel_font_size_flt, 
-                     'fontstyle': xlabel_font_style},
-         labelpad = xlabel_pad_flt)
-
-    plt.ylabel \
-        (ylabel,
-         fontdict = {'fontsize': ylabel_font_size_flt, 
-                     'fontstyle': ylabel_font_style},
-         labelpad = ylabel_pad_flt)
-
-
-    plt.xticks(fontsize = xticks_font_size_flt, rotation = xticks_rotation_flt)
-
-    plt.yticks(fontsize = yticks_font_size_flt, rotation = yticks_rotation_flt)
-
-
-    logx.save_plot_image(suptitle)
-
-    plt.show()
+pie_chart_dict \
+    = {'params': {'explode': None,
+                  'colors': None,
+                  'hatch': None,
+                  'autopct': '%1.1f%%',
+                  'pctdistance': 0.6,
+                  'labeldistance': 1.1,
+                  'shadow': True,
+                  'startangle': 45.0,
+                  'radius': 1.0,
+                  'counterclock': True,
+                  'wedgeprops': None,
+                  'textprops': {'fontsize': 14.0,
+                                'fontstyle': 'normal'},
+                  'center': (0, 0),
+                  'frame': False,
+                  'rotatelabels': False,
+                  'normalize': True},
+       'title': {'text': None,
+                 'fontsize': 20.0,
+                 'fontstyle': 'normal',
+                 'pad': 20.0},
+       'xlabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'ylabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'legend': {'display': False,
+                  'loc': 'center right',
+                  'fontsize': 14.0,
+                  'bbox_to_anchor': (1.5, 0.5)},
+       'figure': {'width': 9.708,
+                  'length': 6.0}}
 
 
 # In[10]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_bar_chart_from_series
- #
- #  Function Description:
- #      The function displays a bar chart from a series.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  input_series    The parameter is the input series.
- #  string  title           The parameter is the chart title.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel           The parameter is the y-axis label.
- #  list    bar_colors_list The parameter is the list of bar chart bar colors.
- #  boolean horizontal_bool The parameter indicates whether the bar chart is horizontal.
- #  string  bar_align       The parameter is bar alignment.
- #  string  edge_color      The parameter is the bar edge color.
- #  float   line_width_flt  The parameter is the bar line width.       
- #  float   alpha_flt       The parameter is the bar transparency level (0-1.0).
- #  float   bar_width_flt   The parameter is the bar width.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float  xtick_label_rotation_flt
- #                          The parameter is the x-axis tick rotation. 
- #  float  xtick_font_size_flt
- #                          The parameter is the x-axis tick font size.
- #  float  ytick_label_rotation_flt
- #                          The parameter is the y-axis tick rotation. 
- #  float  ytick_font_size_flt
- #                          The parameter is the y-axis tick font size. 
- #  float  figure_width_flt The parameter is the figure width. 
- #  float  figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_bar_chart_from_series \
-        (input_series,
-         title,
-         xlabel,
-         ylabel,
-         bar_colors_list,
-         horizontal_bool = False,
-         bar_align = 'center',
-         edge_color = 'black',
-         line_width_flt = 1.5,
-         bar_width_flt = 0.5,
-         alpha_flt = 1.0,
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xtick_label_rotation_flt = 80.0,
-         xtick_font_size_flt = 14.0,
-         ytick_label_rotation_flt = 0.0,
-         ytick_font_size_flt = 14.0,        
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-    plt.figure(figsize = (figure_width_flt, figure_length_flt))
-
-
-    if horizontal_bool == False:
-
-        plt.bar \
-            (input_series.keys(),
-             input_series,
-             align = bar_align,
-             color = bar_colors_list,
-             edgecolor = edge_color,
-             linewidth = line_width_flt,
-             alpha = alpha_flt,
-             width = bar_width_flt)
-
-    else:
-
-        plt.barh \
-            (input_series.keys(),
-             input_series,
-             align = bar_align,
-             color = bar_colors_list,
-             edgecolor = edge_color,
-             linewidth = line_width_flt,
-             alpha = alpha_flt)
-
-
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-
-    plt.xlabel \
-        (xlabel,
-         fontdict = {'fontsize': xlabel_font_size_flt, 
-                     'fontstyle': xlabel_font_style},
-         labelpad = xlabel_pad_flt)
-
-    plt.ylabel \
-        (ylabel,
-         fontdict = {'fontsize': ylabel_font_size_flt, 
-                     'fontstyle': ylabel_font_style},
-         labelpad = ylabel_pad_flt)
-
-
-    plt.xticks \
-        (rotation = xtick_label_rotation_flt,
-         fontsize = xtick_font_size_flt)
-
-    plt.yticks \
-        (rotation = ytick_label_rotation_flt,
-         fontsize = ytick_font_size_flt)
-
-
-    plt.grid(axis = 'y')
-
-
-    logx.save_plot_image(title)
-
-    plt.show()
+plot_chart_dict \
+    = {'params': {'scalex': True, 
+                  'scaley': True,
+                  'color': None,
+                  'alpha': 1.0},
+       'peaks': {'display': False,
+                 'array': [],
+                 'markersize': 15.0,
+                 'fontsize': 12.0,
+                 'y_offset': 5.0,
+                 'color': np.array(['red', 'blue'])},
+       'title': {'text': None,
+                 'fontsize': 20.0,
+                 'fontstyle': 'normal',
+                 'pad': 20.0},
+       'xlabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'ylabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'xlim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'ylim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'xticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 90.0},
+       'yticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 0.0},
+       'grid': {'display': False,
+                'visible': None,
+                'which': 'major',
+                'axis': 'both'},
+       'legend': {'display': False,
+                  'loc': 'center right',
+                  'fontsize': 14.0,
+                  'bbox_to_anchor': (1.5, 0.5)},
+       'figure': {'width': 9.708,
+                  'length': 6.0}}
 
 
 # In[11]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_bar_chart_from_df
- #
- #  Function Description:
- #      The function displays a bar chart from a dataframe.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dataframe
- #          input_df        The parameter is the input dataframe.
- #  string  title           The parameter is the chart title.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  list    bar_colors_list
- #                          The parameter is the list of bar colors.
- #  boolean stacked_bool    The parameter indicates whether the bar chart is stacked.
- #  boolean legend_bool     The parameter indicates whether the legend is present.
- #  tuple   legend_bbox_to_anchor_flt_tuple
- #                          The parameter is the legend's xy-coordinates. 
- #  string  bar_align       The parameter is bar alignment.
- #  string  edge_color      The parameter is the bar edge color.
- #  float   line_width_flt  The parameter is the bar line width.       
- #  float   alpha_flt       The parameter is the bar transparency level (0-1.0).
- #  float   bar_width_flt   The parameter is the bar width.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xtick_label_rotation_flt
- #                          The parameter is the x-axis tick rotation. 
- #  float   xtick_font_size_flt
- #                          The parameter is the x-axis tick font size.
- #  float   ytick_label_rotation_flt
- #                          The parameter is the y-axis tick rotation. 
- #  float   ytick_font_size_flt
- #                          The parameter is the y-axis tick font size. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_bar_chart_from_df \
-        (input_df,
-         title,
-         xlabel,
-         ylabel,
-         bar_colors_list,
-         stacked_bool = False,
-         legend_bool = False,
-         legend_bbox_to_anchor_flt_tuple = (1.1, 1.05),
-         bar_align = 'center',
-         edge_color = 'black',
-         line_width_flt = 1.5,
-         bar_width_flt = 0.5,
-         alpha_flt = 1.0,
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xtick_label_rotation_flt = 80.0,
-         xtick_font_size_flt = 14.0,
-         ytick_label_rotation_flt = 0.0,
-         ytick_font_size_flt = 14.0,
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-    input_df.plot.bar \
-        (stacked = stacked_bool,
-         align = bar_align,
-         color = bar_colors_list,
-         edgecolor = edge_color,
-         linewidth = line_width_flt,
-         alpha = alpha_flt,
-         width = bar_width_flt, 
-         legend = legend_bool,
-         figsize = (figure_width_flt, figure_length_flt))
-
-    if legend_bool == True:
-
-        plt.legend \
-            (bbox_to_anchor \
-                 = (legend_bbox_to_anchor_flt_tuple[0], 
-                    legend_bbox_to_anchor_flt_tuple[1]))
-
-
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-    plt.xlabel \
-        (xlabel,
-         fontdict = {'fontsize': xlabel_font_size_flt,
-                     'fontstyle': xlabel_font_style},
-         labelpad = xlabel_pad_flt)
-
-    plt.ylabel \
-        (ylabel,
-         fontdict = {'fontsize': ylabel_font_size_flt,
-                     'fontstyle': ylabel_font_style},
-         labelpad = ylabel_pad_flt)
-
-    plt.xticks \
-        (rotation = xtick_label_rotation_flt,
-         fontsize = xtick_font_size_flt)
-
-    plt.yticks \
-        (rotation = ytick_label_rotation_flt,
-         fontsize = ytick_font_size_flt)
-
-
-    plt.grid(axis = 'y')
-
-    logx.save_plot_image(title)
-
-    plt.show()
+scatterplot_chart_dict \
+    = {'marker': {'shape': 'o',
+                  'size': 80.0,
+                  'color': 'lime',
+                  'linewidth': 1.5,
+                  'edgecolors': 'black',
+                  'alpha': 0.8},
+       'title': {'text': None,
+                 'fontsize': 20.0,
+                 'fontstyle': 'normal',
+                 'pad': 20.0},
+       'xlabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'ylabel': {'text': None,
+                  'fontsize': 16.0,
+                  'fontstyle': 'normal',
+                  'pad': 10.0},
+       'xlim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'ylim': {'display': False,
+                'mode': 'set',
+                'set': {'min': 0,
+                        'max': 0},
+                'adjust': {'left': 0,
+                           'right': 0}},
+       'xticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 90.0},
+       'yticks': {'display': True,
+                  'fontsize': 14.0,
+                  'rotation': 0.0},
+       'grid': {'display': True,
+                'visible': None,
+                'which': 'major',
+                'axis': 'both'},
+       'figure': {'width': 9.708,
+                  'length': 6.0}}
 
 
 # In[12]:
 
 
-#*******************************************************************************************
- #
- #  Function Name:  display_scatter_plot_from_xy_series
- #
- #  Function Description:
- #      The function displays a scatter plot from x-y series.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series        The parameter is the x-axis series.
- #  series  y_series        The parameter is the y-axis series.
- #  string  title           The parameter is the chart title.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  integer degree_int      The parameter is the degree of the regression line polynomial.
- #  float   equation_x_coord_flt
- #                          The parameter is the equation's x-coordinate.  
- #  float   equation_y_coord_flt
- #                          The parameter is the equation's y-coordinate.  
- #  string  marker_shape    The parameter is marker shape.
- #  float   marker_size_flt The parameter is the marker size.       
- #  string  marker_color    The parameter is the marker color.
- #  float   line_width_flt  The parameter is line width of the scatter points.
- #  string  edge_colors     The parameter is the edge color for the scatter points.
- #  float   alpha_flt       The parameter is the bar transparency level (0-1.0).
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xtick_label_rotation_flt
- #                          The parameter is the x-axis tick rotation. 
- #  float   xtick_font_size_flt
- #                          The parameter is the x-axis tick font size.
- #  float   ytick_label_rotation_flt
- #                          The parameter is the y-axis tick rotation. 
- #  float   ytick_font_size_flt
- #                          The parameter is the y-axis tick font size. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def display_scatter_plot_from_xy_series \
-        (x_series, 
-         y_series, 
-         title,
-         xlabel,
-         ylabel,
-         degree_int = 0,
-         equation_x_coord_flt = 0.0,
-         equation_y_coord_flt = 0.0,
-         marker_shape = 'o',
-         marker_size_flt = 80.0,
-         marker_color = 'lime',
-         line_width_flt = 1.5,
-         edge_colors = 'black',
-         alpha_flt = 0.8,
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xtick_label_rotation_flt = 0.0,
-         xtick_font_size_flt = 14.0,
-         ytick_label_rotation_flt = 0.0,
-         ytick_font_size_flt = 14.0,        
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
-
-    plt.figure(figsize = (figure_width_flt, figure_length_flt))
-
-    plt.scatter \
-        (x_series, 
-         y_series, 
-         marker = marker_shape,
-         s = marker_size_flt,
-         color = marker_color, 
-         linewidth = line_width_flt,
-         edgecolors = edge_colors,
-         alpha = alpha_flt)
-
-    plt.title \
-        (title, 
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-    plt.xlabel \
-        (xlabel,
-         fontdict = {'fontsize': xlabel_font_size_flt, 
-                     'fontstyle': xlabel_font_style},
-         labelpad = xlabel_pad_flt)
-
-    plt.ylabel \
-        (ylabel,
-         fontdict = {'fontsize': ylabel_font_size_flt, 
-                     'fontstyle': ylabel_font_style},
-         labelpad = ylabel_pad_flt)
-
-    plt.xticks \
-        (rotation = xtick_label_rotation_flt,
-         fontsize = xtick_font_size_flt)
-
-    plt.yticks \
-        (rotation = ytick_label_rotation_flt,
-         fontsize = ytick_font_size_flt)
-
-    plt.grid()
-
-
-    if degree_int == 1:
-
-        display_linear_regression_line \
-            (x_series, y_series,
-             equation_x_coord_flt,
-             equation_y_coord_flt)
-
-    elif degree_int > 1:
-
-        display_polynomial_regression_line \
-            (x_series, y_series,
-             equation_x_coord_flt,
-             equation_y_coord_flt,
-             degree_int)
-
-
-    logx.save_plot_image(title)
-
-    plt.show()
+scatterplot_multichart_dict \
+    = {'figure': {'width': 15.0,
+                  'length': 5.5181,
+                  'nplots': 0,
+                  'nrows': 0,
+                  'ncols': 0,
+                  'sharex': False,
+                  'sharey': False},
+       'suptitle': {'text': None,
+                    'x': 0.5,
+                    'y': 0.98,
+                    'horizontalalignment': 'center',
+                    'verticalalignment': 'top',
+                    'fontproperties': {'family': 'sans-serif',
+                                       'style': 'normal',
+                                       'variant': 'normal',
+                                       'stretch': 'normal',
+                                       'weight': 'normal',
+                                       'size': 20.0,
+                                       'math_fontfamily': 'dejavusans'}},
+       'supxlabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'supylabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'tight_layout': {'display': True,
+                        'pad': 3.0,
+                        'h_pad': None,
+                        'w_pad': None,
+                        'rect': None}}
 
 
 # In[13]:
@@ -1586,211 +620,79 @@ def display_scatter_plot_from_xy_series \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_multiple_scatter_plots_from_xy_series_list
+ #  Function Name:  get_xylabels
  #
  #  Function Description:
- #      The function displays multiple scatter plots from x-y series lists.
+ #      The function retrieves the chart's x-axis label and y-axis label.
  #
  #
- #  Return Type: n/a
+ #  Return Type: string, string
  #
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  x_series_list   The parameter is the x-axis series list.
- #  series  y_series_list   The parameter is the y-axis series list.
- #  string  titles_list     The parameter is the chart title list.
- #  string  suptitle        The parameter is the figure title.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  integer degree_int      The parameter is the degree of the regression line polynomial.
- #  float   equation_x_coord_flt_list
- #                          The parameter is the list of equation's x-coordinates.  
- #  float   equation_y_coord_flt_list
- #                          The parameter is the list of equation's y-coordinate.  
- #  string  marker_shape    The parameter is marker shape.
- #  float   marker_size_flt The parameter is the marker size.       
- #  string  marker_color    The parameter is the marker color.
- #  float   line_width_flt  The parameter is line width of the scatter points.
- #  string  edge_colors     The parameter is the edge color for the scatter points.
- #  float   alpha_flt       The parameter is the bar transparency level (0-1.0).
- #  float   suptitle_font_size_flt
- #                          The parameter is the figure title font size. 
- #  string  suptitle_font_style
- #                          The parameter is the figure title font style.
- #  float   suptitle_pad_flt
- #                          The parameter is the figure title space pad value. 
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xtick_label_rotation_flt
- #                          The parameter is the x-axis tick rotation. 
- #  float   xtick_font_size_flt
- #                          The parameter is the x-axis tick font size.
- #  float   ytick_label_rotation_flt
- #                          The parameter is the y-axis tick rotation. 
- #  float   ytick_font_size_flt
- #                          The parameter is the y-axis tick font size. 
- #  float   tight_layout_pad_flt
- #                          The parameter is the figure tight layout padding. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def display_multiple_scatter_plots_from_xy_series_list \
-        (x_series_list,
-         y_series_list,
-         titles_list,
-         suptitle,
-         xlabel,
-         ylabel,
-         degree_int = 0,
-         equation_x_coord_flt_list = 0.0,
-         equation_y_coord_flt_list = 0.0,
-         marker_shape = 'o',
-         marker_size_flt = 80.0,
-         marker_color = 'lime',
-         line_width_flt = 1.5,
-         edge_colors = 'black',
-         alpha_flt = 0.8,
-         suptitle_font_size_flt = 20.0,
-         suptitle_font_weight = 'normal',
-         suptitle_pad_flt = 1.0,         
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xtick_label_rotation_flt = 0.0,
-         xtick_font_size_flt = 14.0,
-         ytick_label_rotation_flt = 0.0,
-         ytick_font_size_flt = 14.0,
-         tight_layout_pad_flt = 3.0,
-         figure_width_flt = 15.0,
-         figure_length_flt = 5.5181):
+def get_xylabels(chart_type):
 
-    scatter_plot_count_int = len(x_series_list)
+    if chart_type == chart_enum.BAR.value:
 
-    if scatter_plot_count_int != len(y_series_list):
+        return \
+            bar_chart_dict['xlabel']['text'], \
+            bar_chart_dict['ylabel']['text']
 
-        logx.print_and_log_text \
-            ('The function, display_multiple_scatter_plots_from_xy_series_list, '
-              + f'in source file, {CONSTANT_LOCAL_FILE_NAME},'
-              + f'with the caption, {suptitle},'
-              + 'was unable to display scatter plots '
-              + 'because the number of x and y series did not match.')
+    elif chart_type == chart_enum.BOXPLOT.value:
 
+        return \
+            boxplot_chart_dict['xlabel']['text'], \
+            boxplot_chart_dict['ylabel']['text']
 
-    plt.subplots(figsize = (figure_width_flt, figure_length_flt))
+    elif chart_type == chart_enum.HISTOGRAM.value:
 
-    plt.clf()
+        return \
+            histogram_chart_dict['xlabel']['text'], \
+            histogram_chart_dict['ylabel']['text']
 
+    elif chart_type == chart_enum.LINE.value:
 
-    x_length_int, y_length_int \
-        = mathx.calculate_closest_factors(scatter_plot_count_int)
+        return \
+            line_chart_dict['xlabel']['text'], \
+            line_chart_dict['ylabel']['text']
 
+    elif chart_type == chart_enum.PIE.value:
 
-    for index in range(0, scatter_plot_count_int):
+        return \
+            pie_chart_dict['xlabel']['text'], \
+            pie_chart_dict['ylabel']['text']
 
-        plt.subplot(x_length_int, y_length_int, index + 1)
+    elif chart_type == chart_enum.PLOT.value:
 
-        plt.scatter \
-            (x_series_list[index], 
-             y_series_list[index], 
-             marker = marker_shape,
-             s = marker_size_flt,
-             color = marker_color, 
-             linewidth = line_width_flt,
-             edgecolors = edge_colors,
-             alpha = alpha_flt)
+        return \
+            plot_chart_dict['xlabel']['text'], \
+            plot_chart_dict['ylabel']['text']
 
-        plt.title \
-            (titles_list[index], 
-             fontdict = {'fontsize': title_font_size_flt, 
-                         'fontstyle': title_font_style},
-             pad = title_pad_flt)
+    elif chart_type == chart_enum.SCATTER.value:
 
-        plt.xlabel \
-            (xlabel,
-             fontdict = {'fontsize': xlabel_font_size_flt, 
-                        'fontstyle': xlabel_font_style},
-             labelpad = xlabel_pad_flt)
+        return \
+            scatterplot_chart_dict['xlabel']['text'], \
+            scatterplot_chart_dict['ylabel']['text']
 
-        plt.ylabel \
-            (ylabel,
-             fontdict = {'fontsize': ylabel_font_size_flt, 
-                         'fontstyle': ylabel_font_style},
-             labelpad = ylabel_pad_flt)
+    elif chart_type == chart_enum.MULTISCATTER.value:
 
-        plt.xticks \
-            (rotation = xtick_label_rotation_flt,
-             fontsize = xtick_font_size_flt)
+        return \
+            scatterplot_multichart_dict['xlabel']['text'], \
+            scatterplot_multichart_dict['ylabel']['text']
 
-        plt.yticks \
-            (rotation = ytick_label_rotation_flt,
-             fontsize = ytick_font_size_flt)
-
-        plt.grid()
-
-
-        if degree_int == 1:
-
-            logx.print_and_log_text(titles_list[index] + ':')
-
-            display_linear_regression_line \
-                (x_series_list[index],
-                 y_series_list[index],
-                 equation_x_coord_flt_list[index],
-                 equation_y_coord_flt_list[index])
-
-        elif degree_int > 1:
-
-            logx.print_and_log_text(titles_list[index] + ':')
-
-            display_polynomial_regression_line \
-                (x_series_list[index],
-                 y_series_list[index],
-                 equation_x_coord_flt_list[index],
-                 equation_y_coord_flt_list[index],
-                 degree_int)
-
-        plt.tight_layout(pad = tight_layout_pad_flt)
-
-        plt.suptitle \
-            (suptitle, 
-             fontsize = suptitle_font_size_flt,
-             fontweight = suptitle_font_weight,
-             y = suptitle_pad_flt)
-
-        logx.save_plot_image(suptitle)
-
-        plt.show()
+    else: return None, None
 
 
 # In[14]:
@@ -1798,10 +700,10 @@ def display_multiple_scatter_plots_from_xy_series_list \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_pie_chart_from_series
+ #  Function Name:  set_xylabels
  #
  #  Function Description:
- #      The function displays a pie chart from a series.
+ #      The function sets the chart's x-axis label and y-axis label.
  #
  #
  #  Return Type: n/a
@@ -1809,85 +711,79 @@ def display_multiple_scatter_plots_from_xy_series_list \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  input_series    The parameter is the input series.
- #  string  title           The parameter is the figure title.
- #  list    colors_list     The parameter is the list of pie wedge colors.
- #  tuple   explode_flt_tuple   
- #                          The parameter is the degree of separation for each pie wedge.
- #  boolean shadow_bool     The parameter indicates whether the pie chart is shadowed.
- #  float   pct_distance_flt
- #                          The parameter is the percent distance between pie wedges.  
- #  float   start_angle_flt The parameter is the pie chart's start angle.
- #  string  auto_pct        The parameter is percent format for pie wedges.
- #  float   label_distance_flt
- #                          The parameter is the label's distance from the center.
- #  float   chart_font_size_flt
- #                          The parameter is the chart text font size.       
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
+ #  enum           chart_type       The parameter is the chart type enumeration value.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def display_pie_chart_from_series \
-        (input_series,
-         title,
-         colors_list,
-         explode_flt_tuple,
-         shadow_bool = True,
-         pct_distance_flt = 0.75,
-         start_angle_flt = 45.0,
-         auto_pct = '%1.1f%%',
-         label_distance_flt = 1.1,
-         chart_font_size_flt = 14.0,
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 5.0,
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
+def set_xylabels \
+        (xlabel,
+         ylabel,
+         chart_type):
 
-    temp_series = input_series.copy()
+    if chart_type == chart_enum.BAR.value:
 
-    temp_series.rename(None, inplace = True)
+        global bar_chart_dict
 
+        bar_chart_dict['xlabel']['text'] = xlabel
+        bar_chart_dict['ylabel']['text'] = ylabel
 
-    plt.figure(figsize = (figure_width_flt, figure_length_flt))
+    elif chart_type == chart_enum.BOXPLOT.value:
 
-    plt.pie \
-        (temp_series,
-         labels = temp_series.index, 
-         colors = colors_list,   
-         explode = explode_flt_tuple, 
-         shadow = shadow_bool,
-         pctdistance = pct_distance_flt,
-         startangle = start_angle_flt,
-         autopct = auto_pct,
-         labeldistance = label_distance_flt,
-         textprops = {'fontsize': chart_font_size_flt})
+        global boxplot_chart_dict
 
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)   
+        boxplot_chart_dict['xlabel']['text'] = xlabel
+        boxplot_chart_dict['ylabel']['text'] = ylabel
 
+    elif chart_type == chart_enum.HISTOGRAM.value:
 
-    logx.save_plot_image(title)
+        global histogram_chart_dict
 
-    plt.show()
+        histogram_chart_dict['xlabel']['text'] = xlabel
+        histogram_chart_dict['ylabel']['text'] = ylabel
+
+    elif chart_type == chart_enum.LINE.value:
+
+        global line_chart_dict
+
+        line_chart_dict['xlabel']['text'] = xlabel
+        line_chart_dict['ylabel']['text'] = ylabel
+
+    elif chart_type == chart_enum.PIE.value:
+
+        global pie_chart_dict
+
+        pie_chart_dict['xlabel']['text'] = xlabel
+        pie_chart_dict['ylabel']['text'] = ylabel
+
+    elif chart_type == chart_enum.PLOT.value:
+
+        global plot_chart_dict
+
+        plot_chart_dict['xlabel']['text'] = xlabel
+        plot_chart_dict['ylabel']['text'] = ylabel
+
+    elif chart_type == chart_enum.SCATTER.value:
+
+        global scatterplot_chart_dict
+
+        scatterplot_chart_dict['xlabel']['text'] = xlabel
+        scatterplot_chart_dict['ylabel']['text'] = ylabel
+
+    elif chart_type == chart_enum.MULTISCATTER.value:
+
+        global scatterplot_multichart_dict
+
+        scatterplot_multichart_dict['xlabel']['text'] = xlabel
+        scatterplot_multichart_dict['ylabel']['text'] = ylabel
 
 
 # In[15]:
@@ -1895,193 +791,31 @@ def display_pie_chart_from_series \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_multiple_pie_charts_from_df
+ #  Function Name:  get_bar_chart_xylabels
  #
  #  Function Description:
- #      The function receives a dataframe and formatting parameters for the display
- #      of multiple pie charts.
+ #      The function retrieves the bar chart's x-axis label and y-axis label.
  #
  #
- #  Return Type: n/a
+ #  Return Type: string, string
  #
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dataframe
- #          input_df        The parameter is the input dataframe
- #  string  suptitle        The parameter is the chart title.
- #  list    colors_list     The parameter is the list of pie wedge colors.
- #  tuple   explode_flt_tuple   
- #                          The parameter is the degree of separation for each pie wedge.
- #  boolean shadow_bool     The parameter indicates whether the pie chart is shadowed.
- #  float   pct_distance_flt
- #                          The parameter is the percent distance between pie wedges.  
- #  float   start_angle_flt The parameter is the pie chart's start angle.
- #  string  auto_pct        The parameter is percent format for pie wedges.
- #  float   label_distance_flt
- #                          The parameter is the label's distance from the center.
- #  float   chart_font_size_flt
- #                          The parameter is the chart text font size.  
- #  float   suptitle_x_flt  The parameter is the figure title's x-coordinate padding.
- #  float   suptitle_y_flt  The parameter is the figure title's y-coordinate padding.
- #  float   suptitle_font_size_flt
- #                          The parameter is the figure title's font size.
- #  string  suptitle_font_weight
- #                          The parameter is the figure title's font weight.
- #  string  titles_list     The parameter is the list of chart titles.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   title_y_flt     The parameter is the title's y-axis displacement.
- #  string  xlabel          The parameter is the subplot's x-axis label.
- #  float   xlabel_pad_flt  The parameter is the subplot's x-axis label's padding.
- #  float   xlabel_font_size_flt
- #                          The parameter is the subplot's x-axis label's font size.
- #  string  xlabel_loc      The parameter is the subplot's x-axis label's general location.
- #  string  xlabel_font_weight
- #                          The parameter is the subplot's x-axis label's font weight.
- #  string  ylabel          The parameter is the subplot's y-axis label.
- #  float   ylabel_pad_flt  The parameter is the subplot's y-axis label's padding.
- #  float   ylabel_font_size_flt
- #                          The parameter is the subplot's y-axis label's font size.
- #  string  ylabel_loc      The parameter is the subplot's y-axis label's general location.
- #  string  ylabel_font_weight
- #                          The parameter is the subplot's y-axis label's font weight.
- #  float   subplot_width_space_flt
- #                          The parameter is the width of the space between subplots.
- #  float   subplot_height_space_flt
- #                          The parameter is the width of the space between subplots.
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
- #******************************************************************************************/  
+ #******************************************************************************************/
 
-def display_multiple_pie_charts_from_df \
-        (input_df,
-         suptitle,
-         colors_list,
-         explode_flt_tuple,
-         shadow_bool = True,
-         pct_distance_flt = 0.75,
-         start_angle_flt = 45.0,
-         auto_pct = '%1.1f%%',
-         label_distance_flt = 1.2,
-         chart_font_size_flt = 12.0,
-         suptitle_x_flt = 0.5,  
-         suptitle_y_flt = 0.9,  
-         suptitle_font_size_flt = 20.0,
-         suptitle_font_weight = 'normal',
-         titles_list = [],
-         title_font_size_flt = 18.0,
-         title_font_style = 'normal',
-         title_pad_flt = 5.0,
-         title_y_flt = 1.05,
-         xlabel = '',
-         xlabel_pad_flt = 4.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_loc = 'center',
-         xlabel_font_weight = 'normal',
-         ylabel = '',
-         ylabel_pad_flt = 4.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_loc = 'center',
-         ylabel_font_weight = 'normal',
-         subplot_width_space_flt = 1.1,
-         subplot_height_space_flt = None,
-         figure_width_flt = 15.0,
-         figure_length_flt = 5.5181):
+def get_bar_chart_xylabels():
 
-    chart_count_int = len(input_df.columns)
-
-    row_count_int, column_count_int \
-        = mathx.calculate_closest_factors(chart_count_int)
-
-    index = 0
-
-
-    fig, axs \
-        = plt.subplots \
-            (nrows = row_count_int, ncols = column_count_int,
-             figsize = (figure_width_flt, figure_length_flt),
-             tight_layout = True)
-
-    fig.suptitle \
-        (suptitle,
-         x = suptitle_x_flt,
-         y = suptitle_y_flt,
-         fontsize = suptitle_font_size_flt, 
-         fontweight = suptitle_font_weight)
-
-
-    for row in range(row_count_int):
-        for column in range(column_count_int):
-
-            input_df.iloc[:, index].plot.pie \
-                (ax = axs[index],
-                 colors = colors_list, 
-                 shadow = shadow_bool,
-                 pctdistance = pct_distance_flt,
-                 startangle = start_angle_flt, 
-                 autopct = auto_pct,
-                 labeldistance = label_distance_flt,
-                 textprops = {'fontsize': chart_font_size_flt},
-                 subplots = True)
-
-
-            if len(titles_list) <= 0:
-
-                title = input_df.iloc[:, index].name
-
-            else:
-
-                title = titles_list[index]
-
-
-            axs[index].set_title \
-                (title,
-                 fontdict = {'fontsize': title_font_size_flt, 
-                             'fontstyle': title_font_style},
-                 pad = title_pad_flt,
-                 y = title_y_flt)
-
-
-            axs[index].set_xlabel \
-                (xlabel, 
-                 labelpad = xlabel_pad_flt, 
-                 fontsize = xlabel_font_size_flt, 
-                 loc = xlabel_loc, 
-                 fontweight = xlabel_font_weight)
-
-            axs[index].set_ylabel \
-                (ylabel, 
-                 labelpad = ylabel_pad_flt, 
-                 fontsize = ylabel_font_size_flt, 
-                 loc = ylabel_loc, 
-                 fontweight = ylabel_font_weight)
-
-
-            index += 1
-
-
-    plt.subplots_adjust \
-        (wspace = subplot_width_space_flt, 
-         hspace = subplot_height_space_flt)
-
-
-    logx.save_plot_image(suptitle)
-
-    plt.show()
+    return get_xylabels(chart_enum.BAR.value)
 
 
 # In[16]:
@@ -2089,10 +823,10 @@ def display_multiple_pie_charts_from_df \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_histogram_from_series
+ #  Function Name:  set_bar_chart_xylabels
  #
  #  Function Description:
- #      The function displays a histogram from a series and criteria.
+ #      The function sets the bar chart's x-axis label and y-axis label.
  #
  #
  #  Return Type: n/a
@@ -2100,141 +834,23 @@ def display_multiple_pie_charts_from_df \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  input_series    The parameter is the input series.
- #  string  title           The parameter is the chart title.
- #  list    color           The parameter is the color of the histogram.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  integer bins_count_int  The parameter is the number of histogram bins.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.
- #  boolean grid_bool       The parameter indicates whether the boxplot displays a grid.
- #  string  fill_style      The parameter is the line fills style.
- #  float   line_width_flt  The parameter is the line width around a histogram box.       
- #  string  edge_color      The parameter is the histogram box edge color.
- #  boolean display_legend_bool
- #                          The parameter indicates whether the legend will be present.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xticks_font_size_flt
- #                          The parameter is the subplot's x-tick label's font size.
- #  float   xticks_rotation_flt
- #                          The parameter is the subplot's x-tick label's rotation in degrees.
- #  float   yticks_font_size_flt
- #                          The parameter is the subplot's y-tick label's font size.
- #  float   yticks_rotation_flt
- #                          The parameter is the subplot's y-tick label's rotation in degrees.
- #  string  legend_loc      The parameter is the legend's general location.
- #  float   legend_font_size_flt
- #                          The parameter is legend's font size.
- #  tuple   legend_bbox_to_anchor_flt_tuple
- #                          The parameter is the legend's xy-coordinates. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def display_histogram_from_series \
-        (input_series,
-         title,
-         color,
-         xlabel = None,
-         ylabel = None,
-         bins_count_int = 20,
-         alpha_flt = 1.0,
-         grid_bool = True,
-         line_width_flt = 1.5,
-         edge_color = 'black',
-         display_legend_bool = False,
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xticks_font_size_flt = 14.0,
-         xticks_rotation_flt = 90.0,
-         yticks_font_size_flt = 14.0,
-         yticks_rotation_flt = 0.0,
-         legend_loc = 'center right',
-         legend_font_size_flt = 14.0,
-         legend_bbox_to_anchor_flt_tuple = (1.5, 0.5),
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
+def set_bar_chart_xylabels \
+        (xlabel, 
+         ylabel):
 
-    input_series \
-        .plot.hist \
-            (bins = bins_count_int, 
-             alpha = alpha_flt, 
-             color = color, 
-             linewidth = line_width_flt, 
-             edgecolor = edge_color, 
-             legend = display_legend_bool,
-             figsize = (figure_width_flt, figure_length_flt))
-
-
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-
-    if xlabel != None:
-
-        plt.xlabel \
-            (xlabel,
-             fontdict = {'fontsize': xlabel_font_size_flt,
-                         'fontstyle': xlabel_font_style},
-             labelpad = xlabel_pad_flt)
-
-    if ylabel != None:
-
-        plt.ylabel \
-            (ylabel,
-             fontdict = {'fontsize': ylabel_font_size_flt,
-                         'fontstyle': ylabel_font_style},
-             labelpad = ylabel_pad_flt)
-
-
-    plt.xticks(fontsize = xticks_font_size_flt, rotation = xticks_rotation_flt)
-
-    plt.yticks(fontsize = yticks_font_size_flt, rotation = yticks_rotation_flt)
-
-
-    if display_legend_bool == True:
-
-        plt.legend \
-            (loc = legend_loc,
-             fontsize = legend_font_size_flt,
-             bbox_to_anchor = legend_bbox_to_anchor_flt_tuple)
-
-
-    logx.save_plot_image(title)
+    set_xylabels(xlabel, ylabel, chart_enum.BAR.value)
 
 
 # In[17]:
@@ -2242,230 +858,31 @@ def display_histogram_from_series \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_histograms_from_series_list
+ #  Function Name:  get_boxplot_chart_xylabels
  #
  #  Function Description:
- #      The function receives a series list and formatting parameters for the display
- #      of multiple histograms in a single figure.
+ #      The function retrieves the boxplot chart's x-axis label and y-axis label.
  #
  #
- #  Return Type: n/a
+ #  Return Type: string, string
  #
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  input_series    The parameter is the input dataframe
- #  string  suptitle        The parameter is the chart title.
- #  string  supxlabel       The parameter is the title for the figure's x-axis.
- #  string  supylabel       The parameter is the title for the figure's y-axis.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  list    color           The parameter is the histogram color.
- #  boolean reverse_dimensions_bool 
- #                          The parameter indicates whether the histograms share the x-axis.
- #  boolean share_x_bool    The parameter indicates whether the histograms share the x-axis.
- #  boolean share_y_bool    The parameter indicates whether the histograms share the y-axis.
- #  boolean tight_layout_bool  
- #                          The parameter indicates whether the figure has a tight layout.
- #  integer bins_count_int  The parameter is the number of histogram bins.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.
- #  boolean grid_bool       The parameter indicates whether the boxplot displays a grid.
- #  float   line_width_flt  The parameter is the line width around a histogram box.       
- #  string  edge_color      The parameter is the histogram box edge color.
- #  float   suptitle_x_flt  The parameter is the figure title's x-coordinate padding.
- #  float   suptitle_y_flt  The parameter is the figure title's y-coordinate padding.
- #  float   suptitle_font_size_flt
- #                          The parameter is the figure title's font size.
- #  string  suptitle_font_style
- #                          The parameter is the figure title's font style.
- #  float   supxlabel_x_flt The parameter is the figure's x-axis label's 
- #                          x-coordinate padding.
- #  float   supxlabel_y_flt The parameter is the figure's x-axis label's 
- #                          y-coordinate padding.
- #  float   supxlabel_font_size_flt
- #                          The parameter is the figure's x-axis label's font size.
- #  string  supxlabel_font_style
- #                          The parameter is the figure's x-axis label's font style.
- #  float   supylabel_x_flt The parameter is the figure's y-axis label's 
- #                          x-coordinate padding.
- #  float   supylabel_y_flt The parameter is the figure's y-axis label's 
- #                          y-coordinate padding.
- #  float   supylabel_font_size_flt
- #                          The parameter is the figure's y-axis label's font size.
- #  string  supylabel_font_style
- #                          The parameter is the figure's y-axis label's font style.
- #  string  titles_list     The parameter is the list of chart titles.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   title_y_flt     The parameter is the title's y-axis displacement.
- #  string  xlabel          The parameter is the subplot's x-axis label.
- #  float   xlabel_pad_flt  The parameter is the subplot's x-axis label's padding.
- #  float   xlabel_font_size_flt
- #                          The parameter is the subplot's x-axis label's font size.
- #  string  xlabel_loc      The parameter is the subplot's x-axis label's general location.
- #  string  xlabel_font_style
- #                          The parameter is the subplot's x-axis label's font style.
- #  string  ylabel          The parameter is the subplot's y-axis label.
- #  float   ylabel_pad_flt  The parameter is the subplot's y-axis label's padding.
- #  float   ylabel_font_size_flt
- #                          The parameter is the subplot's y-axis label's font size.
- #  string  ylabel_loc      The parameter is the subplot's y-axis label's general location.
- #  string  ylabel_font_style
- #                          The parameter is the subplot's y-axis label's font style.
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
- #******************************************************************************************/  
+ #******************************************************************************************/
 
-def display_histograms_from_series_list \
-        (input_series_list,
-         suptitle,
-         supxlabel = None,
-         supylabel = None,
-         xlabel = '',
-         ylabel = '',
-         color = 'firebrick',
-         reverse_dimensions_bool = True,
-         share_x_bool = True,
-         share_y_bool = True,
-         tight_layout_bool = True,
-         bins_count_int = 20,
-         alpha_flt = 1.0,
-         grid_bool = True,
-         line_width_flt = 1.5,
-         edge_color = 'black',
-         suptitle_x_flt = 0.5,  
-         suptitle_y_flt = 0.9,  
-         suptitle_font_size_flt = 20.0,
-         suptitle_font_weight = 'normal',
-         supxlabel_x_flt = 0.5,  
-         supxlabel_y_flt = 0.0,  
-         supxlabel_font_size_flt = 16.0,
-         supxlabel_font_weight = 'normal',
-         supylabel_x_flt = 0.0,  
-         supylabel_y_flt = 0.5,  
-         supylabel_font_size_flt = 16.0,
-         supylabel_font_weight = 'normal',
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         tight_layout_flt = 3.0,
-         figure_width_flt = 15.0,
-         figure_length_flt = 7.5):
+def get_boxplot_chart_xylabels():
 
-    chart_count_int = len(input_series_list)
-
-    colors_list = [color] * chart_count_int
-
-
-    row_count_int, column_count_int \
-        = mathx.calculate_closest_factors(chart_count_int)
-
-    if reverse_dimensions_bool == True:
-
-        row_count_int, column_count_int = column_count_int, row_count_int       
-
-
-    fig, axs \
-        = plt.subplots \
-            (row_count_int, 
-             column_count_int, 
-             figsize = (figure_width_flt, figure_length_flt),
-             sharex = share_x_bool,
-             sharey = share_y_bool, 
-             tight_layout = tight_layout_bool)
-
-
-    plt.clf()
-
-
-    fig.suptitle \
-        (suptitle,
-         x = suptitle_x_flt,
-         y = suptitle_y_flt,
-         fontsize = suptitle_font_size_flt, 
-         fontweight = suptitle_font_weight)
-
-
-    for index in range(chart_count_int):
-
-        plt.subplot(row_count_int, column_count_int, index + 1)
-
-
-        input_series_list[index] \
-            .plot.hist \
-                (bins = bins_count_int, 
-                 alpha = alpha_flt,
-                 grid = grid_bool,
-                 color = colors_list[index], 
-                 linewidth = line_width_flt, 
-                 edgecolor = edge_color,
-                 legend = False)
-
-
-        plt.title \
-            (input_series_list[index].name,
-             fontdict = {'fontsize': title_font_size_flt, 
-                         'fontstyle': title_font_style},
-             pad = title_pad_flt)
-
-
-        plt.xlabel \
-            (xlabel,
-             fontdict = {'fontsize': xlabel_font_size_flt,
-                         'fontstyle': xlabel_font_style},
-             labelpad = xlabel_pad_flt)
-
-        plt.ylabel \
-            (ylabel,
-             fontdict = {'fontsize': ylabel_font_size_flt,
-                         'fontstyle': ylabel_font_style},
-             labelpad = ylabel_pad_flt)
-
-
-        plt.tight_layout(pad = 3.0)
-
-
-    if supxlabel != None:
-
-        fig.supxlabel \
-            (supxlabel,
-             x = supxlabel_x_flt,
-             y = supxlabel_y_flt,
-             fontsize = supxlabel_font_size_flt, 
-             fontweight = supxlabel_font_weight)
-
-    if supylabel != None:
-
-            fig.supylabel \
-                (supylabel,
-                 x = supylabel_x_flt,
-                 y = supylabel_y_flt,
-                 fontsize = supylabel_font_size_flt, 
-                 fontweight = supylabel_font_weight)
-
-
-    logx.save_plot_image(suptitle)
-
-    plt.show()
+    return get_xylabels(chart_enum.BOXPLOT.value)
 
 
 # In[18]:
@@ -2473,11 +890,10 @@ def display_histograms_from_series_list \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_multiple_histograms_from_df
+ #  Function Name:  set_boxplot_chart_xylabels
  #
  #  Function Description:
- #      The function receives a dataframe and formatting parameters for the display
- #      of multiple histograms.
+ #      The function sets the boxplot chart's x-axis label and y-axis label.
  #
  #
  #  Return Type: n/a
@@ -2485,244 +901,23 @@ def display_histograms_from_series_list \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dataframe
- #          input_df        The parameter is the input dataframe
- #  string  suptitle        The parameter is the chart title.
- #  list    colors_list     The parameter is the list of histogram colors.
- #  string  supxlabel       The parameter is the title for the figure's x-axis.
- #  string  supylabel       The parameter is the title for the figure's y-axis.
- #  boolean share_x_bool    The parameter indicates whether the histograms share the x-axis.
- #  boolean share_y_bool    The parameter indicates whether the histograms share the y-axis.
- #  boolean tight_layout_bool  
- #                          The parameter indicates whether the figure has a tight layout.
- #  integer bins_count_int  The parameter is the number of histogram bins.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.
- #  boolean grid_bool       The parameter indicates whether the boxplot displays a grid.
- #  float   suptitle_x_flt  The parameter is the figure title's x-coordinate padding.
- #  float   suptitle_y_flt  The parameter is the figure title's y-coordinate padding.
- #  float   suptitle_font_size_flt
- #                          The parameter is the figure title's font size.
- #  string  suptitle_font_weight
- #                          The parameter is the figure title's font weight.
- #  float   supxlabel_x_flt The parameter is the figure's x-axis label's 
- #                          x-coordinate padding.
- #  float   supxlabel_y_flt The parameter is the figure's x-axis label's 
- #                          y-coordinate padding.
- #  float   supxlabel_font_size_flt
- #                          The parameter is the figure's x-axis label's font size.
- #  string  supxlabel_font_weight
- #                          The parameter is the figure's x-axis label's font weight.
- #  float   supylabel_x_flt The parameter is the figure's y-axis label's 
- #                          x-coordinate padding.
- #  float   supylabel_y_flt The parameter is the figure's y-axis label's 
- #                          y-coordinate padding.
- #  float   supylabel_font_size_flt
- #                          The parameter is the figure's y-axis label's font size.
- #  string  supylabel_font_weight
- #                          The parameter is the figure's y-axis label's font weight.
- #  string  titles_list     The parameter is the list of chart titles.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   title_y_flt     The parameter is the title's y-axis displacement.
- #  string  xlabel          The parameter is the subplot's x-axis label.
- #  float   xlabel_pad_flt  The parameter is the subplot's x-axis label's padding.
- #  float   xlabel_font_size_flt
- #                          The parameter is the subplot's x-axis label's font size.
- #  string  xlabel_loc      The parameter is the subplot's x-axis label's general location.
- #  string  xlabel_font_weight
- #                          The parameter is the subplot's x-axis label's font weight.
- #  string  ylabel          The parameter is the subplot's y-axis label.
- #  float   ylabel_pad_flt  The parameter is the subplot's y-axis label's padding.
- #  float   ylabel_font_size_flt
- #                          The parameter is the subplot's y-axis label's font size.
- #  string  ylabel_loc      The parameter is the subplot's y-axis label's general location.
- #  string  ylabel_font_weight
- #                          The parameter is the subplot's y-axis label's font weight.
- #  float   xtick_label_size_flt
- #                          The parameter is the subplot's x-tick label's font size.
- #  float   xtick_label_rotation_flt
- #                          The parameter is the subplot's x-tick label's rotation in degrees.
- #  float   ytick_label_size_flt
- #                          The parameter is the subplot's y-tick label's font size.
- #  float   ytick_label_rotation_flt
- #                          The parameter is the subplot's y-tick label's rotation in degrees.
- #  float   subplot_width_space_flt
- #                          The parameter is the width of the space between subplots.
- #  float   subplot_height_space_flt
- #                          The parameter is the width of the space between subplots.
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
- #******************************************************************************************/  
+ #******************************************************************************************/
 
-def display_multiple_histograms_from_df \
-        (input_df,
-         suptitle,
-         colors_list,
-         supxlabel = None,
-         supylabel = None,
-         share_x_bool = False,
-         share_y_bool = True,
-         tight_layout_bool = True,
-         bins_count_int = 20,
-         alpha_flt = 0.8,
-         grid_bool = True,
-         suptitle_x_flt = 0.5,  
-         suptitle_y_flt = 1.0,  
-         suptitle_font_size_flt = 20.0,
-         suptitle_font_weight = 'normal',
-         supxlabel_x_flt = 0.5,  
-         supxlabel_y_flt = 0.0,  
-         supxlabel_font_size_flt = 16.0,
-         supxlabel_font_weight = 'normal',
-         supylabel_x_flt = 0.0,  
-         supylabel_y_flt = 0.5,  
-         supylabel_font_size_flt = 16.0,
-         supylabel_font_weight = 'normal',
-         titles_list = [],
-         title_font_size_flt = 18.0,
-         title_font_style = 'normal',
-         title_pad_flt = 5.0,
-         title_y_flt = 1.05,
-         xlabel = '',
-         xlabel_pad_flt = 4.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_loc = 'center',
-         xlabel_font_weight = 'normal',
-         ylabel = '',
-         ylabel_pad_flt = 4.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_loc = 'center',
-         ylabel_font_weight = 'normal',
-         xtick_label_size_flt = 14.0,
-         xtick_label_rotation_flt = 0.0,
-         ytick_label_size_flt = 14.0,
-         ytick_label_rotation_flt = 0.0,
-         subplot_width_space_flt = 1.1,
-         subplot_height_space_flt = None,
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
+def set_boxplot_chart_xylabels \
+        (xlabel, 
+         ylabel):
 
-    chart_count_int = len(input_df.columns)
-
-    row_count_int, column_count_int \
-        = mathx.calculate_closest_factors(chart_count_int)
-
-    index = 0
-
-
-    fig, axs \
-        = plt.subplots \
-            (nrows = row_count_int, ncols = column_count_int,
-             figsize = (figure_width_flt, figure_length_flt),
-             sharex = share_x_bool,
-             sharey = share_y_bool, 
-             tight_layout = tight_layout_bool)
-
-    fig.suptitle \
-        (suptitle,
-         x = suptitle_x_flt,
-         y = suptitle_y_flt,
-         fontsize = suptitle_font_size_flt, 
-         fontweight = suptitle_font_weight)
-
-
-    ax = axs.ravel()
-
-
-    for row in range(row_count_int):
-        for column in range(column_count_int):
-
-            input_df.iloc[:, index].hist \
-                (ax = ax[index],
-                 color = colors_list[index], 
-                 bins = bins_count_int,
-                 alpha = alpha_flt,
-                 grid = grid_bool)
-
-
-            if len(titles_list) <= 0:
-
-                title = input_df.keys()[index]
-
-            else:
-
-                title = titles_list[index]
-
-
-            ax[index].set_title \
-                (title,
-                 fontdict = {'fontsize': title_font_size_flt, 
-                             'fontstyle': title_font_style},
-                 pad = title_pad_flt,
-                 y = title_y_flt)
-
-            ax[index].set_xlabel \
-                (xlabel, 
-                 labelpad = xlabel_pad_flt, 
-                 fontsize = xlabel_font_size_flt, 
-                 loc = xlabel_loc, 
-                 fontweight = xlabel_font_weight)
-
-            ax[index].set_ylabel \
-                (ylabel, 
-                 labelpad = ylabel_pad_flt, 
-                 fontsize = ylabel_font_size_flt, 
-                 loc = ylabel_loc, 
-                 fontweight = ylabel_font_weight)
-
-            ax[index].tick_params \
-                (axis = 'x', 
-                 labelrotation = xtick_label_rotation_flt, 
-                 labelsize = xtick_label_size_flt)
-
-            ax[index].tick_params \
-                (axis = 'y', 
-                 labelrotation = ytick_label_rotation_flt, 
-                 labelsize = ytick_label_size_flt)
-
-            index += 1
-
-
-    if supxlabel != None:
-
-        fig.supxlabel \
-            (supxlabel,
-             x = supxlabel_x_flt,
-             y = supxlabel_y_flt,
-             fontsize = supxlabel_font_size_flt, 
-             fontweight = supxlabel_font_weight)
-
-    if supylabel != None:
-
-            fig.supylabel \
-                (supylabel,
-                 x = supylabel_x_flt,
-                 y = supylabel_y_flt,
-                 fontsize = supylabel_font_size_flt, 
-                 fontweight = supylabel_font_weight)
-
-
-    plt.subplots_adjust \
-        (wspace = subplot_width_space_flt, 
-         hspace = subplot_height_space_flt)
-
-
-    logx.save_plot_image(suptitle)
-
-    plt.show()
+    set_xylabels(xlabel, ylabel, chart_enum.BOXPLOT.value)
 
 
 # In[19]:
@@ -2730,178 +925,31 @@ def display_multiple_histograms_from_df \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_plot_from_series
+ #  Function Name:  get_histogram_chart_xylabels
  #
  #  Function Description:
- #      The function displays a plot from a series and criteria.
+ #      The function retrieves the histogram chart's x-axis label and y-axis label.
  #
  #
- #  Return Type: n/a
+ #  Return Type: string, string
  #
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  input_series    The parameter is the input series.
- #  string  title           The parameter is the chart title.
- #  list    color           The parameter is the color of the histogram.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.
- #  boolean grid_bool       The parameter indicates whether the boxplot displays a grid.
- #  boolean display_legend_bool
- #                          The parameter indicates whether the legend will be present.
- #  nparray display_legend_bool
- #                          The parameter is the positions of peaks in the graph.
- #  string  peaks_marker_size_flt
- #                          The parameter is the size of the peaks markers.
- #  float   peaks_label_y_offset_flt
- #                          The parameter is the y-axis offset of the label
- #                          from the peaks marker. 
- #  list   peaks_color_list The parameter is the peaks marker and label colors. 
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   xlabel_font_size_flt
- #                          The parameter is the x-axis font size. 
- #  string  xlabel_font_style
- #                          The parameter is the x-axis font style.
- #  float   xlabel_pad_flt  The parameter is the x-axis space pad value. 
- #  float   ylabel_font_size_flt
- #                          The parameter is the y-axis font size. 
- #  string  ylabel_font_style
- #                          The parameter is the y-axis font style.
- #  float   ylabel_pad_flt  The parameter is the y-axis space pad value. 
- #  float   xticks_font_size_flt
- #                          The parameter is the subplot's x-tick label's font size.
- #  float   xticks_rotation_flt
- #                          The parameter is the subplot's x-tick label's rotation in degrees.
- #  float   yticks_font_size_flt
- #                          The parameter is the subplot's y-tick label's font size.
- #  float   yticks_rotation_flt
- #                          The parameter is the subplot's y-tick label's rotation in degrees.
- #  string  legend_loc      The parameter is the legend's general location.
- #  float   legend_font_size_flt
- #                          The parameter is legend's font size.
- #  tuple   legend_bbox_to_anchor_flt_tuple
- #                          The parameter is the legend's xy-coordinates. 
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
-def display_plot_from_series \
-        (input_series,
-         title,
-         color,
-         xlabel = None,
-         ylabel = None,
-         alpha_flt = 1.0,
-         grid_bool = True,
-         display_legend_bool = False,
-         peaks_nparray = [],
-         peaks_marker_size_flt = 15.0,
-         peaks_font_size_flt = 12.0,
-         peaks_label_y_offset_flt = 5.0,
-         peaks_color_list = ['red', 'blue'],
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xticks_font_size_flt = 14.0,
-         xticks_rotation_flt = 90.0,
-         yticks_font_size_flt = 14.0,
-         yticks_rotation_flt = 0.0,
-         legend_loc = 'center right',
-         legend_font_size_flt = 14.0,
-         legend_bbox_to_anchor_flt_tuple = (1.5, 0.5),
-         figure_width_flt = 9.708,
-         figure_length_flt = 6.0):
+def get_histogram_chart_xylabels():
 
-    plt.figure(figsize = (figure_width_flt, figure_length_flt))
-
-    plt.clf()
-
-
-    input_series \
-        .plot \
-            (color = color,
-             alpha = alpha_flt,
-             grid = grid_bool,
-             legend = display_legend_bool)
-
-    if len(peaks_nparray) > 0:
-
-        plt.plot \
-            (input_series.index[peaks_nparray], 
-             input_series.iloc[peaks_nparray], 
-             'x', 
-             markersize = peaks_marker_size_flt, 
-             color = peaks_color_list[0])
-
-        for i, j in zip(input_series.index[peaks_nparray], input_series.iloc[peaks_nparray]):
-
-            y_coord_flt = j + peaks_label_y_offset_flt
-
-            plt.annotate \
-                (i, xy = (i, y_coord_flt), 
-                 size = peaks_font_size_flt, 
-                 color = peaks_color_list[1])
-
-
-    plt.title \
-        (title,
-         fontdict = {'fontsize': title_font_size_flt, 
-                     'fontstyle': title_font_style},
-         pad = title_pad_flt)
-
-
-    if xlabel != None:
-
-        plt.xlabel \
-            (xlabel,
-             fontdict = {'fontsize': xlabel_font_size_flt,
-                         'fontstyle': xlabel_font_style},
-             labelpad = xlabel_pad_flt)
-
-    if ylabel != None:
-
-        plt.ylabel \
-            (ylabel,
-             fontdict = {'fontsize': ylabel_font_size_flt,
-                         'fontstyle': ylabel_font_style},
-             labelpad = ylabel_pad_flt)
-
-
-    plt.xticks(fontsize = xticks_font_size_flt, rotation = xticks_rotation_flt)
-
-    plt.yticks(fontsize = yticks_font_size_flt, rotation = yticks_rotation_flt)
-
-
-    if display_legend_bool == True:
-
-        plt.legend \
-            (loc = legend_loc,
-             fontsize = legend_font_size_flt,
-             bbox_to_anchor = legend_bbox_to_anchor_flt_tuple)
-
-
-    logx.save_plot_image(title)
+    return get_xylabels(chart_enum.HISTOGRAM.value)
 
 
 # In[20]:
@@ -2909,11 +957,10 @@ def display_plot_from_series \
 
 #*******************************************************************************************
  #
- #  Function Name:  display_plots_from_series_list
+ #  Function Name:  set_histogram_chart_xylabels
  #
  #  Function Description:
- #      The function receives a series list and formatting parameters for the display
- #      of plots in a single figure.
+ #      The function sets the histogram chart's x-axis label and y-axis label.
  #
  #
  #  Return Type: n/a
@@ -2921,212 +968,3428 @@ def display_plot_from_series \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  series  input_series    The parameter is the input dataframe
- #  string  suptitle        The parameter is the chart title.
- #  string  supxlabel       The parameter is the title for the figure's x-axis.
- #  string  supylabel       The parameter is the title for the figure's y-axis.
- #  string  xlabel          The parameter is the x-axis label.
- #  string  ylabel          The parameter is the y-axis label.
- #  list    color           The parameter is the histogram color.
- #  boolean reverse_dimensions_bool 
- #                          The parameter indicates whether the histograms share the x-axis.
- #  boolean share_x_bool    The parameter indicates whether the histograms share the x-axis.
- #  boolean share_y_bool    The parameter indicates whether the histograms share the y-axis.
- #  boolean tight_layout_bool  
- #                          The parameter indicates whether the figure has a tight layout.
- #  float   alpha_flt       The parameter is the alpha (transparency) value.
- #  boolean grid_bool       The parameter indicates whether the boxplot displays a grid.
- #  float   suptitle_x_flt  The parameter is the figure title's x-coordinate padding.
- #  float   suptitle_y_flt  The parameter is the figure title's y-coordinate padding.
- #  float   suptitle_font_size_flt
- #                          The parameter is the figure title's font size.
- #  string  suptitle_font_style
- #                          The parameter is the figure title's font style.
- #  float   supxlabel_x_flt The parameter is the figure's x-axis label's 
- #                          x-coordinate padding.
- #  float   supxlabel_y_flt The parameter is the figure's x-axis label's 
- #                          y-coordinate padding.
- #  float   supxlabel_font_size_flt
- #                          The parameter is the figure's x-axis label's font size.
- #  string  supxlabel_font_style
- #                          The parameter is the figure's x-axis label's font style.
- #  float   supylabel_x_flt The parameter is the figure's y-axis label's 
- #                          x-coordinate padding.
- #  float   supylabel_y_flt The parameter is the figure's y-axis label's 
- #                          y-coordinate padding.
- #  float   supylabel_font_size_flt
- #                          The parameter is the figure's y-axis label's font size.
- #  string  supylabel_font_style
- #                          The parameter is the figure's y-axis label's font style.
- #  string  titles_list     The parameter is the list of chart titles.
- #  float   title_font_size_flt
- #                          The parameter is the title font size. 
- #  string  title_font_style
- #                          The parameter is the title font style.
- #  float   title_pad_flt   The parameter is the title space pad value. 
- #  float   title_y_flt     The parameter is the title's y-axis displacement.
- #  string  xlabel          The parameter is the subplot's x-axis label.
- #  float   xlabel_pad_flt  The parameter is the subplot's x-axis label's padding.
- #  float   xlabel_font_size_flt
- #                          The parameter is the subplot's x-axis label's font size.
- #  string  xlabel_loc      The parameter is the subplot's x-axis label's general location.
- #  string  xlabel_font_style
- #                          The parameter is the subplot's x-axis label's font style.
- #  string  ylabel          The parameter is the subplot's y-axis label.
- #  float   ylabel_pad_flt  The parameter is the subplot's y-axis label's padding.
- #  float   ylabel_font_size_flt
- #                          The parameter is the subplot's y-axis label's font size.
- #  string  ylabel_loc      The parameter is the subplot's y-axis label's general location.
- #  string  ylabel_font_style
- #                          The parameter is the subplot's y-axis label's font style.
- #  float   figure_width_flt
- #                          The parameter is the figure width. 
- #  float   figure_length_flt
- #                          The parameter is the figure length. 
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
  #
  #
  #  Date                Description                                 Programmer
  #  ---------------     ------------------------------------        ------------------
- #  08/18/2023          Initial Development                         Nicholas J. George
+ #  02/24/2026          Initial Development                         Nicholas J. George
  #
- #******************************************************************************************/  
+ #******************************************************************************************/
 
-def display_plots_from_series_list \
-        (input_series_list,
-         suptitle,
-         supxlabel = None,
-         supylabel = None,
-         xlabel = '',
-         ylabel = '',
-         color = 'darkgreen',
-         reverse_dimensions_bool = True,
-         share_x_bool = True,
-         share_y_bool = True,
-         tight_layout_bool = True,
-         alpha_flt = 1.0,
-         grid_bool = True,
-         suptitle_x_flt = 0.5,  
-         suptitle_y_flt = 0.9,  
-         suptitle_font_size_flt = 20.0,
-         suptitle_font_weight = 'normal',
-         supxlabel_x_flt = 0.5,  
-         supxlabel_y_flt = 0.0,  
-         supxlabel_font_size_flt = 16.0,
-         supxlabel_font_weight = 'normal',
-         supylabel_x_flt = 0.0,  
-         supylabel_y_flt = 0.5,  
-         supylabel_font_size_flt = 16.0,
-         supylabel_font_weight = 'normal',
-         title_font_size_flt = 20.0,
-         title_font_style = 'normal',
-         title_pad_flt = 20.0,
-         xlabel_font_size_flt = 16.0,
-         xlabel_font_style = 'normal',
-         xlabel_pad_flt = 10.0,
-         ylabel_font_size_flt = 16.0,
-         ylabel_font_style = 'normal',
-         ylabel_pad_flt = 10.0,
-         xticks_font_size_flt = 14.0,
-         xticks_rotation_flt = 90.0,
-         yticks_font_size_flt = 14.0,
-         yticks_rotation_flt = 0.0,
-         tight_layout_flt = 3.0,
-         figure_width_flt = 15.0,
-         figure_length_flt = 10.0):
+def set_histogram_chart_xylabels \
+        (xlabel, 
+         ylabel):
 
-    chart_count_int = len(input_series_list)
-
-    colors_list = [color] * chart_count_int
+    set_xylabels(xlabel, ylabel, chart_enum.HISTOGRAM.value)
 
 
-    row_count_int, column_count_int \
-        = mathx.calculate_closest_factors(chart_count_int)
-
-    if reverse_dimensions_bool == True:
-
-        row_count_int, column_count_int = column_count_int, row_count_int       
+# In[21]:
 
 
-    fig, axs \
-        = plt.subplots \
-            (row_count_int, 
-             column_count_int, 
-             figsize = (figure_width_flt, figure_length_flt),
-             sharex = share_x_bool,
-             sharey = share_y_bool, 
-             tight_layout = tight_layout_bool)
+#*******************************************************************************************
+ #
+ #  Function Name:  get_line_chart_xylabels
+ #
+ #  Function Description:
+ #      The function retrieves the line chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_line_chart_xylabels():
+
+    return get_xylabels(chart_enum.LINE.value)
 
 
-    plt.clf()
+# In[22]:
 
 
-    fig.suptitle \
-        (suptitle,
-         x = suptitle_x_flt,
-         y = suptitle_y_flt,
-         fontsize = suptitle_font_size_flt, 
-         fontweight = suptitle_font_weight)
+#*******************************************************************************************
+ #
+ #  Function Name:  set_line_chart_xylabels
+ #
+ #  Function Description:
+ #      The function sets the line chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_line_chart_xylabels \
+        (xlabel, 
+         ylabel):
+
+    set_xylabels(xlabel, ylabel, chart_enum.LINE.value)
 
 
-    for index in range(chart_count_int):
-
-        plt.subplot(row_count_int, column_count_int, index + 1)
+# In[23]:
 
 
-        input_series_list[index] \
-            .plot \
-                (color = colors_list[index], 
-                 alpha = alpha_flt, 
-                 grid = grid_bool,
-                 legend = False)
+#*******************************************************************************************
+ #
+ #  Function Name:  get_pie_chart_xylabels
+ #
+ #  Function Description:
+ #      The function retrieves the pie chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
 
+def get_pie_chart_xylabels():
+
+    return get_xylabels(chart_enum.PIE.value)
+
+
+# In[24]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_pie_chart_xylabels
+ #
+ #  Function Description:
+ #      The function sets the pie chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_pie_chart_xylabels \
+        (xlabel, 
+         ylabel):
+
+    set_xylabels(xlabel, ylabel, chart_enum.PIE.value)
+
+
+# In[25]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_plot_chart_xylabels
+ #
+ #  Function Description:
+ #      The function retrieves the plot chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_plot_chart_xylabels():
+
+    return get_xylabels(chart_enum.PLOT.value)
+
+
+# In[26]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_plot_chart_xylabels
+ #
+ #  Function Description:
+ #      The function sets the plot chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_plot_chart_xylabels \
+        (xlabel, 
+         ylabel):
+
+    set_xylabels(xlabel, ylabel, chart_enum.PLOT.value)
+
+
+# In[27]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_scatterplot_chart_xylabels
+ #
+ #  Function Description:
+ #      The function retrieves the scatter plot chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_scatterplot_chart_xylabels():
+
+    return get_xylabels(chart_enum.SCATTER.value)
+
+
+# In[28]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_scatterplot_chart_xylabels
+ #
+ #  Function Description:
+ #      The function sets the scatter plot chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_scatterplot_chart_xylabels \
+        (xlabel, 
+         ylabel):
+
+    set_xylabels(xlabel, ylabel, chart_enum.SCATTER.value)
+
+
+# In[29]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_scatterplot_multichart_xylabels
+ #
+ #  Function Description:
+ #      The function retrieves the scatter plot multichart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_scatterplot_multichart_xylabels():
+
+    return get_xylabels(chart_enum.MULTISCATTER.value)
+
+
+# In[30]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_scatterplot_multichart_xylabels
+ #
+ #  Function Description:
+ #      The function sets the scatter plot multichart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_scatterplot_multichart_xylabels \
+        (xlabel, 
+         ylabel):
+
+    set_xylabels(xlabel, ylabel, chart_enum.MULTISCATTER.value)
+
+
+# In[31]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_regr_line_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global regression line dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_regr_line_dict():
+
+    return regr_line_dict
+
+
+# In[32]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_regr_line_dict
+ #
+ #  Function Description:
+ #      The function sets the global regression line dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated regression line
+ #                                  dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_regr_line_dict(upd_dict):
+
+    global regr_line_dict
+
+    regr_line_dict = upd_dict
+
+
+# In[33]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_regr_degree
+ #
+ #  Function Description:
+ #      The function retrieves the regression line degree.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_regr_degree():
+
+    return regr_line_dict['degree']
+
+
+# In[34]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_regr_degree
+ #
+ #  Function Description:
+ #      The function sets the regression line degree.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_regr_degree(input_obj):
+
+    global regr_line_dict
+
+    if isinstance(input_obj, int) == True:
+
+        regr_line_dict['degree'] = [abs(input_obj)]
+
+    elif isinstance(input_obj, float) == True:
+
+        regr_line_dict['degree'] = [int(abs(input_obj))]
+
+    elif isinstance(input_obj, list) == True:
+
+        regr_line_dict['degree'] = np.array(input_obj)
+
+    elif isinstance(input_obj, np.ndarray) == True:
+
+        regr_line_dict['degree'] = input_obj
+
+    elif isinstance(input_obj, pd.Series) == True:
+
+        regr_line_dict['degree'] = input_obj.to_numpy()
+
+
+# In[35]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_regr_line_dict
+ #
+ #  Function Description:
+ #      The function retrieves the regression equations x-axis and y-axis coordinates.
+ #
+ #
+ #  Return Type: float, float
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_regr_eqn_coords():
+
+    return regr_line_dict['eqn_x_coord'], regr_line_dict['eqn_y_coord']
+
+
+# In[36]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_regr_eqn_coords
+ #
+ #  Function Description:
+ #      The function sets the regression equations x-axis and y-axis coordinates.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         x_crd_obj        The parameter is the regression equation's
+ #                                  x-coordinate.
+ #  object         y_crd_obj        The parameter is the regression equation's
+ #                                  y-coordinate.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_regr_eqn_coords(x_crd_obj, y_crd_obj):
+
+    global regr_line_dict
+
+
+    if isinstance(x_crd_obj, int) == True \
+        or isinstance(x_crd_obj, float) == True:
+
+        regr_line_dict['eqn_x_coord'] = [x_crd_obj]
+
+    elif isinstance(x_crd_obj, list) == True:
+
+        regr_line_dict['eqn_x_coord'] = x_crd_obj
+
+
+    if isinstance(y_crd_obj, int) == True \
+        or isinstance(y_crd_obj, float) == True:
+
+        regr_line_dict['eqn_y_coord'] = [y_crd_obj]
+
+    elif isinstance(y_crd_obj, list) == True:
+
+        regr_line_dict['eqn_y_coord'] = y_crd_obj  
+
+
+# In[37]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_bar_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global bar chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_bar_chart_dict():
+
+    return bar_chart_dict
+
+
+# In[38]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_bar_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global bar chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated bar chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_bar_chart_dict(upd_dict):
+
+    global bar_chart_dict
+
+    bar_chart_dict = upd_dict
+
+
+# In[39]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_bar_chart_colors
+ #
+ #  Function Description:
+ #      The function retrieves the bar chart face colors.
+ #
+ #
+ #  Return Type: string or list
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_bar_chart_colors():
+
+    return bar_chart_dict['params']['color']
+
+
+# In[40]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_bar_chart_colors
+ #
+ #  Function Description:
+ #      The function sets the bar chart face colors.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         upd_obj          The parameter is the updated group of bar chart 
+ #                                  colors.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_bar_chart_colors(upd_obj):
+
+    global bar_chart_dict
+
+    bar_chart_dict['params']['color'] \
+        = dtypesx.cnv_data_to_array(upd_obj)
+
+
+# In[41]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_boxplot_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global boxplot chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_boxplot_chart_dict():
+
+    return boxplot_chart_dict
+
+
+# In[42]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_boxplot_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global boxplot chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated boxplot chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_boxplot_chart_dict(upd_dict):
+
+    global boxplot_chart_dict
+
+    boxplot_chart_dict = upd_dict
+
+
+# In[43]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_histogram_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global histogram chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_histogram_chart_dict():
+
+    return histogram_chart_dict
+
+
+# In[44]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_histogram_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global histogram chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated histogram chart 
+ #                                  dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_histogram_chart_dict(upd_dict):
+
+    global histogram_chart_dict
+
+    histogram_chart_dict = upd_dict
+
+
+# In[45]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_line_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global line chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_line_chart_dict():
+
+    return line_chart_dict
+
+
+# In[46]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_line_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global line chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated line chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_line_chart_dict(upd_dict):
+
+    global line_chart_dict
+
+    line_chart_dict = upd_dict
+
+
+# In[47]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_pie_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global pie chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_pie_chart_dict():
+
+    return pie_chart_dict
+
+
+# In[48]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_pie_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global line chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated pie chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_pie_chart_dict(upd_dict):
+
+    global pie_chart_dict
+
+    pie_chart_dict = upd_dict
+
+
+# In[49]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_pie_chart_colors
+ #
+ #  Function Description:
+ #      The function retrieves the pie chart colors.
+ #
+ #
+ #  Return Type: array, list, or tuple
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_pie_chart_colors():
+
+    return pie_chart_dict['params']['colors']
+
+
+# In[50]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_pie_chart_colors
+ #
+ #  Function Description:
+ #      The function sets the pie chart colors.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         upd_obj          The parameter is the updated group of pie chart 
+ #                                  colors.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_pie_chart_colors(upd_obj):
+
+    global pie_chart_dict
+
+    pie_chart_dict['params']['colors'] \
+        = dtypesx.cnv_data_to_array(upd_obj)
+
+
+# In[51]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_pie_chart_explode
+ #
+ #  Function Description:
+ #      The function retrieves the pie chart explode values.
+ #
+ #
+ #  Return Type: array, list, or tuple
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_pie_chart_explode():
+
+    return pie_chart_dict['params']['explode']
+
+
+# In[52]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_pie_chart_explode
+ #
+ #  Function Description:
+ #      The function sets the pie chart explode values.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         upd_obj          The parameter is the updated group of pie chart 
+ #                                  explode values.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_pie_chart_explode(upd_obj):
+
+    global pie_chart_dict
+
+    pie_chart_dict['params']['explode'] \
+        = dtypesx.cnv_data_to_array(upd_obj)
+
+
+# In[53]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_plot_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global plot chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_plot_chart_dict():
+
+    return plot_chart_dict
+
+
+# In[54]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_plot_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global plot chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated plot chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_plot_chart_dict(upd_dict):
+
+    global plot_chart_dict
+
+    plot_chart_dict = upd_dict
+
+
+# In[55]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_scatterplot_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global scatterplot chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_scatterplot_chart_dict():
+
+    return scatterplot_chart_dict
+
+
+# In[56]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_scatterplot_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global scatterplot chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated scatterplot chart 
+ #                                  dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_scatterplot_chart_dict(upd_dict):
+
+    global scatterplot_chart_dict
+
+    scatterplot_chart_dict = upd_dict
+
+
+# In[57]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_scatterplot_multichart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global scatterplot multichart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_scatterplot_multichart_dict():
+
+    return scatterplot_multichart_dict
+
+
+# In[58]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_scatterplot_multichart_dict
+ #
+ #  Function Description:
+ #      The function sets the global scatterplot multichart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated scatterplot multichart 
+ #                                  dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_scatterplot_multichart_dict(upd_dict):
+
+    global scatterplot_multichart_dict
+
+    scatterplot_multichart_dict = upd_dict
+
+
+# In[59]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_bar_chart_input
+ #
+ #  Function Description:
+ #      The function takes input for a bar chart and processes it for display. If the
+ #      input is a Series or Dataframe, the function returns it unchanged. If the input
+ #      is a Series dictionary, Series list, or Series array, the function converts
+ #      the data to a Dataframe and returns it. Otherwise, the function returns None.
+ #
+ #
+ #  Return Type: series / dataframe
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_bar_chart_input(input_obj):
+
+    if isinstance(input_obj, pd.Series) \
+        or isinstance(input_obj, pd.DataFrame):
+
+        return input_obj
+
+    elif isinstance(input_obj, dict) \
+        or isinstance(input_obj, list) \
+        or isinstance(input_obj, np.ndarray):
+
+        return pd.DataFrame(input_obj)
+
+    else: return None
+
+
+# In[60]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_boxplot_chart_input
+ #
+ #  Function Description:
+ #      The function takes input for a boxplot chart and processes it for display. If
+ #      the input is a Series list [data, labels] or a DataFrame, the function retrieves 
+ #      and returns the data and labels. Otherwise, the function returns None for both 
+ #      the data and labels.
+ #
+ #
+ #  Return Type: series, array
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_boxplot_chart_input(input_obj):
+
+    if isinstance(input_obj, list) \
+        and len(input_obj) >= 2:
+
+        data = input_obj[0]
+
+        labels = np.array(input_obj[1])
+
+    elif isinstance(input_obj, pd.DataFrame):
+
+        data \
+            = [group[boxplot_chart_dict['params']['y_col']].values \
+               for _, group in input_obj.groupby(boxplot_chart_dict['params']['x_col'])]
+
+        labels \
+            = np.array([name for name, _ in input_obj \
+                    .groupby(boxplot_chart_dict['params']['x_col'])])
+
+    else: data, labels = None, None
+
+
+    return data, labels
+
+
+# In[61]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_line_chart_input
+ #
+ #  Function Description:
+ #      The function takes input for a bar chart and processes it for display. If the
+ #      input is a Series or Dataframe, the function returns it unchanged. If the input
+ #      is a Series list or Series array, the function converts the data to a Series 
+ #      and returns it. Otherwise, the function returns None.
+ #
+ #
+ #  Return Type: series / dataframe
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_line_chart_input(input_obj):
+
+    if isinstance(input_obj, pd.Series) \
+        or isinstance(input_obj, pd.DataFrame):
+
+        return input_obj
+
+    elif (isinstance(input_obj, list) \
+          or isinstance(input_obj, np.ndarray)) \
+            and len(input_obj) >= 2:
+
+        index = dtypesx.cnv_data_to_array(input_obj[0])
+
+        data = dtypesx.cnv_data_to_array(input_obj[1])
+
+        input_series = pd.Series(data, index = index)
+
+        return input_series
+
+    else: return None
+
+
+# In[62]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_pie_chart_input
+ #
+ #  Function Description:
+ #      The function takes input for a pie chart and processes it for display. If the
+ #      input is a Series, Series list, Series tuple, or Series array, the function 
+ #      retrieves and returns the data and labels. Otherwise, the function returns None 
+ #      for both the data and labels.
+ #
+ #
+ #  Return Type: array, array
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_pie_chart_input(input_obj):
+
+    if isinstance(input_obj, pd.Series):
+
+        data = input_obj.to_numpy()
+
+        labels = input_obj.index.to_numpy()
+
+    elif isinstance(input_obj, list) \
+            or isinstance(input_obj, tuple) \
+            or isinstance(input_obj, np.ndarray):
+
+        data = dtypesx.cnv_data_to_array(input_obj[0])
+
+        labels = dtypesx.cnv_data_to_array(input_obj[1])
+
+    else: data, labels = None, None
+
+
+    return data, labels
+
+
+# In[63]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_plot_chart_input
+ #
+ #  Function Description:
+ #      The function takes input for a plot chart and processes it for display. If the
+ #      input is a Series, Series list, Series tuple, or Series array, the function 
+ #      retrieves and returns the x-axis and y-axis data as a Series. Otherwise, the 
+ #      function returns None.
+ #
+ #
+ #  Return Type: series
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_plot_chart_input(input_obj):
+
+    if isinstance(input_obj, pd.Series):
+
+        temp_obj = input_obj
+
+    elif isinstance(input_obj, list) \
+            or isinstance(input_obj, tuple) \
+            or isinstance(input_obj, np.ndarray):
+
+        index = dtypesx.cnv_data_to_array(input_obj[0])
+
+        data = dtypesx.cnv_data_to_array(input_obj[1])
+
+        temp_obj = pd.Series(data, index = index)
+
+    else: temp_obj = None
+
+
+    return temp_obj
+
+
+# In[64]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_scatterplot_chart_input
+ #
+ #  Function Description:
+ #      The function takes input for a scatterplot chart and processes it for display. 
+ #      If the input is a Series, Series list, Series tuple, or Series array, the 
+ #      function retrieves and returns the x-axis and y-axis data. Otherwise, the 
+ #      function returns None for both data.
+ #
+ #
+ #  Return Type: array, array
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_scatterplot_chart_input(input_obj):
+
+    if (isinstance(input_obj, list) \
+            or isinstance(input_obj, np.ndarray)\
+            or isinstance(input_obj, tuple)) \
+                and len(input_obj) >= 2:
+
+        x_array = dtypesx.cnv_data_to_array(input_obj[0])
+
+        y_array = dtypesx.cnv_data_to_array(input_obj[1])
+
+    elif isinstance(input_obj, pd.Series):
+
+        y_array = input_obj.index.to_numpy()
+
+        x_array = input_obj.to_numpy()
+
+    else: x_array, y_array = None, None
+
+
+    return x_array, y_array
+
+
+# In[65]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_scatterplot_multichart_input
+ #
+ #  Function Description:
+ #      The function takes input for a scatterplot multichart and processes it for 
+ #      display. If the input is a list of Series lists or DataFrame, the function
+ #      retrieves and returns the x-axis and y-axis data. Otherwise, the function
+ #      returns None for both data.
+ #
+ #
+ #  Return Type: list, list
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_scatterplot_multichart_input(input_obj):
+
+    if isinstance(input_obj, list):
+
+        return input_obj[0], input_obj[1]
+
+    elif isinstance(input_obj, pd.DataFrame):
+
+        x_list = []
+
+        y_list = []
+
+        for idx in range(len(input_obj.columns)):
+
+            x_list.append(pd.Series(list(input_obj.index)))
+
+            y_list.append(input_obj.iloc[:, idx])
+
+        return x_list, y_list
+
+    else: return None, None
+
+
+# In[66]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  proc_chart_input
+ #
+ #  Function Description:
+ #      The function takes input for a chart and processes it for display.
+ #
+ #
+ #  Return Type: series / dataframe / series, array / array, array
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  enueration     chart_enum_value The parameter indicates the chart type.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def proc_chart_input \
+        (input_obj,
+         chart_enum_value):
+
+    if chart_enum_value == chart_enum.LINE.value:
+
+        return proc_line_chart_input(input_obj)
+
+    elif chart_enum_value == chart_enum.BOXPLOT.value:
+
+        return proc_boxplot_chart_input(input_obj)
+
+    elif chart_enum_value == chart_enum.BAR.value:
+
+        return proc_bar_chart_input(input_obj)
+
+    elif chart_enum_value == chart_enum.SCATTER.value:
+
+        return proc_scatterplot_chart_input(input_obj)
+
+    elif chart_enum_value == chart_enum.PIE.value:
+
+        return proc_pie_chart_input(input_obj)
+
+    elif chart_enum_value == chart_enum.HISTOGRAM.value:
+
+        return dtypesx.cnv_data_to_array(input_obj)
+
+    elif chart_enum_value == chart_enum.PLOT.value:
+
+        return proc_plot_chart_input(input_obj)
+
+    elif chart_enum_value == chart_enum.MULTISCATTER.value:
+
+        return proc_scatterplot_multichart_input(input_obj)
+
+
+# In[67]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  linear_regr_line
+ #
+ #  Function Description:
+ #      The function displays a linear regression line on a chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         x_obj            The parameter is the x-axis data.
+ #  object         y_obj            The parameter is the y-axis data.
+ #  float          x_coord_flt      The parameter is the x-coordinate of the text.   
+ #  float          y_coord_flt      The parameter is the y-coordinate of the text.  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def linear_regr_line \
+        (x_obj,
+         y_obj,
+         x_coord_flt,
+         y_coord_flt):
+
+    x_array = dtypesx.cnv_data_to_array(x_obj)
+
+    y_array = dtypesx.cnv_data_to_array(y_obj)
+
+
+    (slope, intercept, rvalue, pvalue, stderr) \
+        = stats.linregress(x_array, y_array)
+
+    linear_regr_array \
+        = (x_array * slope) + intercept
+
+
+    plt.plot \
+        (x_array,
+         linear_regr_array,
+         color = regr_line_dict['linecolor'],
+         linewidth = regr_line_dict['linewidth'],
+         alpha = regr_line_dict['alpha'])
+
+    linear_eqn \
+        = 'y = ' + str(round(slope, regr_line_dict['coef_prec'])) \
+          + 'x + ' + str(round(intercept, regr_line_dict['coef_prec']))
+
+    plt.annotate \
+        (linear_eqn,
+         (x_coord_flt, y_coord_flt),
+         fontsize = regr_line_dict['fontsize'],
+         fontweight = regr_line_dict['fontweight'],
+         color = regr_line_dict['fontcolor'])   
+
+
+    logx.print_and_log_text('r-value:     {:.4f}'.format(rvalue))
+
+    logx.print_and_log_text('r-squared:   {:.4f}\n'.format(rvalue*rvalue))
+
+
+# In[68]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  regr_line
+ #
+ #  Function Description:
+ #      The function displays a regression line on a chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         x_obj            The parameter is the x-axis data.
+ #  object         y_obj            The parameter is the y-axis data.
+ #  float          x_coord_flt      The parameter is the x-coordinate of the text.   
+ #  float          y_coord_flt      The parameter is the y-coordinate of the text.
+ #  integer        degree_int       The parameter is the regression polynomial degree.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def regr_line \
+        (x_obj,
+         y_obj,
+         x_coord_flt,
+         y_coord_flt,
+         degree_int = 1):
+
+    if degree_int <= 1:
+
+        linear_regr_line \
+            (x_obj, y_obj,
+             x_coord_flt,
+             y_coord_flt)
+
+        return
+
+
+    x_array = dtypesx.cnv_data_to_array(x_obj)
+
+    y_array = dtypesx.cnv_data_to_array(y_obj)
+
+
+    model_eqn_array \
+        = mathx.rtn_regr_model_eqn_coef \
+            (x_array, y_array, degree_int)
+
+    poly_line_array \
+        = mathx.rtn_poly_line_array \
+            (x_array, y_array)
+
+
+    plt.plot \
+        (poly_line_array, 
+         model_eqn_array(poly_line_array),
+         color = regr_line_dict['linecolor'],
+         linewidth = regr_line_dict['linewidth'],
+         alpha = regr_line_dict['alpha'])
+
+    eqn_lbl \
+        = mathx.rtn_eqn_as_text \
+            (model_eqn_array,
+             regr_line_dict['coef_prec'])
+
+    plt.annotate \
+        (eqn_lbl,
+         (x_coord_flt, y_coord_flt),
+         fontsize = regr_line_dict['fontsize'],
+         fontweight = regr_line_dict['fontweight'],
+         color = regr_line_dict['fontcolor'])
+
+
+    r_sqr_flt \
+        = mathx.rtn_r_sqr \
+            (x_array, y_array, degree_int)
+
+
+    logx.print_and_log_text('r-value:     {:.4f}'.format(math.sqrt(r_sqr_flt)))
+
+    logx.print_and_log_text('r-squared:   {:.4f}'.format(r_sqr_flt))
+
+
+# In[69]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_subplots
+ #
+ #  Function Description:
+ #      The function plots the figure subplots for the multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_subplots(chart_dict):
+
+    return \
+        plt.subplots \
+            (figsize 
+                 = (chart_dict['figure']['width'], 
+                    chart_dict['figure']['length']),
+             nrows = chart_dict['figure']['nrows'], 
+             ncols = chart_dict['figure']['ncols'],
+             sharex = chart_dict['figure']['sharex'],
+             sharey = chart_dict['figure']['sharey'])
+
+
+# In[70]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_subplot
+ #
+ #  Function Description:
+ #      The function plots the figure subplot in the multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #  integer        idx              The parameter is the plot index minus one.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_subplot(chart_dict, idx):
+
+    plt.subplot \
+        (chart_dict['figure']['nrows'], 
+         chart_dict['figure']['ncols'], 
+         idx + 1)
+
+
+# In[71]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_figsize
+ #
+ #  Function Description:
+ #      The function plots the figure dimensions.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_figsize(chart_dict):
+
+    plt.figure \
+        (figsize \
+            = (chart_dict['figure']['width'], 
+               chart_dict['figure']['length']))
+
+
+# In[72]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_title_axes
+ #
+ #  Function Description:
+ #      The function plots the chart's title, x-axis label, and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #  integer        idx              The parameter is the plot index.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_title_axes \
+        (chart_dict,
+         idx = 0):
+
+    if chart_dict['title']['text'][idx] != None:
 
         plt.title \
-            (input_series_list[index].name,
-             fontdict = {'fontsize': title_font_size_flt, 
-                         'fontstyle': title_font_style},
-             pad = title_pad_flt)
+            (chart_dict['title']['text'][idx],
+             fontdict = {'fontsize': chart_dict['title']['fontsize'], 
+                         'fontstyle': chart_dict['title']['fontstyle']},
+             pad = chart_dict['title']['pad'])
 
+
+    if chart_dict['xlabel']['text'] != None:
 
         plt.xlabel \
-            (xlabel,
-             fontdict = {'fontsize': xlabel_font_size_flt,
-                         'fontstyle': xlabel_font_style},
-             labelpad = xlabel_pad_flt)
+            (chart_dict['xlabel']['text'],
+             fontdict = {'fontsize': chart_dict['xlabel']['fontsize'],
+                         'fontstyle': chart_dict['xlabel']['fontstyle']},
+             labelpad = chart_dict['xlabel']['pad'])
+
+    if chart_dict['ylabel']['text'] != None:
 
         plt.ylabel \
-            (ylabel,
-             fontdict = {'fontsize': ylabel_font_size_flt,
-                         'fontstyle': ylabel_font_style},
-             labelpad = ylabel_pad_flt)
-
-        plt.xticks(fontsize = xticks_font_size_flt, rotation = xticks_rotation_flt)
-
-        plt.yticks(fontsize = yticks_font_size_flt, rotation = yticks_rotation_flt)
+            (chart_dict['ylabel']['text'],
+             fontdict = {'fontsize': chart_dict['ylabel']['fontsize'],
+                         'fontstyle': chart_dict['ylabel']['fontstyle']},
+             labelpad = chart_dict['ylabel']['pad'])
 
 
-        plt.tight_layout(pad = 3.0)
+# In[73]:
 
 
-    if supxlabel != None:
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_limits
+ #
+ #  Function Description:
+ #      The function sets the x-axis and y-axis limits.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
 
-        fig.supxlabel \
-            (supxlabel,
-             x = supxlabel_x_flt,
-             y = supxlabel_y_flt,
-             fontsize = supxlabel_font_size_flt, 
-             fontweight = supxlabel_font_weight)
+def plot_limits(chart_dict):
 
-    if supylabel != None:
+    if chart_dict['xlim']['display'] == True:
 
-            fig.supylabel \
-                (supylabel,
-                 x = supylabel_x_flt,
-                 y = supylabel_y_flt,
-                 fontsize = supylabel_font_size_flt, 
-                 fontweight = supylabel_font_weight)
+        if chart_dict['xlim']['mode'] == 'set':
+
+            plt.xlim \
+                (chart_dict['xlim']['set']['min'], 
+                 chart_dict['xlim']['set']['max'])
+        else:
+
+            plt.xlim(left = chart_dict['xlim']['adjust']['left'])
+
+            plt.xlim(right = chart_dict['xlim']['adjust']['right'])
+
+
+    if chart_dict['ylim']['display'] == True:
+
+        if chart_dict['ylim']['mode'] == 'set':
+
+            plt.xlim \
+                (chart_dict['ylim']['set']['min'], 
+                 chart_dict['ylim']['set']['max'])
+        else:
+
+            plt.xlim(left = chart_dict['ylim']['adjust']['left'])
+
+            plt.xlim(right = chart_dict['ylim']['adjust']['right']) 
+
+
+# In[74]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_ticks
+ #
+ #  Function Description:
+ #      The function plots the x-axis and y-axis ticks and chart grid.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #  array          tick_lbls_array  The optional parameter is the tick labels.
+ #  boolean        boxplot_bool     The optional parameter indicates whether the chart 
+ #                                  is a boxplot.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_ticks \
+        (chart_dict,
+         tick_lbls_array = np.array([], dtype = str),
+         boxplot_bool = False):
+
+    if boxplot_bool == False:
+
+        if chart_dict['xticks']['display'] == True:
+
+            plt.xticks \
+                (fontsize = chart_dict['xticks']['fontsize'], 
+                 rotation = chart_dict['xticks']['rotation'])
+
+    else:
+
+        if chart_dict['xticks']['display'] == True:
+
+            ticks_idx_array = np.array([], dtype = int)
+
+            for idx, lbl in enumerate(tick_lbls_array):
+
+                ticks_idx_array = np.append(ticks_idx_array, idx + 1)
+
+
+            plt.xticks \
+                (ticks_idx_array, 
+                 tick_lbls_array,
+                 fontsize = boxplot_chart_dict['xticks']['fontsize'], 
+                 rotation = boxplot_chart_dict['xticks']['rotation'])
+
+
+    if boxplot_chart_dict['yticks']['display'] == True:
+
+        plt.yticks \
+            (fontsize = boxplot_chart_dict['yticks']['fontsize'], 
+             rotation = boxplot_chart_dict['yticks']['rotation'])
+
+
+    if chart_dict['grid']['display'] == True:
+
+        plt.grid \
+            (visible = chart_dict['grid']['visible'],
+             which = chart_dict['grid']['which'],
+             axis =  chart_dict['grid']['axis'])   
+
+
+# In[75]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_legend
+ #
+ #  Function Description:
+ #      The function plots the chart's legend.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_legend(chart_dict):
+
+    if chart_dict['legend']['display'] == True:
+
+        plt.legend \
+            (loc = chart_dict['legend']['loc'],
+             fontsize = chart_dict['legend']['fontsize'],
+             bbox_to_anchor = chart_dict['legend']['bbox_to_anchor'])
+
+
+# In[76]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_regr_line
+ #
+ #  Function Description:
+ #      The function plots the chart's regression line.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          x_array          The parameter is the x-coordinates.
+ #  array          y_array          The parameter is the y-coordinates.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #  integer        idx              The parameter is the plot index.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_regr_line \
+        (x_array, 
+         y_array, 
+         chart_dict,
+         idx = 0):
+
+    if chart_dict['degree'][idx] >= 1:
+
+        regr_line \
+            (x_array, y_array,
+             chart_dict['eqn_x_coord'][idx],
+             chart_dict['eqn_y_coord'][idx],
+             chart_dict['degree'][idx])
+
+
+# In[77]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_peaks
+ #
+ #  Function Description:
+ #      The function plots the chart's labels for line peaks from a series.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  series         input_series     The parameter is the input series.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_peaks \
+        (input_series, 
+         chart_dict):
+
+    if chart_dict['peaks']['display'] == True:
+
+        x_array \
+            = dtypesx.cnv_data_to_array \
+                (list(input_series.index[chart_dict['peaks']['array']]))
+
+        y_array \
+            = dtypesx.cnv_data_to_array \
+                (list(input_series.iloc[chart_dict['peaks']['array']]))
+
+
+        plt.plot \
+            (x_array, y_array, 'x', 
+             markersize = chart_dict['peaks']['markersize'], 
+             color = chart_dict['peaks']['color'][0]) 
+
+
+        for i, j in zip(x_array, y_array):
+
+            y_coord_flt = j + emp_obj.iloc[chart_dict['peaks']['y_offset']]
+
+            plt.annotate \
+                (i, xy = (i, y_coord_flt), 
+                 size = chart_dict['peaks']['fontsize'], 
+                 color = chart_dict['peaks']['color'][1])
+
+
+# In[78]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_suptitle_axes
+ #
+ #  Function Description:
+ #      The function plots the chart's suptitle, supx-axis label, and supy-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         figure           The parameter is the matplotlib figure object.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_suptitle_axes \
+        (figure,
+         chart_dict):
+
+    if chart_dict['suptitle']['text'] != None:
+
+        figure.suptitle \
+            (t = chart_dict['suptitle']['text'], 
+             x = chart_dict['suptitle']['x'],
+             y = chart_dict['suptitle']['y'],
+             horizontalalignment = chart_dict['suptitle']['horizontalalignment'],
+             verticalalignment = chart_dict['suptitle']['verticalalignment'],
+             fontproperties = chart_dict['suptitle']['fontproperties'])
+
+    if chart_dict['supxlabel']['text'] != None:
+
+        figure.suptitle \
+            (t = chart_dict['supxlabel']['text'], 
+             x = chart_dict['supxlabel']['x'],
+             y = chart_dict['supxlabel']['y'],
+             horizontalalignment = chart_dict['supxlabel']['horizontalalignment'],
+             verticalalignment = chart_dict['supxlabel']['verticalalignment'],
+             fontproperties = chart_dict['supxlabel']['fontproperties'])
+
+    if chart_dict['supylabel']['text'] != None:
+
+        figure.suptitle \
+            (t = chart_dict['supylabel']['text'], 
+             x = chart_dict['supylabel']['x'],
+             y = chart_dict['supylabel']['y'],
+             horizontalalignment = chart_dict['supylabel']['horizontalalignment'],
+             verticalalignment = chart_dict['supylabel']['verticalalignment'],
+             fontproperties = chart_dict['supylabel']['fontproperties'])
+
+
+# In[79]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_tight_layout
+ #
+ #  Function Description:
+ #      The function sets the tight layout parameters for a multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_tight_layout(chart_dict):
+
+    if chart_dict['tight_layout']['display'] == True:
+
+        plt.tight_layout \
+            (pad = chart_dict['tight_layout']['pad'],
+             h_pad = chart_dict['tight_layout']['h_pad'],
+             w_pad = chart_dict['tight_layout']['w_pad'],
+             rect = chart_dict['tight_layout']['rect'])
+
+
+# In[80]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_bar_chart_series
+ #
+ #  Function Description:
+ #      The function plots a bar chart from a series.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  series         input_series     The parameter is the input series.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_bar_chart_series \
+    (input_series,
+     chart_dict):
+
+    if chart_dict['params']['horizontal'] == False:
+
+        plt.bar \
+            (input_series.keys(),
+             input_series,
+             width = chart_dict['vertical']['width'],
+             bottom = chart_dict['vertical']['bottom'],
+             align = chart_dict['params']['align'],
+             color = chart_dict['params']['color'],
+             edgecolor = chart_dict['params']['edgecolor'],
+             linewidth = chart_dict['params']['linewidth'],
+             tick_label = chart_dict['params']['tick_label'],
+             log = chart_dict['params']['log'],
+             alpha = chart_dict['params']['alpha'])
+
+    else:
+
+        plt.barh \
+            (input_series.keys(),
+             input_series,
+             height = chart_dict['horizontal']['height'],
+             left = chart_dict['horizontal']['left'],
+             align = chart_dict['params']['align'],
+             color = chart_dict['params']['color'],
+             edgecolor = chart_dict['params']['edgecolor'],
+             linewidth = chart_dict['params']['linewidth'],
+             tick_label = chart_dict['params']['tick_label'],
+             log = chart_dict['params']['log'],
+             alpha = chart_dict['params']['alpha'])
+
+
+# In[81]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_bar_chart_df
+ #
+ #  Function Description:
+ #      The function plots a bar chart from a Dataframe.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dataframe      input_df         The parameter is the input DataFrame.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_bar_chart_df \
+    (input_df,
+     chart_dict):
+
+    if chart_dict['params']['horizontal'] == True:
+
+        input_df \
+            .plot.barh \
+                (height = chart_dict['horizontal']['height'],
+                 left = chart_dict['horizontal']['left'],
+                 stacked = chart_dict['params']['stacked'],
+                 align = chart_dict['params']['align'],
+                 color = chart_dict['params']['color'],
+                 edgecolor = chart_dict['params']['edgecolor'],
+                 linewidth = chart_dict['params']['linewidth'],
+                 tick_label = chart_dict['params']['tick_label'],
+                 log = chart_dict['params']['log'],
+                 alpha = chart_dict['params']['alpha'])
+
+    else:
+
+        input_df \
+            .plot.bar \
+                (width = chart_dict['vertical']['width'],
+                 bottom = chart_dict['vertical']['bottom'],
+                 stacked = chart_dict['params']['stacked'],
+                 align = chart_dict['params']['align'],
+                 color = chart_dict['params']['color'],
+                 edgecolor = chart_dict['params']['edgecolor'],
+                 linewidth = chart_dict['params']['linewidth'],
+                 tick_label = chart_dict['params']['tick_label'],
+                 log = chart_dict['params']['log'],
+                 alpha = chart_dict['params']['alpha'])
+
+
+
+# In[82]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_bar_chart
+ #
+ #  Function Description:
+ #      The function plots a bar chart only.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_bar_chart \
+    (input_obj,
+     chart_dict):
+
+    if isinstance(input_obj, pd.Series):
+
+        plot_bar_chart_series(input_obj, chart_dict)
+
+    elif isinstance(input_obj, pd.DataFrame):
+
+        plot_bar_chart_df(input_obj, chart_dict)
+
+
+# In[83]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_boxplot_chart
+ #
+ #  Function Description:
+ #      The function plots a boxplot chart only.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  list           data_list        The parameter is the series list.
+ #  array          tick_lbls_array  The parameter is the tick labels array.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_boxplot_chart \
+        (data_list, 
+         tick_lbls_array,
+         chart_dict):
+
+    plt.boxplot \
+        (x = data_list,
+         notch = chart_dict['params']['notch'], 
+         vert = chart_dict['params']['vert'], 
+         orientation = chart_dict['params']['orientation'], 
+         whis = chart_dict['params']['whis'], 
+         widths = chart_dict['params']['widths'], 
+         patch_artist = chart_dict['params']['patch_artist'], 
+         autorange = chart_dict['params']['autorange'], 
+         meanline = chart_dict['params']['meanline'],
+         showmeans = chart_dict['params']['showmeans'])
+
+
+# In[84]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_histogram_chart
+ #
+ #  Function Description:
+ #      The function plots a histogram chart only.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          data_array       The parameter is the data array.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_histogram_chart \
+        (data_array,
+         chart_dict):
+
+    plt.hist \
+        (data_array,
+         bins = chart_dict['params']['bins'],
+         range = chart_dict['params']['range'],
+         density = chart_dict['params']['density'],
+         weights = chart_dict['params']['weights'],
+         cumulative = chart_dict['params']['cumulative'],
+         bottom = chart_dict['params']['bottom'],
+         histtype = chart_dict['params']['histtype'],
+         align = chart_dict['params']['align'],
+         orientation = chart_dict['params']['orientation'],
+         rwidth = chart_dict['params']['rwidth'],
+         log = chart_dict['params']['log'],
+         color = chart_dict['params']['color'],
+         label = chart_dict['params']['label'],
+         stacked = chart_dict['params']['stacked'],
+         edgecolor = chart_dict['params']['edgecolor'],
+         facecolor = chart_dict['params']['color'],
+         linewidth = chart_dict['params']['linewidth'],
+         alpha = chart_dict['params']['alpha'])
+
+
+# In[85]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_line_chart
+ #
+ #  Function Description:
+ #      The function plots a line chart only.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_line_chart \
+        (input_obj,
+         chart_dict):
+
+    input_obj \
+        .plot \
+        .line \
+            (color = chart_dict['line']['color'],
+             linestyle = chart_dict['line']['linestyle'],
+             fillstyle = chart_dict['line']['fillstyle'],
+             linewidth = chart_dict['line']['linewidth'],
+             alpha = chart_dict['line']['alpha'],
+             marker = chart_dict['marker']['shape'],
+             markerfacecolor = chart_dict['marker']['color'],
+             markeredgecolor = chart_dict['marker']['edgecolor'],
+             markersize = chart_dict['marker']['size'],
+             markeredgewidth = chart_dict['marker']['edgewidth'],
+             logx = chart_dict['params']['logx'],
+             logy = chart_dict['params']['logy'],
+             loglog = chart_dict['params']['loglog'],
+             stacked = chart_dict['params']['stacked'],
+             use_index = chart_dict['params']['use_index'])   
+
+
+# In[86]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_histogram_chart
+ #
+ #  Function Description:
+ #      The function plots a histogram chart only.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          data_array       The parameter is the data array.
+ #  array          labels_array     The parameter is the labels array.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_pie_chart \
+        (data_array, 
+         labels_array, 
+         chart_dict):
+
+    plt.pie \
+        (data_array,
+         labels = labels_array, 
+         explode = chart_dict['params']['explode'], 
+         colors = chart_dict['params']['colors'],
+         hatch = chart_dict['params']['hatch'],
+         autopct = chart_dict['params']['autopct'],
+         pctdistance = chart_dict['params']['pctdistance'],
+         labeldistance = chart_dict['params']['labeldistance'],
+         shadow = chart_dict['params']['shadow'],
+         startangle = chart_dict['params']['startangle'],
+         radius = chart_dict['params']['radius'],
+         counterclock = chart_dict['params']['counterclock'],
+         wedgeprops = chart_dict['params']['wedgeprops'],
+         textprops = chart_dict['params']['textprops'],
+         center = chart_dict['params']['center'],
+         frame = chart_dict['params']['frame'],
+         rotatelabels = chart_dict['params']['rotatelabels'],
+         normalize = chart_dict['params']['normalize'])
+
+
+# In[87]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_plot_chart
+ #
+ #  Function Description:
+ #      The function plots a chart only.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  series         data_series      The parameter is the data series.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_plot_chart \
+        (data_series, 
+         chart_dict):
+
+    data_series \
+        .plot \
+            (scalex = chart_dict['params']['scalex'],
+             scaley = chart_dict['params']['scaley'],
+             color = chart_dict['params']['color'],
+             alpha = chart_dict['params']['alpha'])
+
+
+# In[88]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_scatterplot_chart
+ #
+ #  Function Description:
+ #      The function plots a scatterplot chart only.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          x_array          The parameter is the x-axis array.
+ #  array          y_array          The parameter is the y-axis array.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_scatterplot_chart \
+        (x_array, 
+         y_array, 
+         chart_dict):
+
+    return \
+        plt.scatter \
+            (x_array, 
+             y_array, 
+             marker = chart_dict['marker']['shape'],
+             c = chart_dict['marker']['color'],
+             s = chart_dict['marker']['size'],
+             alpha = chart_dict['marker']['alpha'],
+             linewidth = chart_dict['marker']['linewidth'],
+             edgecolors = chart_dict['marker']['edgecolors'])
+
+
+# In[89]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  bar_chart
+ #
+ #  Function Description:
+ #      The function plots a bar chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         title            The parameter is the chart title.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def bar_chart \
+        (input_obj,
+         title):
+
+    global bar_chart_dict
+
+    bar_chart_dict['title']['text'] = [title]
+
+
+    plot_figsize(bar_chart_dict)
+
+
+    temp_obj = proc_chart_input(input_obj, chart_enum.BAR.value)
+
+    plot_bar_chart(temp_obj, bar_chart_dict)
+
+
+    plot_title_axes(bar_chart_dict)
+
+    plot_limits(bar_chart_dict)
+
+    plot_ticks(bar_chart_dict)
+
+    plot_legend(bar_chart_dict)
+
+
+    logx.save_plot_image(title)
+
+    plt.show()    
+
+
+# In[90]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  boxplot_chart
+ #
+ #  Function Description:
+ #      The function plots a boxplot chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         title            The parameter is the chart title.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def boxplot_chart \
+        (input_obj,
+         title):
+
+    global boxplot_chart_dict
+
+    boxplot_chart_dict['title']['text'] = [title]
+
+
+    plot_figsize(boxplot_chart_dict)
+
+
+    data_list, tick_lbls_array \
+        = proc_chart_input(input_obj, chart_enum.BOXPLOT.value)
+
+    plot_boxplot_chart(data_list, tick_lbls_array, boxplot_chart_dict)
+
+
+    plot_title_axes(boxplot_chart_dict)
+
+    plot_limits(boxplot_chart_dict)
+
+    plot_ticks(boxplot_chart_dict, tick_lbls_array, True)
+
+
+    logx.save_plot_image(title)
+
+    plt.show()
+
+
+# In[91]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  histogram_chart
+ #
+ #  Function Description:
+ #      The function plots a histogram chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         title            The parameter is the chart title.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def histogram_chart \
+        (input_obj,
+         title):
+
+    global histogram_chart_dict
+
+    histogram_chart_dict['title']['text'] = [title]
+
+
+    plot_figsize(histogram_chart_dict)
+
+
+    data_array = proc_chart_input(input_obj, chart_enum.HISTOGRAM.value)
+
+    plot_histogram_chart(data_array, histogram_chart_dict)
+
+
+    plot_title_axes(histogram_chart_dict)
+
+    plot_limits(histogram_chart_dict)
+
+    plot_ticks(histogram_chart_dict)
+
+    plot_legend(histogram_chart_dict)
+
+
+    logx.save_plot_image(title)
+
+    plt.show()
+
+
+# In[92]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  line_chart
+ #
+ #  Function Description:
+ #      The function plots a line chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         title            The parameter is the chart title.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def line_chart \
+        (input_obj,
+         title):
+
+    global line_chart_dict
+
+    line_chart_dict['title']['text'] = [title]
+
+
+    plot_figsize(line_chart_dict)
+
+
+    temp_obj = proc_chart_input(input_obj, chart_enum.LINE.value)
+
+    plot_line_chart(temp_obj, line_chart_dict)
+
+
+    plot_title_axes(line_chart_dict)
+
+    plot_limits(line_chart_dict)
+
+    plot_ticks(line_chart_dict)
+
+    plot_legend(line_chart_dict)
+
+
+    logx.save_plot_image(title)
+
+    plt.show()
+
+
+# In[93]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  pie_chart
+ #
+ #  Function Description:
+ #      The function plots a pie chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         title            The parameter is the chart title.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def pie_chart \
+        (input_obj,
+         title):
+
+    global pie_chart_dict
+
+    pie_chart_dict['title']['text'] = [title]
+
+
+    plot_figsize(scatterplot_chart_dict)
+
+
+    data_array, labels_array \
+        = proc_chart_input(input_obj, chart_enum.PIE.value)
+
+    plot_pie_chart(data_array, labels_array, pie_chart_dict)
+
+
+    plot_title_axes(pie_chart_dict)
+
+    plot_legend(pie_chart_dict)
+
+
+    logx.save_plot_image(title)
+
+    plt.show()   
+
+
+# In[94]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_chart
+ #
+ #  Function Description:
+ #      The function plots a plot chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         title            The parameter is the chart title.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_chart \
+        (input_obj,
+         title):
+
+    global plot_chart_dict
+
+    plot_chart_dict['title']['text'] = [title]
+
+
+    plot_figsize(histogram_chart_dict)
+
+
+    temp_obj = proc_chart_input(input_obj, chart_enum.PLOT.value)
+
+    plot_plot_chart(temp_obj, plot_chart_dict)
+
+    plot_peaks(temp_obj, plot_chart_dict)
+
+
+    plot_title_axes(plot_chart_dict)
+
+    plot_limits(plot_chart_dict)
+
+    plot_ticks(plot_chart_dict)
+
+    plot_legend(plot_chart_dict)
+
+
+    logx.save_plot_image(title)
+
+    plt.show()
+
+
+# In[95]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  scatterplot_chart
+ #
+ #  Function Description:
+ #      The function plots a scatterplot chart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         title            The parameter is the chart title.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def scatterplot_chart \
+        (input_obj,
+         title):
+
+    global scatterplot_chart_dict
+
+    scatterplot_chart_dict['title']['text'] = [title]
+
+
+    plot_figsize(scatterplot_chart_dict)
+
+
+    x_array, y_array \
+        = proc_chart_input(input_obj, chart_enum.SCATTER.value)
+
+    plot_scatterplot_chart(x_array, y_array, scatterplot_chart_dict)
+
+
+    plot_title_axes(scatterplot_chart_dict)
+
+    plot_limits(scatterplot_chart_dict)
+
+    plot_ticks(scatterplot_chart_dict)
+
+
+    plot_regr_line(x_array, y_array, regr_line_dict)
+
+
+    logx.save_plot_image(title)
+
+    plt.show()
+
+
+# In[96]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  scatterplot_multichart
+ #
+ #  Function Description:
+ #      The function plots a scatterplot multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         suptitle         The parameter is the multichart suptitle.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def scatterplot_multichart \
+        (input_obj,
+         suptitle):
+
+    global scatterplot_multichart_dict
+
+
+    scatterplot_multichart_dict['suptitle']['text'] = suptitle
+
+    scatterplot_multichart_dict['figure']['nplots'] \
+        = dtypesx.rtn_data_obj_size(input_obj)
+
+
+    rows, columns \
+        = mathx.calc_clst_factors \
+            (scatterplot_multichart_dict['figure']['nplots'])
+
+    scatterplot_multichart_dict['figure']['nrows'] = rows
+
+    scatterplot_multichart_dict['figure']['ncols'] = columns
+
+
+    fig, axs = plot_subplots(scatterplot_multichart_dict)
+
+    plot_suptitle_axes(fig, scatterplot_multichart_dict)
+
+
+    x_list, y_list \
+        = proc_chart_input(input_obj, chart_enum.MULTISCATTER.value) 
+
+    for idx in range(scatterplot_multichart_dict['figure']['nplots']):
+
+        plot_subplot(scatterplot_multichart_dict, idx)
+
+
+        x_array = dtypesx.cnv_data_to_array(x_list[idx])
+
+        y_array = dtypesx.cnv_data_to_array(y_list[idx])
+
+
+        plot_scatterplot_chart \
+            (x_array, y_array, 
+             scatterplot_chart_dict)
+
+
+        plot_title_axes(scatterplot_chart_dict, idx)
+
+        plot_limits(scatterplot_chart_dict)
+
+        plot_ticks(scatterplot_chart_dict)
+
+
+        plot_regr_line(x_array, y_array, regr_line_dict, idx)
+
+
+        plot_tight_layout(scatterplot_multichart_dict)
 
 
     logx.save_plot_image(suptitle)
