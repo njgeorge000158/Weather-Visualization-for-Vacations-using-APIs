@@ -22,8 +22,6 @@ pip3 install -U geopy
 
 pip3 install -U scipy
 
-pip3 install -U aspose-words
-
 pip3 install -U dataframe-image
 
 pip3 install -U selenium
@@ -40,6 +38,8 @@ The Jupyter Notebook, weather.ipynb, generates the CSV file, cities_weather.csv,
 
 citipyx.py
 
+dtypesx.py
+
 logx.py
 
 mathx.py
@@ -47,8 +47,6 @@ mathx.py
 matplotlibx.py
 
 pandasx.py
-
-timex.py
 
 weather_api_keys.py
 
@@ -64,7 +62,7 @@ To place the Jupyter Notebook in Log Mode or Image Mode set the parameter for th
 
 #### Source code
 
-weather.ipynb, vacations.ipynb, citipyx.py, logx.py, mathx.py, matplotlibx.py, pandasx.py, timex.py, weather_api_keys.py
+weather.ipynb, vacations.ipynb, citipyx.py, dtypesx.py, logx.py, mathx.py, matplotlibx.py, pandasx.py, weather_api_keys.py
 
 #### Input files
 
@@ -94,6 +92,8 @@ Jupyter Notebook, Pandas, Python 3.11.5
 
 |&rarr; [./citipyx.py](./citipyx.py)
 
+|&rarr; [./dtypesx.py](./dtypesx.py)
+
 |&rarr; [./logx.py](./logx.py)
 
 |&rarr; [./mathx.py](./mathx.py)
@@ -108,17 +108,9 @@ Jupyter Notebook, Pandas, Python 3.11.5
 
 |&rarr; [./table-of-contents.md](./table-of-contents.md)
 
-|&rarr; [./timex.py](./timex.py)
-
 |&rarr; [./vacations.ipynb](./vacations.ipynb)
 
-|&rarr; [./vacationsx.py](./vacationsx.py)
-
-|&rarr; [./weather_constants.py](./weather_constants.py)
-
 |&rarr; [./weather.ipynb](./weather.ipynb)
-
-|&rarr; [./weatherx.py](./weatherx.py)
 
 |&rarr; [./images/](./images/)
 
@@ -248,6 +240,12 @@ Jupyter Notebook, Pandas, Python 3.11.5
   &emsp; |&rarr; [./logs/20240420vacations_log.txt](./logs/20240420vacations_log.txt)
 
   &emsp; |&rarr; [./logs/20240420weather_log.txt](./logs/20240420weather_log.txt)
+
+  &emsp; |&rarr; [./logs/20260304vacations_log.txt](./logs/20260304vacations_log.txt)
+
+  &emsp; |&rarr; [./logs/20260304weather_log.txt](./logs/20260304weather_log.txt)
+
+  &emsp; |&rarr; [./logs/README.md](./logs/README.md)
 
 |&rarr; [./resources/](./resources/)
 
