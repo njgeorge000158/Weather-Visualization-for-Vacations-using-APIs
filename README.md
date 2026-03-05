@@ -6,12 +6,6 @@
 
 ----
 
-<img width="898" alt="Screenshot 2024-04-20 at 3 44 09 PM" src="https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-using-APIs/assets/137228821/6c8ffabb-c4b3-4fbf-9b9f-45503b43b478">
-
-<img width="1095" alt="Screenshot 2024-04-20 at 3 34 27 PM" src="https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-using-APIs/assets/137228821/84f93882-03bd-46bb-b4ea-abf8b94b2eb8">
-
-----
-
 ## **Overview**
 
 This project consists of two interconnected Jupyter Notebooks that work in sequence to transform raw global weather data into a curated list of vacation destinations filtered against user-defined climate preferences.
@@ -23,6 +17,14 @@ The first notebook, `weather.ipynb`, retrieves and visualizes current weather co
 ## **VacationPy: Destination Selection**
 
 The second notebook, `vacations.ipynb`, reads `cities_weather.csv` as its input and applies a set of specified weather conditions to filter the global dataset down to a shortlist of candidate vacation destinations. By pairing weather data with mapping and location tools, the notebook identifies and visualizes the cities that best match the desired climate criteria — transforming a dataset of hundreds of cities into a targeted and personalized set of recommendations.
+
+---
+
+<img width="898" alt="Screenshot 2024-04-20 at 3 44 09 PM" src="https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-using-APIs/assets/137228821/6c8ffabb-c4b3-4fbf-9b9f-45503b43b478">
+
+<img width="1095" alt="Screenshot 2024-04-20 at 3 34 27 PM" src="https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-using-APIs/assets/137228821/84f93882-03bd-46bb-b4ea-abf8b94b2eb8">
+
+---
 
 ## **Workflow Summary**
 
