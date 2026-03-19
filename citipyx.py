@@ -13,10 +13,11 @@
  #      finding and processing geographical locations. 
  #      Here is the list:
  #
- #  set_config_dict
  #  get_config_dict
- #  set_weather_dict
  #  get_weather_dict
+ #
+ #  set_config_dict
+ #  set_weather_dict
  #
  #  rtn_city_names_array
  #  rtn_weather_df
@@ -32,9 +33,9 @@
  #  update_location_vacation_df
  #
  #
- #  Date            Description                             Programmer
- #  ----------      ------------------------------------    ------------------
- #  02/11/2026      Initial Development                     Nicholas J. George
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/11/2026          Initial Development                         Nicholas J. George
  #
  #******************************************************************************************/
 
@@ -48,6 +49,7 @@ import numpy as np
 import pandas as pd
 
 from citipy import citipy
+from deep_translator import GoogleTranslator
 
 from weather_api_keys import weather_api_key, geoapify_key
 
@@ -105,9 +107,10 @@ config_dict \
 #*******************************************************************************************
  #
  #  Function Name:  get_config_dict
+ #                  get_weather_dict
  #
  #  Function Description:
- #      This function returns the configuration dictionary.
+ #      This function returns the dictionary.
  #
  #
  #  Return Type: dict
@@ -115,9 +118,9 @@ config_dict \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  n/a     n/a             n/a
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a
  #
  #
  #  Date                Description                                 Programmer
@@ -126,9 +129,8 @@ config_dict \
  #
  #******************************************************************************************/
 
-def get_config_dict():
-
-    return config_dict
+def get_config_dict(): return config_dict
+def get_weather_dict(): return config_dict['weather']
 
 
 # In[5]:
@@ -147,9 +149,9 @@ def get_config_dict():
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  list    input_range     The parameter is a new configuration dictionary.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  list           input_range      The parameter is a new configuration dictionary.
  #
  #
  #  Date                Description                                 Programmer
@@ -170,38 +172,6 @@ def set_config_dict(input_dict):
 
 #*******************************************************************************************
  #
- #  Function Name:  get_weather_dict
- #
- #  Function Description:
- #      This function returns the weather dictionary.
- #
- #
- #  Return Type: dict
- #
- #
- #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  n/a     n/a             n/a
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/11/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_weather_dict():
-
-    return config_dict['weather']
-
-
-# In[7]:
-
-
-#*******************************************************************************************
- #
  #  Function Name:  set_weather_dict
  #
  #  Function Description:
@@ -212,10 +182,9 @@ def get_weather_dict():
  #
  #
  #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  list    input_range     The parameter is a new weather dictionary.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  list           input_range      The parameter is a new weather dictionary.
  #
  #
  #  Date                Description                                 Programmer
@@ -231,7 +200,7 @@ def set_weather_dict(input_dict):
     config_dict['weather'] = input_dict
 
 
-# In[8]:
+# In[7]:
 
 
 #*******************************************************************************************
@@ -247,9 +216,9 @@ def set_weather_dict(input_dict):
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  n/a     n/a             n/a
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a
  #
  #
  #  Date                Description                                 Programmer
@@ -263,46 +232,43 @@ def rtn_city_names_array():
     cities_array = np.array([], dtype = str)
 
 
-    lat_rng_flt_tuple = (-90.0, 90.0)
+    lat_rng_flt_array = np.array([-90.0, 90.0], dtype = float)
 
-    lng_rng_flt_tuple = (-180.0, 180.0)
+    lng_rng_flt_array = np.array([-180.0, 180.0], dtype = float)
 
 
     random_lat_flt_array \
         = np.random.uniform \
-            (lat_rng_flt_tuple[0], 
-             lng_rng_flt_tuple[1], 
+            (lat_rng_flt_array[0], 
+             lng_rng_flt_array[1], 
              size = config_dict['params']['city_count'])
 
     random_lng_flt_array \
         = np.random.uniform \
-            (lng_rng_flt_tuple[0], 
-             lng_rng_flt_tuple[1], 
+            (lng_rng_flt_array[0], 
+             lng_rng_flt_array[1], 
              size = config_dict['params']['city_count'])
 
 
-    lat_lng_flt_tuple_list \
-        = zip(random_lat_flt_array, random_lng_flt_array)
+    lat_lng_array = zip(random_lat_flt_array, random_lng_flt_array)
 
-
-    for coords_tuple in lat_lng_flt_tuple_list:
+    for coords_array in lat_lng_array:
 
         city_name \
             = citipy.nearest_city \
-                (coords_tuple[0], 
-                 coords_tuple[1]) \
+                (coords_array[0], 
+                 coords_array[1]) \
                     .city_name
 
         if city_name not in cities_array:
 
-            cities_array \
-                = np.append(cities_array, city_name)
+            cities_array = np.append(cities_array, city_name)
 
 
     return cities_array
 
 
-# In[9]:
+# In[8]:
 
 
 #*******************************************************************************************
@@ -319,9 +285,9 @@ def rtn_city_names_array():
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  array   cities_array    This parameter is a numpy array of city names.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          cities_array     This parameter is a numpy array of city names.
  #
  #
  #  Date                Description                                 Programmer
@@ -370,10 +336,12 @@ def rtn_weather_df \
 
         try:
 
+            city = GoogleTranslator(source = 'auto', target = 'en').translate(city_name)
+
             city_weather_dict = requests.get(city_url).json()
 
             city_weather_dict_list.append \
-                ({'city': city_name, 
+                ({'city': city.lower(), 
                   'latitude': city_weather_dict['coord']['lat'], 
                   'longitude': city_weather_dict['coord']['lon'], 
                   'temperature': city_weather_dict['main']['temp'],
@@ -392,7 +360,7 @@ def rtn_weather_df \
     logx.print_and_log_text('\nCITY WEATHER DATA RETRIEVAL IS COMPLETE.') 
 
 
-    city_weather_df =  pd.DataFrame(city_weather_dict_list)
+    city_weather_df = pd.DataFrame(city_weather_dict_list)
 
     city_weather_df.index.name = config_dict['params']['index']
 
@@ -400,7 +368,7 @@ def rtn_weather_df \
     return city_weather_df
 
 
-# In[10]:
+# In[9]:
 
 
 #*******************************************************************************************
@@ -417,11 +385,10 @@ def rtn_weather_df \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dataframe
- #          input_df        The parameter is the input dataframe.
- #  string  caption         The parameter is the table title.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dataframe      input_df         The parameter is the input dataframe.
+ #  string         caption          The parameter is the table title.
  #
  #
  #  Date                Description                                 Programmer
@@ -452,7 +419,7 @@ def rtn_city_weather_styler \
             .hide()
 
 
-# In[11]:
+# In[10]:
 
 
 #*******************************************************************************************
@@ -468,10 +435,10 @@ def rtn_city_weather_styler \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  integer min_temp_int    The parameter is the minimum vacation maximum temperature.
- #  integer max_temp_int    The parameter is the maximum vacation maximum temperature.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  integer        min_temp_int     The parameter is the minimum vacation maximum temperature.
+ #  integer        max_temp_int     The parameter is the maximum vacation maximum temperature.
  #
  #
  #  Date                Description                                 Programmer
@@ -502,8 +469,7 @@ def set_vacation_temp_rng \
 
     if min_temp_int > max_temp_int:
 
-        min_temp_int, max_temp_int \
-            = max_temp_int, min_temp_int
+        min_temp_int, max_temp_int = max_temp_int, min_temp_int
 
 
     config_dict['weather']['min_temp'] = min_temp_int
@@ -511,7 +477,7 @@ def set_vacation_temp_rng \
     config_dict['weather']['max_temp'] = max_temp_int
 
 
-# In[12]:
+# In[11]:
 
 
 #*******************************************************************************************
@@ -527,10 +493,10 @@ def set_vacation_temp_rng \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  integer min_humid_int   The parameter is the minimum vacation humidity.
- #  integer max_humid_int   The parameter is the maximum vacation humidity.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  integer        min_humid_int    The parameter is the minimum vacation humidity.
+ #  integer        max_humid_int    The parameter is the maximum vacation humidity.
  #
  #
  #  Date                Description                                 Programmer
@@ -561,8 +527,7 @@ def set_vacation_humid_rng \
 
     if min_humid_int > max_humid_int:
 
-        min_humid_int, max_humid_int \
-            = max_humid_int, min_humid_int
+        min_humid_int, max_humid_int = max_humid_int, min_humid_int
 
 
     config_dict['weather']['min_humid'] = min_humid_int
@@ -570,7 +535,7 @@ def set_vacation_humid_rng \
     config_dict['weather']['max_humid'] = max_humid_int
 
 
-# In[13]:
+# In[12]:
 
 
 #*******************************************************************************************
@@ -586,10 +551,10 @@ def set_vacation_humid_rng \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  integer min_cloud_int   The parameter is the minimum vacation cloudiness.
- #  integer max_cloud_int   The parameter is the maximum vacation cloudiness.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  integer        min_cloud_int    The parameter is the minimum vacation cloudiness.
+ #  integer        max_cloud_int    The parameter is the maximum vacation cloudiness.
  #
  #
  #  Date                Description                                 Programmer
@@ -619,8 +584,7 @@ def set_vacation_cloud_rng \
 
     if min_cloud_int > max_cloud_int:
 
-        min_cloud_int, max_cloud_int \
-            = max_cloud_int, min_cloud_int
+        min_cloud_int, max_cloud_int = max_cloud_int, min_cloud_int
 
 
     config_dict['weather']['min_cloud'] = min_cloud_int
@@ -628,7 +592,7 @@ def set_vacation_cloud_rng \
     config_dict['weather']['max_cloud'] = max_cloud_int
 
 
-# In[14]:
+# In[13]:
 
 
 #*******************************************************************************************
@@ -644,12 +608,12 @@ def set_vacation_cloud_rng \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  integer min_wind_speed_int
- #                          The parameter is the minimum vacation wind speed.
- #  integer max_wind_speed_int
- #                          The parameter is the maximum vacation wind speed.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  integer        min_wind_speed_int
+ #                                  The parameter is the minimum vacation wind speed.
+ #  integer        max_wind_speed_int
+ #                                  The parameter is the maximum vacation wind speed.
  #
  #
  #  Date                Description                                 Programmer
@@ -689,7 +653,7 @@ def set_vacation_wind_speed_rng \
     config_dict['weather']['max_wind_speed'] = max_wind_speed_int
 
 
-# In[15]:
+# In[14]:
 
 
 #*******************************************************************************************
@@ -705,9 +669,9 @@ def set_vacation_wind_speed_rng \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  string  search_category The parameter is a search category.
+ #  Type           Name             Description
+ #  ------------   --------------   -------------------------------------------------- 
+ #  string         search_category  The parameter is a search category.
  #
  #
  #  Date                Description                                 Programmer
@@ -742,7 +706,7 @@ def search_category_rename \
     return new_category_name, found_bool
 
 
-# In[16]:
+# In[15]:
 
 
 #*******************************************************************************************
@@ -759,13 +723,12 @@ def search_category_rename \
  #
  #  Function Parameters:
  #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dataframe
- #          input_df        The parameter is a input dataframe.
- #  string  column_name     The parameter is the new column name.
- #  array   city_name_array The parameter is a numpy array of city names.
- #  array   loc_name_array  The parameter is a numpy array of location names.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dataframe      input_df         The parameter is a input dataframe.
+ #  string         column_name      The parameter is the new column name.
+ #  array          city_name_array  The parameter is a numpy array of city names.
+ #  array          loc_name_array   The parameter is a numpy array of location names.
  #
  #
  #  Date                Description                                 Programmer
@@ -786,13 +749,14 @@ def finalize_vacation_df \
 
     new_df.reset_index(drop = True, inplace = True)
 
-    new_df[column_name] = pd.Series(loc_name_array)    
+    new_df[column_name] = pd.Series(loc_name_array)
 
+    new_df[column_name] = new_df[column_name].str.lower()
 
     return new_df     
 
 
-# In[17]:
+# In[16]:
 
 
 #*******************************************************************************************
@@ -808,13 +772,11 @@ def finalize_vacation_df \
  #
  #
  #  Function Parameters:
- #
- #  Type    Name            Description
- #  -----   -------------   ----------------------------------------------
- #  dataframe
- #          input_df        The parameter is the input dataframe.
- #  string  column_name     The parameter is the location column name in the dataframe.
- #  string  search_category The parameter is a search category.
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dataframe      input_df         The parameter is the input dataframe.
+ #  string         column_name      The parameter is the location column name in the dataframe.
+ #  string         search_category  The parameter is a search category.
  #
  #
  #  Date                Description                                 Programmer
@@ -836,13 +798,9 @@ def update_location_vacation_df \
            'lang': config_dict['vac_loc']['lang_desig'],
            'apiKey': geoapify_key}
 
-
     category_name, found_bool = search_category_rename(search_category)
 
-
-    if found_bool == False:
-
-        return input_df
+    if found_bool == False: return input_df
 
 
     logx.print_and_log_text(f'STARTING {category_name.upper()} SEARCH...\n\n')
@@ -881,7 +839,10 @@ def update_location_vacation_df \
 
             try:
 
-                location_name = location['properties']['name']
+                location_name \
+                    = GoogleTranslator \
+                        (source='auto', target='en') \
+                            .translate(location['properties']['name'])
 
                 loc_name_array = np.append(loc_name_array, location_name)
 
@@ -899,6 +860,8 @@ def update_location_vacation_df \
 
         city_name_array = np.append(city_name_array, row['city'])
 
+        loc_name_array = np.char.lower(loc_name_array)
+
 
     new_df \
         = finalize_vacation_df \
@@ -907,8 +870,10 @@ def update_location_vacation_df \
              city_name_array,
              loc_name_array)
 
-    logx.print_and_log_text(f'{category_name.upper()} SEARCH COMPLETE...\n\n')
+    new_df = new_df.dropna()
 
+
+    logx.print_and_log_text(f'{category_name.upper()} SEARCH COMPLETE...\n\n')
 
     return new_df
 

@@ -19,6 +19,7 @@
  #
  #  is_perf_sqr
  #  calc_clst_factors
+ #  calc_rows_and_cols
  #
  #
  #  Date                Description                                 Programmer
@@ -338,6 +339,40 @@ def calc_clst_factors(positive_int):
             b = c // a
 
     return b, a
+
+
+# In[9]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  calc_rows_and_cols
+ #
+ #  Function Description:
+ #      The function returns the number of rows and columns based on the number of plots.
+ #
+ #
+ #  Return Type: int, int
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the multichart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def calc_rows_and_cols(chart_dict):
+
+    nrows, ncols = calc_clst_factors(chart_dict['figure']['nplots'])
+
+    return nrows, ncols
 
 
 # In[ ]:

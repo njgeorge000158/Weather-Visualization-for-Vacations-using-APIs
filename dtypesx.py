@@ -59,7 +59,7 @@ CONSTANT_LOCAL_FILE_NAME = 'dtypesx.py'
  #      is an array, Series, list, or tuple. Otherwise, the function returns None.
  #
  #
- #  Return Type: array
+ #  Return Type: array or none
  #
  #
  #  Function Parameters:
@@ -220,7 +220,7 @@ def cnv_dts_idxs_to_date(input_series):
  #      This function receives a list or dataframe and returns its length.
  #
  #
- #  Return Type: integer
+ #  Return Type: integer or none
  #
  #
  #  Function Parameters:
@@ -238,9 +238,14 @@ def cnv_dts_idxs_to_date(input_series):
 
 def rtn_data_obj_size(input_obj):
 
-    if isinstance(input_obj, list):
+    if isinstance(input_obj, list) \
+        or isinstance(input_obj, np.ndarray):
 
         return len(input_obj[0])
+
+    elif isinstance(input_obj, dict):
+
+        return len(next(iter(input_obj.values())))
 
     elif isinstance(input_obj, pd.DataFrame):
 
@@ -536,7 +541,7 @@ def rtn_norm_series_list_df \
     curr_list = input_list.copy()
 
 
-    if omit_list != None:
+    if omit_list is not None:
 
         curr_list \
             = [x for i, x in enumerate(curr_list) if i not in omit_list]

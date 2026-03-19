@@ -12,61 +12,192 @@
  #      The Python script, matplotlibx.py, contains generic Python functions
  #      for matplotlib charts and processing.  Here is the list:
  #
+ #  stacked_bar_chart_setup
+ #
+ #  get_chart_dict
+ #  get_chart_def_dict
+ #  get_titles
  #  get_xylabels
+ #  get_chart_colors
+ #  get_legend_bbox_to_anchor
+ #
+ #  get_multichart_stacked
+ #  get_multichart_xysuplabels
+ #
+ #  set_chart_dict
+ #  set_chart_def_dict
+ #  set_titles
  #  set_xylabels
- #  get_bar_chart_xylabels
- #  set_bar_chart_xylabels
- #  get_boxplot_chart_xylabels
- #  set_boxplot_chart_xylabels
- #  get_histogram_chart_xylabels
- #  set_histogram_chart_xylabels
- #  get_line_chart_xylabels
- #  set_line_chart_xylabels
- #  get_pie_chart_xylabels
- #  set_pie_chart_xylabels
- #  get_plot_chart_xylabels
- #  set_plot_chart_xylabels
- #  get_scatterplot_chart_xylabels
- #  set_scatterplot_chart_xylabels
- #  get_scatterplot_multichart_xylabels
- #  set_scatterplot_multichart_xylabels
+ #  set_chart_colors
+ #  set_legend_bbox_to_anchor
+ #
+ #  set_multichart_stacked
+ #  set_multichart_xysuplabels
  #
  #  get_regr_line_dict
+ #  get_bar_chart_dict
+ #  get_boxplot_chart_dict
+ #  get_histogram_chart_dict
+ #  get_line_chart_dict
+ #  get_pie_chart_dict
+ #  get_plot_chart_dict
+ #  get_scatterplot_chart_dict
+ #
+ #  get_bar_multichart_dict
+ #  get_boxplot_multichart_dict
+ #  get_histogram_multichart_dict
+ #  get_line_multichart_dict
+ #  get_pie_multichart_dict
+ #  get_plot_multichart_dict
+ #  get_scatterplot_multichart_dict
+ #
+ #  set_bar_chart_dict
+ #  set_boxplot_chart_dict
+ #  set_histogram_chart_dict
+ #  set_line_chart_dict
+ #  set_pie_chart_dict
+ #  set_plot_chart_dict
+ #  set_scatterplot_chart_dict
  #  set_regr_line_dict
+ #
+ #  set_bar_multichart_dict
+ #  set_boxplot_multichart_dict
+ #  set_histogram_multichart_dict
+ #  set_line_multichart_dict
+ #  set_pie_multichart_dict
+ #  set_plot_multichart_dict
+ #  set_scatterplot_multichart_dict
+ #
+ #  get_regr_line_def_dict
+ #  get_bar_chart_def_dict
+ #  get_boxplot_chart_def_dict
+ #  get_histogram_chart_def_dict
+ #  get_line_chart_def_dict
+ #  get_pie_chart_def_dict
+ #  get_plot_chart_def_dict
+ #  get_scatterplot_chart_def_dict
+ #
+ #  get_bar_multichart_def_dict
+ #  get_boxplot_multichart_def_dict
+ #  get_histogram_multichart_def_dict
+ #  get_line_multichart_def_dict
+ #  get_pie_multichart_def_dict
+ #  get_plot_multichart_def_dict
+ #  get_scatterplot_multichart_def_dict
+ #
+ #  set_bar_chart_def_dict
+ #  set_boxplot_chart_def_dict
+ #  set_histogram_chart_def_dict
+ #  set_line_chart_def_dict
+ #  set_pie_chart_def_dict
+ #  set_plot_chart_def_dict
+ #  set_scatterplot_chart_def_dict
+ #  set_regr_line_def_dict
+ #
+ #  set_bar_multichart_def_dict
+ #  set_boxplot_multichart_def_dict
+ #  set_histogram_multichart_def_dict
+ #  set_line_multichart_def_dict
+ #  set_pie_multichart_def_dict
+ #  set_plot_multichart_def_dict
+ #  set_scatterplot_multichart_def_dict
+ #
+ #  get_bar_chart_title
+ #  get_boxplot_chart_title
+ #  get_histogram_chart_title
+ #  get_line_chart_title
+ #  get_pie_chart_title
+ #  get_plot_chart_title
+ #  get_scatterplot_chart_title
+ #
+ #  set_bar_chart_title
+ #  set_boxplot_chart_title
+ #  set_histogram_chart_title
+ #  set_line_chart_title
+ #  set_pie_chart_title
+ #  set_plot_chart_title
+ #  set_scatterplot_chart_title
+ #
+ #  get_bar_chart_xylabels
+ #  get_boxplot_chart_xylabels
+ #  get_histogram_chart_xylabels
+ #  get_line_chart_xylabels
+ #  get_pie_chart_xylabels
+ #  get_plot_chart_xylabels
+ #  get_scatterplot_chart_xylabels
+ #
+ #  set_bar_chart_xylabels
+ #  set_boxplot_chart_xylabels
+ #  set_histogram_chart_xylabels
+ #  set_line_chart_xylabels
+ #  set_pie_chart_xylabels
+ #  set_plot_chart_xylabels
+ #  set_scatterplot_chart_xylabels
+ #
+ #  get_bar_chart_legend_bbox_to_anchor
+ #  get_histogram_chart_legend_bbox_to_anchor
+ #  get_line_chart_legend_bbox_to_anchor
+ #  get_pie_chart_legend_bbox_to_anchor
+ #  get_plot_chart_legend_bbox_to_anchor
+ #
+ #  set_bar_chart_legend_bbox_to_anchor
+ #  set_histogram_chart_legend_bbox_to_anchor
+ #  set_line_chart_legend_bbox_to_anchor
+ #  set_pie_chart_legend_bbox_to_anchor
+ #  set_plot_chart_legend_bbox_to_anchor
+ #
  #  get_regr_degree
- #  set_regr_degree
  #  get_regr_eqn_coords
+ #
+ #  set_regr_degree
  #  set_regr_eqn_coords
  #
- #  get_bar_chart_dict
- #  set_bar_chart_dict
  #  get_bar_chart_colors
- #  set_bar_chart_colors
- #
- #  get_boxplot_chart_dict
- #  set_boxplot_chart_dict
- #
- #  get_histogram_chart_dict
- #  set_histogram_chart_dict
- #
- #  get_line_chart_dict
- #  set_line_chart_dict
- #
- #  get_pie_chart_dict
- #  set_pie_chart_dict
+ #  get_histogram_chart_colors
+ #  get_line_chart_colors
  #  get_pie_chart_colors
+ #  get_plot_chart_colors
+ #
+ #  set_bar_chart_colors
+ #  set_histogram_chart_colors
+ #  set_line_chart_colors
  #  set_pie_chart_colors
+ #  set_plot_chart_colors
+ #
  #  get_pie_chart_explode
  #  set_pie_chart_explode
  #
- #  get_plot_chart_dict
- #  set_plot_chart_dict
+ #  get_bar_multichart_stacked
+ #  get_boxplot_multichart_stacked
+ #  get_histogram_multichart_stacked
+ #  get_line_multichart_stacked
+ #  get_pie_multichart_stacked
+ #  get_plot_multichart_stacked
+ #  get_scatterplot_multichart_stacked
  #
- #  get_scatterplot_chart_dict
- #  set_scatterplot_chart_dict
+ #  set_bar_multichart_stacked
+ #  set_boxplot_multichart_stacked
+ #  set_histogram_multichart_stacked
+ #  set_line_multichart_stacked
+ #  set_pie_multichart_stacked
+ #  set_plot_multichart_stacked
+ #  set_scatterplot_multichart_stacked
  #
- #  get_scatterplot_multichart_dict
- #  set_scatterplot_multichart_dict
+ #  get_bar_multichart_xysuplabels
+ #  get_boxplot_multichart_xysuplabels
+ #  get_histogram_multichart_xysuplabels
+ #  get_line_multichart_xysuplabels
+ #  get_pie_multichart_xysuplabels
+ #  get_plot_multichart_xysuplabels
+ #  get_scatterplot_multichart_xy_suplabels
+ #
+ #  set_bar_multichart_xysuplabels
+ #  set_boxplot_multichart_xysuplabels
+ #  set_histogram_multichart_xysuplabels
+ #  set_line_multichart_xysuplabels
+ #  set_pie_multichart_xysuplabels
+ #  set_plot_multichart_xysuplabels
+ #  set_scatterplot_multichart_xysuplabels
  #
  #  proc_boxplot_chart_input
  #  proc_bar_chart_input
@@ -75,6 +206,7 @@
  #  proc_plot_chart_input
  #  proc_scatterplot_chart_input
  #  proc_scatterplot_multichart_input
+ #  proc_multichart_input
  #  proc_chart_input
  #
  #  linear_regr_line
@@ -84,14 +216,19 @@
  #  plot_subplot
  #
  #  plot_figsize
+ #  plot_title_axes_stacked
  #  plot_title_axes
+ #  plot_limits_stacked
  #  plot_limits
+ #  plot_ticks_stacked
  #  plot_ticks
+ #  plot_legend_stacked
  #  plot_legend
  #  plot_regr_line
  #  plot_peaks
  #  plot_suptitle_axes
  #  plot_tight_layout
+ #  plot_subplots_adjust
  #
  #  plot_bar_chart_series
  #  plot_bar_chart_df
@@ -103,6 +240,10 @@
  #  plot_plot_chart
  #  plot_scatterplot_chart
  #
+ #  plot_line_multichart_stacked
+ #  plot_line_multichart
+ #  plot_scatterplot_multichart
+ #
  #  boxplot_chart
  #  bar_chart
  #  histogram_chart
@@ -111,6 +252,7 @@
  #  plot_chart
  #  scatterplot_chart
  #
+ #  line_multichart
  #  scatterplot_multichart
  #
  #
@@ -125,6 +267,7 @@ import logx
 import dtypesx
 import mathx
 
+import copy
 import math
 
 import matplotlib.pyplot as plt
@@ -162,6 +305,20 @@ class chart_enum(Enum):
 
     SCATTER = auto()
 
+    REGR_LINE = auto()
+
+    MULTIBAR = auto()
+
+    MULTIBOXPLOT = auto()
+
+    MULTIHISTOGRAM = auto()
+
+    MULTILINE = auto()
+
+    MULTIPIE = auto()
+
+    MULTIPLOT = auto()
+
     MULTISCATTER = auto()
 
 
@@ -169,7 +326,7 @@ class chart_enum(Enum):
 
 
 regr_line_dict \
-    = {'degree': 0,
+    = {'degree': [0],
        'eqn_x_coord': 0.0,
        'eqn_y_coord': 0.0,
        'linecolor': 'red',
@@ -198,25 +355,40 @@ bar_chart_dict \
                     'bottom': 0},
        'horizontal': {'height': 0.5,
                       'left': 0},
-       'title': {'text': None,
+       'title': {'text': [None],
+                 'display': True,
                  'fontsize': 20.0,
                  'fontstyle': 'normal',
+                 'fontweight': 'normal',
+                 'loc': 'center',
                  'pad': 20.0},
-       'xlabel': {'text': None,
+       'xlabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
-       'ylabel': {'text': None,
+       'ylabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
        'xlim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
                 'adjust': {'left': 0,
                            'right': 0}},
        'ylim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
@@ -253,25 +425,40 @@ boxplot_chart_dict \
                   'autorange': False, 
                   'meanline': True,
                   'showmeans': True},
-       'title': {'text': None,
+       'title': {'text': [None],
+                 'display': True,
                  'fontsize': 20.0,
                  'fontstyle': 'normal',
+                 'fontweight': 'normal',
+                 'loc': 'center',
                  'pad': 20.0},
-       'xlabel': {'text': None,
+       'xlabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
-       'ylabel': {'text': None,
+       'ylabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
        'xlim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
                 'adjust': {'left': 0,
                            'right': 0}},
        'ylim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
@@ -313,25 +500,40 @@ histogram_chart_dict \
                   'color': 'white',
                   'linewidth': 1.5,
                   'alpha': 1.0},
-       'title': {'text': None,
+       'title': {'text': [None],
+                 'display': True,
                  'fontsize': 20.0,
                  'fontstyle': 'normal',
+                 'fontweight': 'normal',
+                 'loc': 'center',
                  'pad': 20.0},
-       'xlabel': {'text': None,
+       'xlabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
-       'ylabel': {'text': None,
+       'ylabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
        'xlim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
                 'adjust': {'left': 0,
                            'right': 0}},
        'ylim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
@@ -374,25 +576,40 @@ line_chart_dict \
                   'loglog': False,
                   'stacked': False,
                   'use_index': True},
-       'title': {'text': None,
+       'title': {'text': [None],
+                 'display': True,
                  'fontsize': 20.0,
                  'fontstyle': 'normal',
+                 'fontweight': 'normal',
+                 'loc': 'center',
                  'pad': 20.0},
-       'xlabel': {'text': None,
+       'xlabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
-       'ylabel': {'text': None,
+       'ylabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
        'xlim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
                 'adjust': {'left': 0,
                            'right': 0}},
        'ylim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
@@ -437,17 +654,28 @@ pie_chart_dict \
                   'frame': False,
                   'rotatelabels': False,
                   'normalize': True},
-       'title': {'text': None,
+       'title': {'text': [None],
+                 'display': True,
                  'fontsize': 20.0,
                  'fontstyle': 'normal',
+                 'fontweight': 'normal',
+                 'loc': 'center',
                  'pad': 20.0},
-       'xlabel': {'text': None,
+       'xlabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
-       'ylabel': {'text': None,
+       'ylabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
        'legend': {'display': False,
                   'loc': 'center right',
@@ -471,25 +699,40 @@ plot_chart_dict \
                  'fontsize': 12.0,
                  'y_offset': 5.0,
                  'color': np.array(['red', 'blue'])},
-       'title': {'text': None,
+       'title': {'text': [None],
+                 'display': True,
                  'fontsize': 20.0,
                  'fontstyle': 'normal',
+                 'fontweight': 'normal',
+                 'loc': 'center',
                  'pad': 20.0},
-       'xlabel': {'text': None,
+       'xlabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
-       'ylabel': {'text': None,
+       'ylabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
        'xlim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
                 'adjust': {'left': 0,
                            'right': 0}},
        'ylim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
@@ -523,25 +766,40 @@ scatterplot_chart_dict \
                   'linewidth': 1.5,
                   'edgecolors': 'black',
                   'alpha': 0.8},
-       'title': {'text': None,
+       'title': {'text': [None],
+                 'display': True,
                  'fontsize': 20.0,
                  'fontstyle': 'normal',
+                 'fontweight': 'normal',
+                 'loc': 'center',
                  'pad': 20.0},
-       'xlabel': {'text': None,
+       'xlabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
-       'ylabel': {'text': None,
+       'ylabel': {'text': [None],
+                  'display': True,
                   'fontsize': 16.0,
                   'fontstyle': 'normal',
+                  'fontweight': 'normal',
+                  'labelpad': 4.0,
+                  'loc': 'center',
                   'pad': 10.0},
        'xlim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
                 'adjust': {'left': 0,
                            'right': 0}},
        'ylim': {'display': False,
+                'emit': True,
+                'auto': False,
                 'mode': 'set',
                 'set': {'min': 0,
                         'max': 0},
@@ -564,14 +822,72 @@ scatterplot_chart_dict \
 # In[12]:
 
 
-scatterplot_multichart_dict \
+bar_multichart_dict \
     = {'figure': {'width': 15.0,
                   'length': 5.5181,
                   'nplots': 0,
                   'nrows': 0,
                   'ncols': 0,
                   'sharex': False,
-                  'sharey': False},
+                  'sharey': False,
+                  'stacked': False,
+                  'wspace': None,
+                  'hspace': None},
+       'suptitle': {'text': None,
+                    'x': 0.5,
+                    'y': 0.98,
+                    'horizontalalignment': 'center',
+                    'verticalalignment': 'top',
+                    'fontproperties': {'family': 'sans-serif',
+                                       'style': 'normal',
+                                       'variant': 'normal',
+                                       'stretch': 'normal',
+                                       'weight': 'normal',
+                                       'size': 20.0,
+                                       'math_fontfamily': 'dejavusans'}},
+       'supxlabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'supylabel': {'text': None,
+                     'x': 0.02,
+                     'y': 0.5,
+                     'horizontalalignment': 'left',
+                     'verticalalignment': 'center',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'tight_layout': {'display': True,
+                        'pad': 3.0,
+                        'h_pad': None,
+                        'w_pad': None,
+                        'rect': None}}
+
+
+# In[13]:
+
+
+boxplot_multichart_dict \
+    = {'figure': {'width': 15.0,
+                  'length': 5.5181,
+                  'nplots': 0,
+                  'nrows': 0,
+                  'ncols': 0,
+                  'sharex': False,
+                  'sharey': False,
+                  'stacked': False},
        'suptitle': {'text': None,
                     'x': 0.5,
                     'y': 0.98,
@@ -599,8 +915,8 @@ scatterplot_multichart_dict \
        'supylabel': {'text': None,
                      'x': 0.5,
                      'y': 0.01,
-                     'horizontalalignment': 'center',
-                     'verticalalignment': 'bottom',
+                     'horizontalalignment': 'left',
+                     'verticalalignment': 'center',
                      'fontproperties': {'family': 'sans-serif',
                                         'style': 'normal',
                                         'variant': 'normal',
@@ -615,7 +931,498 @@ scatterplot_multichart_dict \
                         'rect': None}}
 
 
-# In[13]:
+# In[14]:
+
+
+histogram_multichart_dict \
+    = {'figure': {'width': 15.0,
+                  'length': 5.5181,
+                  'nplots': 0,
+                  'nrows': 0,
+                  'ncols': 0,
+                  'sharex': False,
+                  'sharey': False,
+                  'stacked': False,
+                  'wspace': None,
+                  'hspace': None},
+       'suptitle': {'text': None,
+                    'x': 0.5,
+                    'y': 0.98,
+                    'horizontalalignment': 'center',
+                    'verticalalignment': 'top',
+                    'fontproperties': {'family': 'sans-serif',
+                                       'style': 'normal',
+                                       'variant': 'normal',
+                                       'stretch': 'normal',
+                                       'weight': 'normal',
+                                       'size': 20.0,
+                                       'math_fontfamily': 'dejavusans'}},
+       'supxlabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'supylabel': {'text': None,
+                     'x': 0.02,
+                     'y': 0.5,
+                     'horizontalalignment': 'left',
+                     'verticalalignment': 'center',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'tight_layout': {'display': True,
+                        'pad': 3.0,
+                        'h_pad': None,
+                        'w_pad': None,
+                        'rect': None}}
+
+
+# In[15]:
+
+
+line_multichart_dict \
+    = {'figure': {'width': 15.0,
+                  'length': 5.5181,
+                  'nplots': 0,
+                  'nrows': 0,
+                  'ncols': 0,
+                  'sharex': False,
+                  'sharey': False,
+                  'stacked': False,
+                  'wspace': None,
+                  'hspace': None},
+       'suptitle': {'text': None,
+                    'x': 0.5,
+                    'y': 0.98,
+                    'horizontalalignment': 'center',
+                    'verticalalignment': 'top',
+                    'fontproperties': {'family': 'sans-serif',
+                                       'style': 'normal',
+                                       'variant': 'normal',
+                                       'stretch': 'normal',
+                                       'weight': 'normal',
+                                       'size': 20.0,
+                                       'math_fontfamily': 'dejavusans'}},
+       'supxlabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'supylabel': {'text': None,
+                     'x': 0.02,
+                     'y': 0.5,
+                     'horizontalalignment': 'left',
+                     'verticalalignment': 'center',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'tight_layout': {'display': True,
+                        'pad': 3.0,
+                        'h_pad': None,
+                        'w_pad': None,
+                        'rect': None}}
+
+
+# In[16]:
+
+
+pie_multichart_dict \
+    = {'figure': {'width': 15.0,
+                  'length': 5.5181,
+                  'nplots': 0,
+                  'nrows': 0,
+                  'ncols': 0,
+                  'sharex': False,
+                  'sharey': False,
+                  'stacked': False,
+                  'wspace': None,
+                  'hspace': None},
+       'suptitle': {'text': None,
+                    'x': 0.5,
+                    'y': 0.98,
+                    'horizontalalignment': 'center',
+                    'verticalalignment': 'top',
+                    'fontproperties': {'family': 'sans-serif',
+                                       'style': 'normal',
+                                       'variant': 'normal',
+                                       'stretch': 'normal',
+                                       'weight': 'normal',
+                                       'size': 20.0,
+                                       'math_fontfamily': 'dejavusans'}},
+       'supxlabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'supylabel': {'text': None,
+                     'x': 0.02,
+                     'y': 0.5,
+                     'horizontalalignment': 'left',
+                     'verticalalignment': 'center',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'tight_layout': {'display': True,
+                        'pad': 3.0,
+                        'h_pad': None,
+                        'w_pad': None,
+                        'rect': None}}
+
+
+# In[17]:
+
+
+plot_multichart_dict \
+    = {'figure': {'width': 15.0,
+                  'length': 5.5181,
+                  'nplots': 0,
+                  'nrows': 0,
+                  'ncols': 0,
+                  'sharex': False,
+                  'sharey': False,
+                  'stacked': False,
+                  'wspace': None,
+                  'hspace': None},
+       'suptitle': {'text': None,
+                    'x': 0.5,
+                    'y': 0.98,
+                    'horizontalalignment': 'center',
+                    'verticalalignment': 'top',
+                    'fontproperties': {'family': 'sans-serif',
+                                       'style': 'normal',
+                                       'variant': 'normal',
+                                       'stretch': 'normal',
+                                       'weight': 'normal',
+                                       'size': 20.0,
+                                       'math_fontfamily': 'dejavusans'}},
+       'supxlabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'supylabel': {'text': None,
+                     'x': 0.02,
+                     'y': 0.5,
+                     'horizontalalignment': 'left',
+                     'verticalalignment': 'center',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'tight_layout': {'display': True,
+                        'pad': 3.0,
+                        'h_pad': None,
+                        'w_pad': None,
+                        'rect': None}}
+
+
+# In[18]:
+
+
+scatterplot_multichart_dict \
+    = {'figure': {'width': 15.0,
+                  'length': 5.5181,
+                  'nplots': 0,
+                  'nrows': 0,
+                  'ncols': 0,
+                  'sharex': False,
+                  'sharey': False,
+                  'stacked': False,
+                  'wspace': None,
+                  'hspace': None},
+       'suptitle': {'text': None,
+                    'x': 0.5,
+                    'y': 0.98,
+                    'horizontalalignment': 'center',
+                    'verticalalignment': 'top',
+                    'fontproperties': {'family': 'sans-serif',
+                                       'style': 'normal',
+                                       'variant': 'normal',
+                                       'stretch': 'normal',
+                                       'weight': 'normal',
+                                       'size': 20.0,
+                                       'math_fontfamily': 'dejavusans'}},
+       'supxlabel': {'text': None,
+                     'x': 0.5,
+                     'y': 0.01,
+                     'horizontalalignment': 'center',
+                     'verticalalignment': 'bottom',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'supylabel': {'text': None,
+                     'x': 0.02,
+                     'y': 0.5,
+                     'horizontalalignment': 'left',
+                     'verticalalignment': 'center',
+                     'fontproperties': {'family': 'sans-serif',
+                                        'style': 'normal',
+                                        'variant': 'normal',
+                                        'stretch': 'normal',
+                                        'weight': 'normal',
+                                        'size': 16.0,
+                                        'math_fontfamily': 'dejavusans'}},
+       'tight_layout': {'display': True,
+                        'pad': 3.0,
+                        'h_pad': None,
+                        'w_pad': None,
+                        'rect': None}}
+
+
+# In[19]:
+
+
+regr_line_def_dict = copy.deepcopy(regr_line_dict)
+
+bar_chart_def_dict = copy.deepcopy(bar_chart_dict)
+
+boxplot_chart_def_dict = copy.deepcopy(boxplot_chart_dict)
+
+histogram_chart_def_dict = copy.deepcopy(histogram_chart_dict)
+
+line_chart_def_dict = copy.deepcopy(line_chart_dict)
+
+pie_chart_def_dict = copy.deepcopy(pie_chart_dict)
+
+plot_chart_def_dict = copy.deepcopy(plot_chart_dict)
+
+scatterplot_chart_def_dict = copy.deepcopy(scatterplot_chart_dict)
+
+
+bar_multichart_def_dict = copy.deepcopy(bar_multichart_dict)
+
+boxplot_multichart_def_dict = copy.deepcopy(boxplot_multichart_dict)
+
+histogram_multichart_def_dict = copy.deepcopy(histogram_multichart_dict)
+
+line_multichart_def_dict = copy.deepcopy(line_multichart_dict)
+
+pie_multichart_def_dict = copy.deepcopy(pie_multichart_dict)
+
+plot_multichart_def_dict = copy.deepcopy(plot_multichart_dict)
+
+scatterplot_multichart_def_dict = copy.deepcopy(scatterplot_multichart_dict)
+
+
+# In[20]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  stacked_bar_chart_setup
+ #
+ #  Function Description:
+ #      The function sets two parmeters expected for a stacked bar chart.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  bool           stacked_bool     The parameter indicates whether the bar chart is stacked.
+ #  bool           lgnd_disp_bool   The parameter indicates whether the bar chart's legend 
+ #                                  is visible.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def stacked_bar_chart_setup \
+        (stacked_bool = True,
+         lgnd_disp_bool = True):
+
+    global bar_chart_dict
+
+    bar_chart_dict['params']['stacked'] = stacked_bool
+
+    bar_chart_dict['legend']['display'] = lgnd_disp_bool
+
+
+# In[21]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_chart_dict
+ #
+ #  Function Description:
+ #      The function retrieves the dictionary.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  int            chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_chart_dict(chart_type):
+
+    if chart_type == chart_enum.BAR.value: return bar_chart_dict
+    elif chart_type == chart_enum.BOXPLOT.value: return boxplot_chart_dict
+    elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict
+    elif chart_type == chart_enum.LINE.value: return line_chart_dict
+    elif chart_type == chart_enum.PIE.value: return pie_chart_dict
+    elif chart_type == chart_enum.PLOT.value: return plot_chart_dict
+    elif chart_type == chart_enum.SCATTER.value: return scatterplot_chart_dict
+    elif chart_type == chart_enum.REGR_LINE.value: return regr_line_dict
+    elif chart_type == chart_enum.MULTIBAR.value: return bar_multichart_dict
+    elif chart_type == chart_enum.MULTIBOXPLOT.value: return boxplot_multichart_dict
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value: return histogram_multichart_dict
+    elif chart_type == chart_enum.MULTILINE.value: return line_multichart_dict
+    elif chart_type == chart_enum.MULTIPIE.value: return pie_multichart_dict
+    elif chart_type == chart_enum.MULTIPLOT.value: return plot_multichart_dict
+    elif chart_type == chart_enum.MULTISCATTER.value: return scatterplot_multichart_dict
+
+
+# In[22]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_chart_def_dict
+ #
+ #  Function Description:
+ #      The function retrieves the default dictionary.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  int            chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_chart_def_dict(chart_type):
+
+    if chart_type == chart_enum.BAR.value: return copy.deepcopy(bar_chart_def_dict)
+    elif chart_type == chart_enum.BOXPLOT.value: return copy.deepcopy(boxplot_chart_def_dict)
+    elif chart_type == chart_enum.HISTOGRAM.value: return copy.deepcopy(histogram_chart_def_dict)
+    elif chart_type == chart_enum.LINE.value: return copy.deepcopy(line_chart_def_dict)
+    elif chart_type == chart_enum.PIE.value: return copy.deepcopy(pie_chart_def_dict)
+    elif chart_type == chart_enum.PLOT.value: return copy.deepcopy(plot_chart_def_dict)
+    elif chart_type == chart_enum.SCATTER.value: return copy.deepcopy(scatterplot_chart_def_dict)
+    elif chart_type == chart_enum.REGR_LINE.value: return copy.deepcopy(regr_line_def_dict)
+    elif chart_type == chart_enum.MULTIBAR.value: return copy.deepcopy(bar_multichart_def_dict)
+    elif chart_type == chart_enum.MULTIBOXPLOT.value: return copy.deepcopy(boxplot_multichart_def_dict)
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value: return copy.deepcopy(histogram_multichart_def_dict)
+    elif chart_type == chart_enum.MULTILINE.value: return copy.deepcopy(line_multichart_def_dict)
+    elif chart_type == chart_enum.MULTIPIE.value: return copy.deepcopy(pie_multichart_def_dict)
+    elif chart_type == chart_enum.MULTIPLOT.value: return copy.deepcopy(plot_multichart_def_dict)
+    elif chart_type == chart_enum.MULTISCATTER.value: return copy.deepcopy(scatterplot_multichart_def_dict)
+
+
+# In[23]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_titles
+ #
+ #  Function Description:
+ #      The function retrieves the chart's titles.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_titles(chart_type):
+
+    if chart_type == chart_enum.BAR.value: return bar_chart_dict['title']['text']
+    elif chart_type == chart_enum.BOXPLOT.value: return boxplot_chart_dict['title']['text']
+    elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict['title']['text']
+    elif chart_type == chart_enum.LINE.value: return line_chart_dict['title']['text']
+    elif chart_type == chart_enum.PIE.value: return pie_chart_dict['title']['text']
+    elif chart_type == chart_enum.PLOT.value: return plot_chart_dict['title']['text']
+    elif chart_type == chart_enum.SCATTER.value: return scatterplot_chart_dict['title']['text']
+    else: return None
+
+
+# In[24]:
 
 
 #*******************************************************************************************
@@ -686,16 +1493,547 @@ def get_xylabels(chart_type):
             scatterplot_chart_dict['xlabel']['text'], \
             scatterplot_chart_dict['ylabel']['text']
 
+    else: return None, None
+
+
+# In[25]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_chart_colors
+ #
+ #  Function Description:
+ #      The function retrieves the chart colors.
+ #
+ #
+ #  Return Type: string or list
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #  string         cat              The parameter is the color category.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_chart_colors \
+        (chart_type,
+         cat = ''):
+
+    if chart_type == chart_enum.BAR.value: return bar_chart_dict['params']['color']
+    elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict['params']['color']
+    elif chart_type == chart_enum.LINE.value: return line_chart_dict[cat]['color']
+    elif chart_type == chart_enum.PIE.value: return pie_chart_dict['params']['colors']
+    elif chart_type == chart_enum.PLOT.value: return plot_chart_dict[cat]['color']
+    elif chart_type == chart_enum.SCATTER.value: return scatterplot_chart_dict['marker']['color']
+
+
+# In[26]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_legend_bbox_to_anchor
+ #
+ #  Function Description:
+ #      The function retrieves the chart legend bbox to anchor.
+ #
+ #
+ #  Return Type: string or list
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_legend_bbox_to_anchor(chart_type):
+
+    if chart_type == chart_enum.BAR.value: return bar_chart_dict['legend']['bbox_to_anchor']
+    elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict['legend']['bbox_to_anchor']
+    elif chart_type == chart_enum.LINE.value: return line_chart_dict['legend']['bbox_to_anchor']
+    elif chart_type == chart_enum.PIE.value: return pie_chart_dict['legend']['bbox_to_anchor']
+    elif chart_type == chart_enum.PLOT.value: return plot_chart_dict['legend']['bbox_to_anchor']
+
+
+# In[27]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_multichart_stacked
+ #
+ #  Function Description:
+ #      The function retrieves the multichart's stacked boolean value.
+ #
+ #
+ #  Return Type: boolean
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the multichart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_multichart_stacked(chart_type):
+
+    if chart_type == chart_enum.MULTIBAR.value: return bar_multichart_dict['figure']['stacked']
+    elif chart_type == chart_enum.MULTIBOXPLOT.value: return boxplot_multichart_dict['figure']['stacked']
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value: return histogram_multichart_dict['figure']['stacked']
+    elif chart_type == chart_enum.MULTILINE.value: return line_multichart_dict['figure']['stacked']
+    elif chart_type == chart_enum.MULTIPIE.value: return pie_multichart_dict['figure']['stacked']
+    elif chart_type == chart_enum.MULTIPLOT.value: return plot_multichart_dict['figure']['stacked']
+    elif chart_type == chart_enum.MULTISCATTER.value: return scatterplot_multichart_dict['figure']['stacked']
+    else: return None
+
+
+# In[28]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_multichart_xysuplabels
+ #
+ #  Function Description:
+ #      The function retrieves the multichart's x-axis suplabel and y-axis suplabel.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  enum           chart_type       The parameter is the multichart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_multichart_xysuplabels(chart_type):
+
+    if chart_type == chart_enum.MULTIBAR.value:
+
+        return \
+            bar_multichart_dict['supxlabel']['text'], \
+            bar_multichart_dict['supylabel']['text']
+
+    elif chart_type == chart_enum.MULTIBOXPLOT.value:
+
+        return \
+            boxplot_multichart_dict['supxlabel']['text'], \
+            boxplot_multichart_dict['supylabel']['text']
+
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value:
+
+        return \
+            histogram_multichart_dict['supxlabel']['text'], \
+            histogram_multichart_dict['supylabel']['text']
+
+    elif chart_type == chart_enum.MULTILINE.value:
+
+        return \
+            line_multichart_dict['supxlabel']['text'], \
+            line_multichart_dict['supylabel']['text']
+
+    elif chart_type == chart_enum.MULTIPIE.value:
+
+        return \
+            pie_multichart_dict['supxlabel']['text'], \
+            pie_multichart_dict['supylabel']['text']
+
+    elif chart_type == chart_enum.MULTIPLOT.value:
+
+        return \
+            plot_multichart_dict['supxlabel']['text'], \
+            plot_multichart_dict['supylabel']['text']
+
     elif chart_type == chart_enum.MULTISCATTER.value:
 
         return \
-            scatterplot_multichart_dict['xlabel']['text'], \
-            scatterplot_multichart_dict['ylabel']['text']
+            scatterplot_multichart_dict['supxlabel']['text'], \
+            scatterplot_multichart_dict['supylabel']['text']
 
     else: return None, None
 
 
-# In[14]:
+# In[29]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_chart_dict
+ #
+ #  Function Description:
+ #      The function sets the global chart dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated bar chart dictionary.
+ #  int            chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_chart_dict \
+        (upd_dict,
+         chart_type):
+
+    if chart_type == chart_enum.BAR.value: 
+
+        global bar_chart_dict
+
+        bar_chart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.BOXPLOT.value:
+
+        global boxplot_chart_dict
+
+        boxplot_chart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.HISTOGRAM.value:
+
+        global histogram_chart_dict
+
+        histogram_chart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.LINE.value:
+
+        global line_chart_dict
+
+        line_chart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.PIE.value:
+
+        global pie_chart_dict
+
+        pie_chart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.PLOT.value: 
+
+        global plot_chart_dict
+
+        plot_chart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.SCATTER.value:
+
+        global scatterplot_chart_dict
+
+        scatterplot_chart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.REGR_LINE.value:
+
+        global regr_line_dict
+
+        regr_line_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.MULTIBAR.value:
+
+        global bar_multichart_dict
+
+        bar_multichart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.MULTIBOXPLOT.value:
+
+        global boxplot_multichart_dict
+
+        boxplot_multichart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value:
+
+        global histogram_multichart_dict
+
+        histogram_multichart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.MULTILINE.value:
+
+        global line_multichart_dict
+
+        line_multichart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.MULTIPIE.value:
+
+        global pie_multichart_dict
+
+        pie_multichart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.MULTIPLOT.value:
+
+        global plot_multichart_dict
+
+        plot_multichart_dict = copy.deepcopy(upd_dict)
+
+    elif chart_type == chart_enum.MULTISCATTER.value:
+
+        global scatterplot_multichart_dict
+
+        scatterplot_multichart_dict = copy.deepcopy(upd_dict)
+
+
+
+# In[30]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_chart_def_dict
+ #
+ #  Function Description:
+ #      The function sets the global chart default dictionary.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  int            chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_chart_def_dict(chart_type):
+
+    if chart_type == chart_enum.BAR.value: 
+
+        global bar_chart_dict
+
+        bar_chart_dict = copy.deepcopy(bar_chart_def_dict)
+
+    elif chart_type == chart_enum.BOXPLOT.value:
+
+        global boxplot_chart_dict
+
+        boxplot_chart_dict = copy.deepcopy(boxplot_chart_def_dict)
+
+    elif chart_type == chart_enum.HISTOGRAM.value:
+
+        global histogram_chart_dict
+
+        histogram_chart_dict = copy.deepcopy(histogram_chart_def_dict)
+
+    elif chart_type == chart_enum.LINE.value:
+
+        global line_chart_dict
+
+        line_chart_dict = copy.deepcopy(line_chart_def_dict)
+
+    elif chart_type == chart_enum.PIE.value:
+
+        global pie_chart_dict
+
+        pie_chart_dict = copy.deepcopy(pie_chart_def_dict)
+
+    elif chart_type == chart_enum.PLOT.value: 
+
+        global plot_chart_dict
+
+        plot_chart_dict = copy.deepcopy(plot_chart_def_dict)
+
+    elif chart_type == chart_enum.SCATTER.value:
+
+        global scatterplot_chart_dict
+
+        scatterplot_chart_dict = copy.deepcopy(scatterplot_chart_def_dict)
+
+    elif chart_type == chart_enum.REGR_LINE.value:
+
+        global regr_line_dict
+
+        regr_line_dict = copy.deepcopy(regr_line_def_dict)
+
+    elif chart_type == chart_enum.MULTIBAR.value:
+
+        global bar_multichart_dict
+
+        bar_multichart_dict = copy.deepcopy(bar_multichart_def_dict)
+
+    elif chart_type == chart_enum.MULTIBOXPLOT.value:
+
+        global boxplot_multichart_dict
+
+        boxplot_multichart_dict = copy.deepcopy(boxplot_multichart_def_dict)
+
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value:
+
+        global histogram_multichart_dict
+
+        histogram_multichart_dict = copy.deepcopy(histogram_multichart_def_dict)
+
+    elif chart_type == chart_enum.MULTILINE.value:
+
+        global line_multichart_dict
+
+        line_multichart_dict = copy.deepcopy(line_multichart_def_dict)
+
+    elif chart_type == chart_enum.MULTIPIE.value:
+
+        global pie_multichart_dict
+
+        pie_multichart_dict = copy.deepcopy(pie_multichart_def_dict)
+
+    elif chart_type == chart_enum.MULTIPLOT.value:
+
+        global plot_multichart_dict
+
+        plot_multichart_dict = copy.deepcopy(plot_multichart_def_dict)
+
+    elif chart_type == chart_enum.MULTISCATTER.value:
+
+        global scatterplot_multichart_dict
+
+        scatterplot_multichart_dict = copy.deepcopy(scatterplot_multichart_def_dict)
+
+
+
+# In[31]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_titles
+ #
+ #  Function Description:
+ #      The function sets the chart's titles.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         titles           The parameter is the chart's titles.
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_titles \
+        (titles,
+         chart_type):
+
+    if chart_type == chart_enum.BAR.value:
+
+        global bar_chart_dict
+
+        if isinstance(titles, str): \
+
+            bar_chart_dict['title']['text'] = np.array([titles], dtype = str)
+
+        else: bar_chart_dict['title']['text'] = dtypesx.cnv_data_to_array(titles)
+
+    elif chart_type == chart_enum.BOXPLOT.value:
+
+        global boxplot_chart_dict
+
+        if isinstance(titles, str): \
+
+            boxplot_chart_dict['title']['text'] = np.array([titles], dtype = str)
+
+        else: boxplot_chart_dict['title']['text'] = dtypesx.cnv_data_to_array(titles)
+
+    elif chart_type == chart_enum.HISTOGRAM.value:
+
+        global histogram_chart_dict
+
+        if isinstance(titles, str): \
+
+            histogram_chart_dict['title']['text'] = np.array([titles], dtype = str)
+
+        else: histogram_chart_dict['title']['text'] = dtypesx.cnv_data_to_array(titles)
+
+    elif chart_type == chart_enum.LINE.value:
+
+        global line_chart_dict
+
+        if isinstance(titles, str): \
+
+            line_chart_dict['title']['text'] = np.array([titles], dtype = str)
+
+        else: line_chart_dict['title']['text'] = dtypesx.cnv_data_to_array(titles)
+
+    elif chart_type == chart_enum.PIE.value:
+
+        global pie_chart_dict
+
+        if isinstance(titles, str): \
+
+            pie_chart_dict['title']['text'] = np.array([titles], dtype = str)
+
+        else: pie_chart_dict['title']['text'] = dtypesx.cnv_data_to_array(titles)
+
+    elif chart_type == chart_enum.PLOT.value:
+
+        global plot_chart_dict
+
+        if isinstance(titles, str): \
+
+            plot_chart_dict['title']['text'] = np.array([titles], dtype = str)
+
+        else: plot_chart_dict['title']['text'] = dtypesx.cnv_data_to_array(titles)
+
+    elif chart_type == chart_enum.SCATTER.value:
+
+        global scatterplot_chart_dict
+
+        if isinstance(titles, str): \
+
+            scatterplot_chart_dict['title']['text'] = np.array([titles], dtype = str)
+
+        else: scatterplot_chart_dict['title']['text'] = dtypesx.cnv_data_to_array(titles)
+
+
+# In[32]:
 
 
 #*******************************************************************************************
@@ -733,100 +2071,383 @@ def set_xylabels \
 
         global bar_chart_dict
 
-        bar_chart_dict['xlabel']['text'] = xlabel
-        bar_chart_dict['ylabel']['text'] = ylabel
+        if isinstance(xlabel, str): \
+
+            bar_chart_dict['xlabel']['text'] = np.array([xlabel], dtype = str)
+
+        else: bar_chart_dict['xlabel']['text'] = dtypesx.cnv_data_to_array(xlabel)
+
+        if isinstance(ylabel, str): \
+
+            bar_chart_dict['ylabel']['text'] = np.array([ylabel], dtype = str)
+
+        else: bar_chart_dict['ylabel']['text'] = dtypesx.cnv_data_to_array(ylabel)
 
     elif chart_type == chart_enum.BOXPLOT.value:
 
         global boxplot_chart_dict
 
-        boxplot_chart_dict['xlabel']['text'] = xlabel
-        boxplot_chart_dict['ylabel']['text'] = ylabel
+        if isinstance(xlabel, str): \
+
+            boxplot_chart_dict['xlabel']['text'] = np.array([xlabel], dtype = str)
+
+        else: boxplot_chart_dict['xlabel']['text'] = dtypesx.cnv_data_to_array(xlabel)
+
+        if isinstance(ylabel, str): \
+
+            boxplot_chart_dict['ylabel']['text'] = np.array([ylabel], dtype = str)
+
+        else: boxplot_chart_dict['ylabel']['text'] = dtypesx.cnv_data_to_array(ylabel)
 
     elif chart_type == chart_enum.HISTOGRAM.value:
 
         global histogram_chart_dict
 
-        histogram_chart_dict['xlabel']['text'] = xlabel
-        histogram_chart_dict['ylabel']['text'] = ylabel
+        if isinstance(xlabel, str): \
+
+            histogram_chart_dict['xlabel']['text'] = np.array([xlabel], dtype = str)
+
+        else: histogram_chart_dict['xlabel']['text'] = dtypesx.cnv_data_to_array(xlabel)
+
+        if isinstance(ylabel, str): \
+
+            histogram_chart_dict['ylabel']['text'] = np.array([ylabel], dtype = str)
+
+        else: histogram_chart_dict['ylabel']['text'] = dtypesx.cnv_data_to_array(ylabel)
 
     elif chart_type == chart_enum.LINE.value:
 
         global line_chart_dict
 
-        line_chart_dict['xlabel']['text'] = xlabel
-        line_chart_dict['ylabel']['text'] = ylabel
+        if isinstance(xlabel, str): \
+
+            line_chart_dict['xlabel']['text'] = np.array([xlabel], dtype = str)
+
+        else: line_chart_dict['xlabel']['text'] = dtypesx.cnv_data_to_array(xlabel)
+
+        if isinstance(ylabel, str): \
+
+            line_chart_dict['ylabel']['text'] = np.array([ylabel], dtype = str)
+
+        else: line_chart_dict['ylabel']['text'] = dtypesx.cnv_data_to_array(ylabel)
 
     elif chart_type == chart_enum.PIE.value:
 
         global pie_chart_dict
 
-        pie_chart_dict['xlabel']['text'] = xlabel
-        pie_chart_dict['ylabel']['text'] = ylabel
+        if isinstance(xlabel, str): \
+
+            pie_chart_dict['xlabel']['text'] = np.array([xlabel], dtype = str)
+
+        else: pie_chart_dict['xlabel']['text'] = dtypesx.cnv_data_to_array(xlabel)
+
+        if isinstance(ylabel, str): \
+
+            pie_chart_dict['ylabel']['text'] = np.array([ylabel], dtype = str)
+
+        else: pie_chart_dict['ylabel']['text'] = dtypesx.cnv_data_to_array(ylabel)
 
     elif chart_type == chart_enum.PLOT.value:
 
         global plot_chart_dict
 
-        plot_chart_dict['xlabel']['text'] = xlabel
-        plot_chart_dict['ylabel']['text'] = ylabel
+        if isinstance(xlabel, str): \
+
+            plot_chart_dict['xlabel']['text'] = np.array([xlabel], dtype = str)
+
+        else: plot_chart_dict['xlabel']['text'] = dtypesx.cnv_data_to_array(xlabel)
+
+        if isinstance(ylabel, str): \
+
+            plot_chart_dict['ylabel']['text'] = np.array([ylabel], dtype = str)
+
+        else: plot_chart_dict['ylabel']['text'] = dtypesx.cnv_data_to_array(ylabel)
 
     elif chart_type == chart_enum.SCATTER.value:
 
         global scatterplot_chart_dict
 
-        scatterplot_chart_dict['xlabel']['text'] = xlabel
-        scatterplot_chart_dict['ylabel']['text'] = ylabel
+        if isinstance(xlabel, str): \
+
+            scatterplot_chart_dict['xlabel']['text'] = np.array([xlabel], dtype = str)
+
+        else: scatterplot_chart_dict['xlabel']['text'] = dtypesx.cnv_data_to_array(xlabel)
+
+        if isinstance(ylabel, str): \
+
+            scatterplot_chart_dict['ylabel']['text'] = np.array([ylabel], dtype = str)
+
+        else: scatterplot_chart_dict['ylabel']['text'] = dtypesx.cnv_data_to_array(ylabel)
+
+
+# In[33]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_chart_colors
+ #
+ #  Function Description:
+ #      The function sets the chart colors.
+ #
+ #
+ #  Return Type: string or list
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         upd_obj          The parameter is the updated group of chart colors.
+ #  enum           chart_type       The parameter is the multichart type enumeration value.
+ #  string         cat              The parameter is the color category.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_chart_colors \
+        (upd_obj,
+         chart_type,
+         cat = ''):
+
+    if chart_type == chart_enum.BAR.value:
+
+        global bar_chart_dict
+
+        if isinstance(upd_obj, str):
+
+            bar_chart_dict['params']['color'] = np.array(upd_obj, dtype = str)
+
+        elif isinstance(upd_obj, list) \
+            or isinstance(upd_obj, np.ndarray) \
+            or isinstance(upd_obj, pd.Series):
+
+            bar_chart_dict['params']['color'] = dtypesx.cnv_data_to_array(upd_obj)
+
+    elif chart_type == chart_enum.HISTOGRAM.value:
+
+        global histogram_chart_dict
+
+        if isinstance(upd_obj, str):
+
+            histogram_chart_dict['params']['color'] = np.array(upd_obj, dtype = str)
+
+        elif isinstance(upd_obj, list) \
+            or isinstance(upd_obj, np.ndarray) \
+            or isinstance(upd_obj, pd.Series):
+
+            histogram_chart_dict['params']['color'] = dtypesx.cnv_data_to_array(upd_obj)
+
+    elif chart_type == chart_enum.LINE.value:
+
+        global line_chart_dict
+
+        if isinstance(upd_obj, str):
+
+            line_chart_dict[cat]['color'] = np.array(upd_obj, dtype = str)
+
+        elif isinstance(upd_obj, list) \
+            or isinstance(upd_obj, np.ndarray) \
+            or isinstance(upd_obj, pd.Series):
+
+            line_chart_dict[cat]['color'] = dtypesx.cnv_data_to_array(upd_obj)
+
+    elif chart_type == chart_enum.PIE.value:
+
+        global pie_chart_dict
+
+        if isinstance(upd_obj, str):
+
+            pie_chart_dict['params']['colors'] = np.array(upd_obj, dtype = str)
+
+        elif isinstance(upd_obj, list) \
+            or isinstance(upd_obj, np.ndarray) \
+            or isinstance(upd_obj, pd.Series):
+
+            pie_chart_dict['params']['colors'] = dtypesx.cnv_data_to_array(upd_obj)
+
+    elif chart_type == chart_enum.PLOT.value:
+
+        global plot_chart_dict
+
+        if isinstance(upd_obj, str):
+
+            plot_chart_dict[cat]['color'] = np.array(upd_obj, dtype = str)
+
+        elif isinstance(upd_obj, list) \
+            or isinstance(upd_obj, np.ndarray) \
+            or isinstance(upd_obj, pd.Series):
+
+            plot_chart_dict[cat]['color'] = dtypesx.cnv_data_to_array(upd_obj)
+
+    elif chart_type == chart_enum.SCATTER.value:
+
+        global scatterplot_chart_dict
+
+        if isinstance(upd_obj, str):
+
+            scatterplot_chart_dict['marker']['color'] = np.array(upd_obj, dtype = str)
+
+        elif isinstance(upd_obj, list) \
+            or isinstance(upd_obj, np.ndarray) \
+            or isinstance(upd_obj, pd.Series):
+
+            scatterplot_chart_dict['marker']['color'] = dtypesx.cnv_data_to_array(upd_obj)
+
+
+# In[34]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_legend_bbox_to_anchor
+ #
+ #  Function Description:
+ #      The function sets a chart's legend bbox to anchor.
+ #
+ #
+ #  Return Type: string or list
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  float          x_flt            The parameter is the x-coordinate.
+ #  float          y_flt            The parameter is the y-coordinate.
+ #  enum           chart_type       The parameter is the multichart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_legend_bbox_to_anchor \
+        (x_flt, 
+         y_flt,
+         chart_type):
+
+    if chart_type == chart_enum.BAR.value:
+
+        global bar_chart_dict
+
+        bar_chart_dict['legend']['bbox_to_anchor'] = np.array([x_flt, y_flt], dtype = float)
+
+    elif chart_type == chart_enum.HISTOGRAM.value:
+
+        global histogram_chart_dict
+
+        histogram_chart_dict['legend']['bbox_to_anchor'] = np.array([x_flt, y_flt], dtype = float)
+
+    elif chart_type == chart_enum.LINE.value:
+
+        global line_chart_dict
+
+        line_chart_dict['legend']['bbox_to_anchor'] = np.array([x_flt, y_flt], dtype = float)
+
+    elif chart_type == chart_enum.PIE.value:
+
+        global pie_chart_dict
+
+        pie_chart_dict['legend']['bbox_to_anchor'] = np.array([x_flt, y_flt], dtype = float)
+
+    elif chart_type == chart_enum.PLOT.value:
+
+        global plot_chart_dict
+
+        plot_chart_dict['legend']['bbox_to_anchor'] = np.array([x_flt, y_flt], dtype = float)
+
+
+# In[35]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_multichart_stacked
+ #
+ #  Function Description:
+ #      The function sets the multichart's stacked boolean value.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  boolean        upd_bool         The parameter is the chart's updated stacked boolean.
+ #  enum           chart_type       The parameter is the chart type enumeration value.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_multichart_stacked \
+        (upd_bool,
+         chart_type):
+
+    if chart_type == chart_enum.MULTIBAR.value:
+
+        global bar_multichart_dict
+
+        bar_multichart_dict['figure']['stacked'] = upd_bool
+
+    elif chart_type == chart_enum.MULTIBOXPLOT.value:
+
+        global boxplot_multichart_dict
+
+        boxplot_multichart_dict['figure']['stacked'] = upd_bool
+
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value:
+
+        global histogram_multichart_dict
+
+        histogram_multichart_dict['figure']['stacked'] = upd_bool
+
+    elif chart_type == chart_enum.MULTILINE.value:
+
+        global line_multichart_dict
+
+        line_multichart_dict['figure']['stacked'] = upd_bool
+
+    elif chart_type == chart_enum.MULTIPIE.value:
+
+        global pie_multichart_dict
+
+        pie_multichart_dict['figure']['stacked'] = upd_bool
+
+    elif chart_type == chart_enum.MULTIPLOT.value:
+
+        global plot_multichart_dict
+
+        plot_multichart_dict['figure']['stacked'] = upd_bool
 
     elif chart_type == chart_enum.MULTISCATTER.value:
 
         global scatterplot_multichart_dict
 
-        scatterplot_multichart_dict['xlabel']['text'] = xlabel
-        scatterplot_multichart_dict['ylabel']['text'] = ylabel
+        scatterplot_multichart_dict['figure']['stacked'] = upd_bool
 
 
-# In[15]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_bar_chart_xylabels
- #
- #  Function Description:
- #      The function retrieves the bar chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_bar_chart_xylabels():
-
-    return get_xylabels(chart_enum.BAR.value)
-
-
-# In[16]:
+# In[36]:
 
 
 #*******************************************************************************************
  #
- #  Function Name:  set_bar_chart_xylabels
+ #  Function Name:  set_multichart_xysuplabels
  #
  #  Function Description:
- #      The function sets the bar chart's x-axis label and y-axis label.
+ #      The function sets the multichart's x-axis suplabel and y-axis suplabel.
  #
  #
  #  Return Type: n/a
@@ -836,8 +2457,9 @@ def get_bar_chart_xylabels():
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
+ #  string         xsuplabel        The parameter is the chart's x-axis suplabel.
+ #  string         ysuplabel        The parameter is the chart's y-axis suplabel.
+ #  enum           chart_type       The parameter is the multichart type enumeration value.
  #
  #
  #  Date                Description                                 Programmer
@@ -846,491 +2468,85 @@ def get_bar_chart_xylabels():
  #
  #******************************************************************************************/
 
-def set_bar_chart_xylabels \
-        (xlabel, 
-         ylabel):
+def set_multichart_xysuplabels \
+        (xsuplabel,
+         ysuplabel,
+         chart_type):
 
-    set_xylabels(xlabel, ylabel, chart_enum.BAR.value)
+    if chart_type == chart_enum.MULTIBAR.value:
 
+        global bar_multichart_dict
 
-# In[17]:
+        bar_multichart_dict['supxlabel']['text'] = xsuplabel
+        bar_multichart_dict['supylabel']['text'] = ysuplabel
 
+    elif chart_type == chart_enum.MULTIBOXPLOT.value:
 
-#*******************************************************************************************
- #
- #  Function Name:  get_boxplot_chart_xylabels
- #
- #  Function Description:
- #      The function retrieves the boxplot chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
+        global boxplot_multichart_dict
 
-def get_boxplot_chart_xylabels():
+        boxplot_multichart_dict['supxlabel']['text'] = xsuplabel
+        boxplot_multichart_dict['supylabel']['text'] = ysuplabel
 
-    return get_xylabels(chart_enum.BOXPLOT.value)
+    elif chart_type == chart_enum.MULTIHISTOGRAM.value:
 
+        global histogram_multichart_dict
 
-# In[18]:
+        histogram_multichart_dict['supxlabel']['text'] = xsuplabel
+        histogram_multichart_dict['supylabel']['text'] = ysuplabel
 
+    elif chart_type == chart_enum.MULTILINE.value:
 
-#*******************************************************************************************
- #
- #  Function Name:  set_boxplot_chart_xylabels
- #
- #  Function Description:
- #      The function sets the boxplot chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
+        global line_multichart_dict
 
-def set_boxplot_chart_xylabels \
-        (xlabel, 
-         ylabel):
+        line_multichart_dict['supxlabel']['text'] = xsuplabel
+        line_multichart_dict['supylabel']['text'] = ysuplabel
 
-    set_xylabels(xlabel, ylabel, chart_enum.BOXPLOT.value)
+    elif chart_type == chart_enum.MULTIPIE.value:
+
+        global pie_multichart_dict
+
+        pie_multichart_dict['supxlabel']['text'] = xsuplabel
+        pie_multichart_dict['supylabel']['text'] = ysuplabel
+
+    elif chart_type == chart_enum.MULTIPLOT.value:
+
+        global plot_multichart_dict
+
+        plot_multichart_dict['supxlabel']['text'] = xsuplabel
+        plot_multichart_dict['supylabel']['text'] = ysuplabel
+
+    elif chart_type == chart_enum.MULTISCATTER.value:
+
+        global scatterplot_multichart_dict
+
+        scatterplot_multichart_dict['supxlabel']['text'] = xsuplabel
+        scatterplot_multichart_dict['supylabel']['text'] = ysuplabel
 
 
-# In[19]:
+# In[37]:
 
 
 #*******************************************************************************************
  #
- #  Function Name:  get_histogram_chart_xylabels
+ #  Function Name:  get_bar_chart_dict
+ #                  get_boxplot_chart_dict
+ #                  get_histogram_chart_dict
+ #                  get_line_chart_dict
+ #                  get_pie_chart_dict
+ #                  get_plot_chart_dict
+ #                  get_scatterplot_chart_dict
+ #                  get_regr_line_dict
+ #
+ #                  get_bar_multichart_dict
+ #                  get_boxplot_multichart_dict
+ #                  get_histogram_multichart_dict
+ #                  get_line_multichart_dict
+ #                  get_pie_multichart_dict
+ #                  get_plot_multichart_dict
+ #                  get_scatterplot_multichart_dict
  #
  #  Function Description:
- #      The function retrieves the histogram chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_histogram_chart_xylabels():
-
-    return get_xylabels(chart_enum.HISTOGRAM.value)
-
-
-# In[20]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_histogram_chart_xylabels
- #
- #  Function Description:
- #      The function sets the histogram chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_histogram_chart_xylabels \
-        (xlabel, 
-         ylabel):
-
-    set_xylabels(xlabel, ylabel, chart_enum.HISTOGRAM.value)
-
-
-# In[21]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_line_chart_xylabels
- #
- #  Function Description:
- #      The function retrieves the line chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_line_chart_xylabels():
-
-    return get_xylabels(chart_enum.LINE.value)
-
-
-# In[22]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_line_chart_xylabels
- #
- #  Function Description:
- #      The function sets the line chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_line_chart_xylabels \
-        (xlabel, 
-         ylabel):
-
-    set_xylabels(xlabel, ylabel, chart_enum.LINE.value)
-
-
-# In[23]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_pie_chart_xylabels
- #
- #  Function Description:
- #      The function retrieves the pie chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_pie_chart_xylabels():
-
-    return get_xylabels(chart_enum.PIE.value)
-
-
-# In[24]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_pie_chart_xylabels
- #
- #  Function Description:
- #      The function sets the pie chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_pie_chart_xylabels \
-        (xlabel, 
-         ylabel):
-
-    set_xylabels(xlabel, ylabel, chart_enum.PIE.value)
-
-
-# In[25]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_plot_chart_xylabels
- #
- #  Function Description:
- #      The function retrieves the plot chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_plot_chart_xylabels():
-
-    return get_xylabels(chart_enum.PLOT.value)
-
-
-# In[26]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_plot_chart_xylabels
- #
- #  Function Description:
- #      The function sets the plot chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_plot_chart_xylabels \
-        (xlabel, 
-         ylabel):
-
-    set_xylabels(xlabel, ylabel, chart_enum.PLOT.value)
-
-
-# In[27]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_scatterplot_chart_xylabels
- #
- #  Function Description:
- #      The function retrieves the scatter plot chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_scatterplot_chart_xylabels():
-
-    return get_xylabels(chart_enum.SCATTER.value)
-
-
-# In[28]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_scatterplot_chart_xylabels
- #
- #  Function Description:
- #      The function sets the scatter plot chart's x-axis label and y-axis label.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_scatterplot_chart_xylabels \
-        (xlabel, 
-         ylabel):
-
-    set_xylabels(xlabel, ylabel, chart_enum.SCATTER.value)
-
-
-# In[29]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_scatterplot_multichart_xylabels
- #
- #  Function Description:
- #      The function retrieves the scatter plot multichart's x-axis label and y-axis label.
- #
- #
- #  Return Type: string, string
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  enum           chart_type       The parameter is the chart type enumeration value.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_scatterplot_multichart_xylabels():
-
-    return get_xylabels(chart_enum.MULTISCATTER.value)
-
-
-# In[30]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_scatterplot_multichart_xylabels
- #
- #  Function Description:
- #      The function sets the scatter plot multichart's x-axis label and y-axis label.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  string         xlabel           The parameter is the chart's x-axis label.
- #  string         ylabel           The parameter is the chart's y-axis label.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_scatterplot_multichart_xylabels \
-        (xlabel, 
-         ylabel):
-
-    set_xylabels(xlabel, ylabel, chart_enum.MULTISCATTER.value)
-
-
-# In[31]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_regr_line_dict
- #
- #  Function Description:
- #      The function retrieves the global regression line dictionary.
+ #      The function retrieves the global chart dictionary.
  #
  #
  #  Return Type: dictionary
@@ -1349,20 +2565,261 @@ def set_scatterplot_multichart_xylabels \
  #
  #******************************************************************************************/
 
-def get_regr_line_dict():
+def get_bar_chart_dict(): return get_chart_dict(chart_enum.BAR.value)
+def get_boxplot_chart_dict(): return get_chart_dict(chart_enum.BOXPLOT.value)
+def get_histogram_chart_dict(): return get_chart_dict(chart_enum.HISTOGRAM.value)
+def get_line_chart_dict(): return get_chart_dict(chart_enum.LINE.value)
+def get_pie_chart_dict(): return get_chart_dict(chart_enum.PIE.value)
+def get_plot_chart_dict(): return get_chart_dict(chart_enum.PLOT.value)
+def get_scatterplot_chart_dict(): return get_chart_dict(chart_enum.SCATTER.value)
+def get_regr_line_dict(): return get_chart_dict(chart_enum.REGR_LINE.value)
 
-    return regr_line_dict
+def get_bar_multichart_dict(): return get_chart_dict(chart_enum.MULTIBAR.value)
+def get_boxplot_multichart_dict(): return get_chart_dict(chart_enum.MULTIBOXPLOT.value)
+def get_histogram_multichart_dict(): return get_chart_dict(chart_enum.MULTIHISTOGRAM.value)
+def get_line_multichart_dict(): return get_chart_dict(chart_enum.MULTILINE.value)
+def get_pie_multichart_dict(): return get_chart_dict(chart_enum.MULTIPIE.value)
+def get_plot_multichart_dict(): return get_chart_dict(chart_enum.MULTIPLOT.value)
+def get_scatterplot_multichart_dict(): return get_chart_dict(chart_enum.MULTISCATTER.value)
 
 
-# In[32]:
+# In[38]:
 
 
 #*******************************************************************************************
  #
- #  Function Name:  set_regr_line_dict
+ #  Function Name:  set_bar_chart_dict
+ #                  set_boxplot_chart_dict
+ #                  set_histogram_chart_dict
+ #                  set_line_chart_dict
+ #                  set_pie_chart_dict
+ #                  set_plot_chart_dict
+ #                  set_scatterplot_chart_dict
+ #                  set_regr_line_dict
+ #
+ #                  set_bar_multichart_dict
+ #                  set_boxplot_multichart_dict
+ #                  set_histogram_multichart_dict
+ #                  set_line_multichart_dict
+ #                  set_pie_multichart_dict
+ #                  set_plot_multichart_dict
+ #                  set_scatterplot_multichart_dict
  #
  #  Function Description:
- #      The function sets the global regression line dictionary.
+ #      The function sets the global chart dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     upd_dict         The parameter is the updated bar chart dictionary. 
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_bar_chart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.BAR.value)
+def set_boxplot_chart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.BOXPLOT.value)
+def set_histogram_chart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.HISTOGRAM.value)
+def set_line_chart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.LINE.value)
+def set_pie_chart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.PIE.value)
+def set_plot_chart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.PLOT.value)
+def set_scatterplot_chart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.SCATTER.value)
+def set_regr_line_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.REGR_LINE.value)
+
+def set_bar_multichart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.MULTIBAR.value)
+def set_boxplot_multichart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.MULTIBOXPLOT.value)
+def set_histogram_multichart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.MULTIHISTOGRAM.value)
+def set_line_multichart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.MULTILINE.value)
+def set_pie_multichart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.MULTIPIE.value)
+def set_plot_multichart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.MULTIPLOT.value)
+def set_scatterplot_multichart_dict(upd_dict): set_chart_dict(upd_dict, chart_enum.MULTISCATTER.value)
+
+
+# In[39]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_bar_chart_def_dict
+ #                  get_boxplot_chart_def_dict
+ #                  get_histogram_chart_def_dict
+ #                  get_line_chart_def_dict
+ #                  get_pie_chart_def_dict
+ #                  get_plot_chart_def_dict
+ #                  get_scatterplot_chart_def_dict
+ #                  get_regr_line_def_dict
+ #
+ #                  get_bar_multichart_def_dict
+ #                  get_boxplot_multichart_def_dict
+ #                  get_histogram_multichart_def_dict
+ #                  get_line_multichart_def_dict
+ #                  get_pie_multichart_def_dict
+ #                  get_plot_multichart_def_dict
+ #                  get_scatterplot_multichart_def_dict
+ #
+ #  Function Description:
+ #      The function retrieves the global chart default dictionary.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_bar_chart_def_dict(): return get_chart_def_dict(chart_enum.BAR.value)
+def get_boxplot_chart_def_dict(): return get_chart_def_dict(chart_enum.BOXPLOT.value)
+def get_histogram_chart_def_dict(): return get_chart_def_dict(chart_enum.HISTOGRAM.value)
+def get_line_chart_def_dict(): return get_chart_def_dict(chart_enum.LINE.value)
+def get_pie_chart_def_dict(): return get_chart_def_dict(chart_enum.PIE.value)
+def get_plot_chart_def_dict(): return get_chart_def_dict(chart_enum.PLOT.value)
+def get_scatterplot_chart_def_dict(): return get_chart_def_dict(chart_enum.SCATTER.value)
+def get_regr_line_def_dict(): return get_chart_def_dict(chart_enum.REGR_LINE.value)
+
+def get_bar_multichart_def_dict(): return get_chart_def_dict(chart_enum.MULTIBAR.value)
+def get_boxplot_multichart_def_dict(): return get_chart_def_dict(chart_enum.MULTIBOXPLOT.value)
+def get_histogram_multichart_def_dict(): return get_chart_def_dict(chart_enum.MULTIHISTOGRAM.value)
+def get_line_multichart_def_dict(): return get_chart_def_dict(chart_enum.MULTILINE.value)
+def get_pie_multichart_def_dict(): return get_chart_def_dict(chart_enum.MULTIPIE.value)
+def get_plot_multichart_def_dict(): return get_chart_def_dict(chart_enum.MULTIPLOT.value)
+def get_scatterplot_multichart_def_dict(): return get_chart_def_dict(chart_enum.MULTISCATTER.value)
+
+
+# In[40]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_bar_chart_def_dict
+ #                  set_boxplot_chart_def_dict
+ #                  set_histogram_chart_def_dict
+ #                  set_line_chart_def_dict
+ #                  set_pie_chart_def_dict
+ #                  set_plot_chart_def_dict
+ #                  set_scatterplot_chart_def_dict
+ #                  set_regr_line_def_dict
+ #
+ #                  set_bar_multichart_def_dict
+ #                  set_boxplot_multichart_def_dict
+ #                  set_histogram_multichart_def_dict
+ #                  set_line_multichart_def_dict
+ #                  set_pie_multichart_def_dict
+ #                  set_plot_multichart_def_dict
+ #                  set_scatterplot_multichart_def_dict
+ #
+ #  Function Description:
+ #      The function sets the global chart dictionary with default values.
+ #
+ #
+ #  Return Type: dictionary
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_bar_chart_def_dict(): set_chart_def_dict(chart_enum.BAR.value)
+def set_boxplot_chart_def_dict(): set_chart_def_dict(chart_enum.BOXPLOT.value)
+def set_histogram_chart_def_dict(): set_chart_def_dict(chart_enum.HISTOGRAM.value)
+def set_line_chart_def_dict(): set_chart_def_dict(chart_enum.LINE.value)
+def set_pie_chart_def_dict(): set_chart_def_dict(chart_enum.PIE.value)
+def set_plot_chart_def_dict(): set_chart_def_dict(chart_enum.PLOT.value)
+def set_scatterplot_chart_def_dict(): set_chart_def_dict(chart_enum.SCATTER.value)
+def set_regr_line_def_dict(): set_chart_def_dict(chart_enum.REGR_LINE.value)
+
+def set_bar_multichart_def_dict(): set_chart_def_dict(chart_enum.MULTIBAR.value)
+def set_boxplot_multichart_def_dict(): set_chart_def_dict(chart_enum.MULTIBOXPLOT.value)
+def set_histogram_multichart_def_dict(): set_chart_def_dict(chart_enum.MULTIHISTOGRAM.value)
+def set_line_multichart_def_dict(): set_chart_def_dict(chart_enum.MULTILINE.value)
+def set_pie_multichart_def_dict(): set_chart_def_dict(chart_enum.MULTIPIE.value)
+def set_plot_multichart_def_dict(): set_chart_def_dict(chart_enum.MULTIPLOT.value)
+def set_scatterplot_multichart_def_dict(): set_chart_def_dict(chart_enum.MULTISCATTER.value)
+
+
+# In[41]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_bar_chart_title
+ #                  get_boxplot_chart_title
+ #                  get_histogram_chart_title
+ #                  get_line_chart_title
+ #                  get_pie_chart_title
+ #                  get_plot_chart_title
+ #                  get_scatterplot_chart_title
+ #
+ #  Function Description:
+ #      The function retrieves the chart's titles.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_bar_chart_title(): return get_titles(chart_enum.BAR.value)
+def get_boxplot_chart_title(): return get_titles(chart_enum.BOXPLOT.value)
+def get_histogram_chart_title(): return get_titles(chart_enum.HISTOGRAM.value)
+def get_line_chart_title(): return get_titles(chart_enum.LINE.value)
+def get_pie_chart_title(): return get_titles(chart_enum.PIE.value)
+def get_plot_chart_title(): return get_titles(chart_enum.PLOT.value)
+def get_scatterplot_chart_title(): return get_titles(chart_enum.SCATTER.value)
+
+
+# In[42]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_bar_chart_title
+ #                  set_boxplot_chart_title
+ #                  set_histogram_chart_title
+ #                  set_line_chart_title
+ #                  set_pie_chart_title
+ #                  set_plot_chart_title
+ #                  set_scatterplot_chart_title
+ #
+ #  Function Description:
+ #      The function sets the chart's titles.
  #
  #
  #  Return Type: n/a
@@ -1372,8 +2829,7 @@ def get_regr_line_dict():
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated regression line
- #                                  dictionary.
+ #  string         titles           The parameter is the chart's titles.
  #
  #
  #  Date                Description                                 Programmer
@@ -1382,14 +2838,226 @@ def get_regr_line_dict():
  #
  #******************************************************************************************/
 
-def set_regr_line_dict(upd_dict):
+def set_bar_chart_title(titles): set_titles(titles, chart_enum.BAR.value)
+def set_boxplot_chart_title(titles): set_titles(titles, chart_enum.BOXPLOT.value)
+def set_histogram_chart_title(titles): set_titles(titles, chart_enum.HISTOGRAM.value)
+def set_line_chart_title(titles): set_titles(titles, chart_enum.LINE.value)
+def set_pie_chart_title(titles): set_titles(titles, chart_enum.PIE.value)
+def set_plot_chart_title(titles): set_titles(titles, chart_enum.PLOT.value)
+def set_scatterplot_chart_title(titles): set_titles(titles, chart_enum.SCATTER.value)
 
-    global regr_line_dict
 
-    regr_line_dict = upd_dict
+# In[43]:
 
 
-# In[33]:
+#*******************************************************************************************
+ #
+ #  Function Name:  get_bar_chart_xylabels
+ #                  get_boxplot_chart_xylabels
+ #                  get_histogram_chart_xylabels
+ #                  get_line_chart_xylabels
+ #                  get_pie_chart_xylabels
+ #                  get_plot_chart_xylabels
+ #                  get_scatterplot_chart_xylabels
+ #
+ #  Function Description:
+ #      The function retrieves the chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: string, string
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_bar_chart_xylabels(): return get_xylabels(chart_enum.BAR.value)
+def get_boxplot_chart_xylabels(): return get_xylabels(chart_enum.BOXPLOT.value)
+def get_histogram_chart_xylabels(): return get_xylabels(chart_enum.HISTOGRAM.value)
+def get_line_chart_xylabels(): return get_xylabels(chart_enum.LINE.value)
+def get_pie_chart_xylabels(): return get_xylabels(chart_enum.PIE.value)
+def get_plot_chart_xylabels(): return get_xylabels(chart_enum.PLOT.value)
+def get_scatterplot_chart_xylabels(): return get_xylabels(chart_enum.SCATTER.value)
+
+
+# In[44]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_bar_chart_xylabels
+ #                  set_boxplot_chart_xylabels
+ #                  set_histogram_chart_xylabels
+ #                  set_line_chart_xylabels
+ #                  set_pie_chart_xylabels
+ #                  set_plot_chart_xylabels
+ #                  set_scatterplot_chart_xylabels
+ #
+ #  Function Description:
+ #      The function sets the chart's x-axis label and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  string         xlabel           The parameter is the chart's x-axis label.
+ #  string         ylabel           The parameter is the chart's y-axis label.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_bar_chart_xylabels(xlabel, ylabel): 
+
+    set_xylabels(xlabel, ylabel, chart_enum.BAR.value)
+
+def set_boxplot_chart_xylabels(xlabel, ylabel): 
+
+    set_xylabels(xlabel, ylabel, chart_enum.BOXPLOT.value)
+
+def set_histogram_chart_xylabels(xlabel, ylabel): 
+
+    set_xylabels(xlabel, ylabel, chart_enum.HISTOGRAM.value)
+
+def set_line_chart_xylabels(xlabel, ylabel): 
+
+    set_xylabels(xlabel, ylabel, chart_enum.LINE.value)
+
+def set_pie_chart_xylabels(xlabel, ylabel): 
+
+    set_xylabels(xlabel, ylabel, chart_enum.PIE.value)
+
+def set_plot_chart_xylabels(xlabel, ylabel): 
+
+    set_xylabels(xlabel, ylabel, chart_enum.PLOT.value)
+
+def set_scatterplot_chart_xylabels(xlabel, ylabel): 
+
+    set_xylabels(xlabel, ylabel, chart_enum.SCATTER.value)
+
+
+# In[45]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_bar_chart_legend_bbox_to_anchor
+ #                  get_histogram_chart_legend_bbox_to_anchor
+ #                  get_line_chart_legend_bbox_to_anchor
+ #                  get_pie_chart_legend_bbox_to_anchor
+ #                  get_plot_chart_legend_bbox_to_anchor
+ #
+ #  Function Description:
+ #      The function retrieves the chart's legend bbox to anchor.
+ #
+ #
+ #  Return Type: (float, float)
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_bar_chart_legend_bbox_to_anchor(): 
+
+    return get_legend_bbox_to_anchor(chart_enum.BAR.value)
+
+def get_histogram_chart_legend_bbox_to_anchor(): 
+
+    return get_legend_bbox_to_anchor(chart_enum.HISTOGRAM.value)
+
+def get_line_chart_legend_bbox_to_anchor(): 
+
+    return get_legend_bbox_to_anchor(chart_enum.LINE.value)
+
+def get_pie_chart_legend_bbox_to_anchor(): 
+
+    return get_legend_bbox_to_anchor(chart_enum.PIE.value)
+
+def get_plot_chart_legend_bbox_to_anchor(): 
+
+    return get_legend_bbox_to_anchor(chart_enum.PLOT.value)
+
+
+# In[46]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  set_bar_chart_legend_bbox_to_anchor
+ #                  set_histogram_chart_legend_bbox_to_anchor
+ #                  set_line_chart_legend_bbox_to_anchor
+ #                  set_pie_chart_legend_bbox_to_anchor
+ #                  set_plot_chart_legend_bbox_to_anchor
+ #
+ #  Function Description:
+ #      The function sets the chart's legend bbox to anchor.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  float          x_flt            The parameter is the x-coordinate.
+ #  float          y_flt            The parameter is the y-coordinate.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def set_bar_chart_legend_bbox_to_anchor(x_flt, y_flt): 
+
+    set_legend_bbox_to_anchor(x_flt, y_flt, chart_enum.BAR.value)
+
+def set_histogram_chart_legend_bbox_to_anchor(x_flt, y_flt): 
+
+    set_legend_bbox_to_anchor(x_flt, ylabel, chart_enum.HISTOGRAM.value)
+
+def set_line_chart_legend_bbox_to_anchor(x_flt, y_flt): 
+
+    set_legend_bbox_to_anchor(x_flt, y_flt, chart_enum.LINE.value)
+
+def set_pie_chart_legend_bbox_to_anchor(x_flt, y_flt): 
+
+    set_legend_bbox_to_anchor(x_flt, y_flt, chart_enum.PIE.value)
+
+def set_plot_chart_legend_bbox_to_anchor(x_flt, y_flt): 
+
+    set_legend_bbox_to_anchor(x_flt, y_flt, chart_enum.PLOT.value)
+
+
+# In[47]:
 
 
 #*******************************************************************************************
@@ -1421,7 +3089,39 @@ def get_regr_degree():
     return regr_line_dict['degree']
 
 
-# In[34]:
+# In[48]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  get_regr_eqn_coords
+ #
+ #  Function Description:
+ #      The function retrieves the regression equations x-axis and y-axis coordinates.
+ #
+ #
+ #  Return Type: float, float
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  n/a            n/a              n/a  
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def get_regr_eqn_coords():
+
+    return regr_line_dict['eqn_x_coord'], regr_line_dict['eqn_y_coord']
+
+
+# In[49]:
 
 
 #*******************************************************************************************
@@ -1452,60 +3152,28 @@ def set_regr_degree(input_obj):
 
     global regr_line_dict
 
-    if isinstance(input_obj, int) == True:
+    if isinstance(input_obj, int):
 
         regr_line_dict['degree'] = [abs(input_obj)]
 
-    elif isinstance(input_obj, float) == True:
+    elif isinstance(input_obj, float):
 
         regr_line_dict['degree'] = [int(abs(input_obj))]
 
-    elif isinstance(input_obj, list) == True:
+    elif isinstance(input_obj, list):
 
         regr_line_dict['degree'] = np.array(input_obj)
 
-    elif isinstance(input_obj, np.ndarray) == True:
+    elif isinstance(input_obj, np.ndarray):
 
         regr_line_dict['degree'] = input_obj
 
-    elif isinstance(input_obj, pd.Series) == True:
+    elif isinstance(input_obj, pd.Series):
 
         regr_line_dict['degree'] = input_obj.to_numpy()
 
 
-# In[35]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_regr_line_dict
- #
- #  Function Description:
- #      The function retrieves the regression equations x-axis and y-axis coordinates.
- #
- #
- #  Return Type: float, float
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_regr_eqn_coords():
-
-    return regr_line_dict['eqn_x_coord'], regr_line_dict['eqn_y_coord']
-
-
-# In[36]:
+# In[50]:
 
 
 #*******************************************************************************************
@@ -1540,101 +3208,40 @@ def set_regr_eqn_coords(x_crd_obj, y_crd_obj):
     global regr_line_dict
 
 
-    if isinstance(x_crd_obj, int) == True \
-        or isinstance(x_crd_obj, float) == True:
+    if isinstance(x_crd_obj, int) \
+        or isinstance(x_crd_obj, float):
 
         regr_line_dict['eqn_x_coord'] = [x_crd_obj]
 
-    elif isinstance(x_crd_obj, list) == True:
+    elif isinstance(x_crd_obj, list):
 
         regr_line_dict['eqn_x_coord'] = x_crd_obj
 
 
-    if isinstance(y_crd_obj, int) == True \
-        or isinstance(y_crd_obj, float) == True:
+    if isinstance(y_crd_obj, int) \
+        or isinstance(y_crd_obj, float):
 
         regr_line_dict['eqn_y_coord'] = [y_crd_obj]
 
-    elif isinstance(y_crd_obj, list) == True:
+    elif isinstance(y_crd_obj, list):
 
         regr_line_dict['eqn_y_coord'] = y_crd_obj  
 
 
-# In[37]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_bar_chart_dict
- #
- #  Function Description:
- #      The function retrieves the global bar chart dictionary.
- #
- #
- #  Return Type: dictionary
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_bar_chart_dict():
-
-    return bar_chart_dict
-
-
-# In[38]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_bar_chart_dict
- #
- #  Function Description:
- #      The function sets the global bar chart dictionary.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated bar chart dictionary.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_bar_chart_dict(upd_dict):
-
-    global bar_chart_dict
-
-    bar_chart_dict = upd_dict
-
-
-# In[39]:
+# In[51]:
 
 
 #*******************************************************************************************
  #
  #  Function Name:  get_bar_chart_colors
+ #                  get_histogram_chart_colors
+ #                  get_line_chart_colors
+ #                  get_pie_chart_colors
+ #                  get_plot_chart_colors
+ #                  get_scatterplot_chart_colors
  #
  #  Function Description:
- #      The function retrieves the bar chart face colors.
+ #      The function retrieves the chart colors.
  #
  #
  #  Return Type: string or list
@@ -1644,7 +3251,7 @@ def set_bar_chart_dict(upd_dict):
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
+ #  string         cat              The parameter is the color category.
  #
  #
  #  Date                Description                                 Programmer
@@ -1653,20 +3260,28 @@ def set_bar_chart_dict(upd_dict):
  #
  #******************************************************************************************/
 
-def get_bar_chart_colors():
+def get_bar_chart_colors(cat = ''): return get_chart_colors(chart_enum.BAR.value, cat)
+def get_histogram_chart_colors(cat = ''): return get_chart_colors(chart_enum.HISTOGRAM.value, cat)
+def get_line_chart_colors(cat = 'line'): return get_chart_colors(chart_enum.LINE.value, cat)
+def get_pie_chart_colors(cat = ''): return get_chart_colors(chart_enum.PIE.value, cat)
+def get_plot_chart_colors(cat = 'params'): return get_chart_colors(chart_enum.PLOT.value, cat)
+def get_scatterplot_chart_colors(cat = 'marker'): return get_chart_colors(chart_enum.PLOT.value, cat)
 
-    return bar_chart_dict['params']['color']
 
-
-# In[40]:
+# In[52]:
 
 
 #*******************************************************************************************
  #
  #  Function Name:  set_bar_chart_colors
+ #                  set_histogram_chart_colors
+ #                  set_line_chart_colors
+ #                  set_pie_chart_colors
+ #                  set_plot_chart_colors
+ #                  set_scatterplot_chart_colors
  #
  #  Function Description:
- #      The function sets the bar chart face colors.
+ #      The function sets the chart face colors.
  #
  #
  #  Return Type: n/a
@@ -1676,8 +3291,8 @@ def get_bar_chart_colors():
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  object         upd_obj          The parameter is the updated group of bar chart 
- #                                  colors.
+ #  object         upd_obj          The parameter is the updated group of chart colors.
+ #  string         cat              The parameter is the color category.
  #
  #
  #  Date                Description                                 Programmer
@@ -1686,348 +3301,15 @@ def get_bar_chart_colors():
  #
  #******************************************************************************************/
 
-def set_bar_chart_colors(upd_obj):
-
-    global bar_chart_dict
-
-    bar_chart_dict['params']['color'] \
-        = dtypesx.cnv_data_to_array(upd_obj)
-
-
-# In[41]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_boxplot_chart_dict
- #
- #  Function Description:
- #      The function retrieves the global boxplot chart dictionary.
- #
- #
- #  Return Type: dictionary
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_boxplot_chart_dict():
-
-    return boxplot_chart_dict
-
-
-# In[42]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_boxplot_chart_dict
- #
- #  Function Description:
- #      The function sets the global boxplot chart dictionary.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated boxplot chart dictionary.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_boxplot_chart_dict(upd_dict):
-
-    global boxplot_chart_dict
-
-    boxplot_chart_dict = upd_dict
-
-
-# In[43]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_histogram_chart_dict
- #
- #  Function Description:
- #      The function retrieves the global histogram chart dictionary.
- #
- #
- #  Return Type: dictionary
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_histogram_chart_dict():
-
-    return histogram_chart_dict
-
-
-# In[44]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_histogram_chart_dict
- #
- #  Function Description:
- #      The function sets the global histogram chart dictionary.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated histogram chart 
- #                                  dictionary.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_histogram_chart_dict(upd_dict):
-
-    global histogram_chart_dict
-
-    histogram_chart_dict = upd_dict
-
-
-# In[45]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_line_chart_dict
- #
- #  Function Description:
- #      The function retrieves the global line chart dictionary.
- #
- #
- #  Return Type: dictionary
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_line_chart_dict():
-
-    return line_chart_dict
-
-
-# In[46]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_line_chart_dict
- #
- #  Function Description:
- #      The function sets the global line chart dictionary.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated line chart dictionary.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_line_chart_dict(upd_dict):
-
-    global line_chart_dict
-
-    line_chart_dict = upd_dict
-
-
-# In[47]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_pie_chart_dict
- #
- #  Function Description:
- #      The function retrieves the global pie chart dictionary.
- #
- #
- #  Return Type: dictionary
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_pie_chart_dict():
-
-    return pie_chart_dict
-
-
-# In[48]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_pie_chart_dict
- #
- #  Function Description:
- #      The function sets the global line chart dictionary.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated pie chart dictionary.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_pie_chart_dict(upd_dict):
-
-    global pie_chart_dict
-
-    pie_chart_dict = upd_dict
-
-
-# In[49]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_pie_chart_colors
- #
- #  Function Description:
- #      The function retrieves the pie chart colors.
- #
- #
- #  Return Type: array, list, or tuple
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_pie_chart_colors():
-
-    return pie_chart_dict['params']['colors']
-
-
-# In[50]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_pie_chart_colors
- #
- #  Function Description:
- #      The function sets the pie chart colors.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  object         upd_obj          The parameter is the updated group of pie chart 
- #                                  colors.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_pie_chart_colors(upd_obj):
-
-    global pie_chart_dict
-
-    pie_chart_dict['params']['colors'] \
-        = dtypesx.cnv_data_to_array(upd_obj)
-
-
-# In[51]:
+def set_bar_chart_colors(upd_obj, cat = ''): set_chart_colors(upd_obj, chart_enum.BAR.value, cat)
+def set_histogram_chart_colors(upd_obj, cat = ''): set_chart_colors(upd_obj, chart_enum.HISTOGRAM.value, cat)
+def set_line_chart_colors(upd_obj, cat = 'line'): set_chart_colors(upd_obj, chart_enum.LINE.value, cat)
+def set_pie_chart_colors(upd_obj, cat = ''): set_chart_colors(upd_obj, chart_enum.PIE.value, cat)
+def set_plot_chart_colors(upd_obj, cat = 'params'): set_chart_colors(upd_obj, chart_enum.PLOT.value, cat)     
+def set_scatterplot_chart_colors(upd_obj, cat = 'marker'): set_chart_colors(upd_obj, chart_enum.SCATTER.value, cat) 
+
+
+# In[53]:
 
 
 #*******************************************************************************************
@@ -2059,7 +3341,7 @@ def get_pie_chart_explode():
     return pie_chart_dict['params']['explode']
 
 
-# In[52]:
+# In[54]:
 
 
 #*******************************************************************************************
@@ -2091,74 +3373,7 @@ def set_pie_chart_explode(upd_obj):
 
     global pie_chart_dict
 
-    pie_chart_dict['params']['explode'] \
-        = dtypesx.cnv_data_to_array(upd_obj)
-
-
-# In[53]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  get_plot_chart_dict
- #
- #  Function Description:
- #      The function retrieves the global plot chart dictionary.
- #
- #
- #  Return Type: dictionary
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def get_plot_chart_dict():
-
-    return plot_chart_dict
-
-
-# In[54]:
-
-
-#*******************************************************************************************
- #
- #  Function Name:  set_plot_chart_dict
- #
- #  Function Description:
- #      The function sets the global plot chart dictionary.
- #
- #
- #  Return Type: n/a
- #
- #
- #  Function Parameters:
- #
- #  Type           Name             Description
- #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated plot chart dictionary.
- #
- #
- #  Date                Description                                 Programmer
- #  ---------------     ------------------------------------        ------------------
- #  02/24/2026          Initial Development                         Nicholas J. George
- #
- #******************************************************************************************/
-
-def set_plot_chart_dict(upd_dict):
-
-    global plot_chart_dict
-
-    plot_chart_dict = upd_dict
+    pie_chart_dict['params']['explode'] = dtypesx.cnv_data_to_array(upd_obj)
 
 
 # In[55]:
@@ -2166,20 +3381,26 @@ def set_plot_chart_dict(upd_dict):
 
 #*******************************************************************************************
  #
- #  Function Name:  get_scatterplot_chart_dict
+ #  Function Name:  get_bar_multichart_stacked
+ #                  get_boxplot_multichart_stacked
+ #                  get_histogram_multichart_stacked
+ #                  get_line_multichart_stacked
+ #                  get_pie_multichart_stacked
+ #                  get_plot_multichart_stacked
+ #                  get_scatterplot_multichart_stacked
  #
  #  Function Description:
- #      The function retrieves the global scatterplot chart dictionary.
+ #      The function retrieves the multichart's stacked boolean value.
  #
  #
- #  Return Type: dictionary
+ #  Return Type: boolean
  #
  #
  #  Function Parameters:
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
+ #  n/a            n/a              n/a
  #
  #
  #  Date                Description                                 Programmer
@@ -2188,9 +3409,13 @@ def set_plot_chart_dict(upd_dict):
  #
  #******************************************************************************************/
 
-def get_scatterplot_chart_dict():
-
-    return scatterplot_chart_dict
+def get_bar_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIBAR.value)
+def get_boxplot_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIBOXPLOT.value)
+def get_histogram_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIHISTOGRAM.value)
+def get_line_multichart_stacked(): get_multichart_stacked(chart_enum.MULTILINE.value)
+def get_pie_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIPIE.value)
+def get_plot_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIPLOT.value)
+def get_scatterplot_multichart_stacked(): get_multichart_stacked(chart_enum.MULTISCATTER.value)
 
 
 # In[56]:
@@ -2198,10 +3423,10 @@ def get_scatterplot_chart_dict():
 
 #*******************************************************************************************
  #
- #  Function Name:  set_scatterplot_chart_dict
+ #  Function Name:  set_bar_multichart_stacked
  #
  #  Function Description:
- #      The function sets the global scatterplot chart dictionary.
+ #      The function sets the multichart's stacked boolean value.
  #
  #
  #  Return Type: n/a
@@ -2211,8 +3436,7 @@ def get_scatterplot_chart_dict():
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated scatterplot chart 
- #                                  dictionary.
+ #  boolean        upd_bool         The parameter is the chart's updated stacked boolean.
  #
  #
  #  Date                Description                                 Programmer
@@ -2221,11 +3445,13 @@ def get_scatterplot_chart_dict():
  #
  #******************************************************************************************/
 
-def set_scatterplot_chart_dict(upd_dict):
-
-    global scatterplot_chart_dict
-
-    scatterplot_chart_dict = upd_dict
+def set_bar_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIBAR.value)
+def set_boxplot_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIBOXPLOT.value)
+def set_histogram_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIHISTOGRAM.value)
+def set_line_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTILINE.value)
+def set_pie_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIPIE.value)
+def set_plot_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIPLOT.value)
+def set_scatterplot_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTISCATTER.value)
 
 
 # In[57]:
@@ -2233,20 +3459,26 @@ def set_scatterplot_chart_dict(upd_dict):
 
 #*******************************************************************************************
  #
- #  Function Name:  get_scatterplot_multichart_dict
+ #  Function Name:  get_bar_multichart_xysuplabels
+ #                  get_boxplot_multichart_xysuplabels
+ #                  get_histogram_chart_xylabels
+ #                  get_line_multichart_xysuplabels
+ #                  get_pie_multichart_xysuplabels
+ #                  get_plot_multichart_xysuplabels
+ #                  get_scatterplot_multichart_xysuplabels
  #
  #  Function Description:
- #      The function retrieves the global scatterplot multichart dictionary.
+ #      The function retrieves the multichart's x-axis suplabel and y-axis suplabel.
  #
  #
- #  Return Type: dictionary
+ #  Return Type: string, string
  #
  #
  #  Function Parameters:
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  n/a            n/a              n/a  
+ #  enum           chart_type       The parameter is the multichart type enumeration value.
  #
  #
  #  Date                Description                                 Programmer
@@ -2255,9 +3487,13 @@ def set_scatterplot_chart_dict(upd_dict):
  #
  #******************************************************************************************/
 
-def get_scatterplot_multichart_dict():
-
-    return scatterplot_multichart_dict
+def get_bar_multichart_xysuplabels(): return get_multichart_xy_suplabels(chart_enum.MULTIBAR.value)
+def get_boxplot_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTIBOXPLOT.value)
+def get_histogram_chart_xylabels(): return get_multichart_xysuplabels(chart_enum.MULTIHISTOGRAM.value)
+def get_line_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTILINE.value)
+def get_pie_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTIPIE.value)
+def get_plot_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTIPLOT.value)
+def get_scatterplot_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTISCATTER.value)
 
 
 # In[58]:
@@ -2265,10 +3501,16 @@ def get_scatterplot_multichart_dict():
 
 #*******************************************************************************************
  #
- #  Function Name:  set_scatterplot_multichart_dict
+ #  Function Name:  set_bar_multichart_xysuplabels
+ #                  set_boxplot_multichart_xysuplabels
+ #                  set_histogram_chart_xylabels
+ #                  set_line_multichart_xysuplabels
+ #                  set_pie_multichart_xysuplabels
+ #                  set_plot_multichart_xysuplabels
+ #                  set_scatterplot_multichart_xysuplabels
  #
  #  Function Description:
- #      The function sets the global scatterplot multichart dictionary.
+ #      The function sets the multichart's x-axis suplabel and y-axis suplabel.
  #
  #
  #  Return Type: n/a
@@ -2278,8 +3520,8 @@ def get_scatterplot_multichart_dict():
  #
  #  Type           Name             Description
  #  ------------   --------------   --------------------------------------------------
- #  dictionary     upd_dict         The parameter is the updated scatterplot multichart 
- #                                  dictionary.
+ #  string         xsuplabel        The parameter is the multichart's x-axis suplabel.
+ #  string         ysuplabel        The parameter is the multichart's y-axis suplabel.
  #
  #
  #  Date                Description                                 Programmer
@@ -2288,11 +3530,33 @@ def get_scatterplot_multichart_dict():
  #
  #******************************************************************************************/
 
-def set_scatterplot_multichart_dict(upd_dict):
+def set_bar_multichart_xysuplabels(xsuplabel, ysuplabel):
 
-    global scatterplot_multichart_dict
+    set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_enum.MULTIBAR.value)
 
-    scatterplot_multichart_dict = upd_dict
+def set_boxplot_multichart_xysuplabels(xsuplabel, ysuplabel):
+
+    set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_enum.MULTIBOXPLOT.value)
+
+def set_histogram_multichart_xysuplabels(xsuplabel, ysuplabel):
+
+    set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_enum.MULTIHISTOGRAM.value)
+
+def set_line_multichart_xysuplabels(xsuplabel, ysuplabel):
+
+    set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_enum.MULTILINE.value)
+
+def set_pie_multichart_xysuplabels(xsuplabel, ysuplabel):
+
+    set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_enum.MULTIPIE.value)
+
+def set_plot_multichart_xysuplabels(xsuplabel, ysuplabel):
+
+    set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_enum.MULTIPLOT.value)
+
+def set_scatterplot_multichart_xysuplabels(xsuplabel, ysuplabel):
+
+    set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_enum.MULTISCATTER.value)
 
 
 # In[59]:
@@ -2309,7 +3573,7 @@ def set_scatterplot_multichart_dict(upd_dict):
  #      the data to a Dataframe and returns it. Otherwise, the function returns None.
  #
  #
- #  Return Type: series / dataframe
+ #  Return Type: series or dataframe or none
  #
  #
  #  Function Parameters:
@@ -2355,7 +3619,7 @@ def proc_bar_chart_input(input_obj):
  #      the data and labels.
  #
  #
- #  Return Type: series, array
+ #  Return Type: series, array, or none
  #
  #
  #  Function Parameters:
@@ -2410,7 +3674,7 @@ def proc_boxplot_chart_input(input_obj):
  #      and returns it. Otherwise, the function returns None.
  #
  #
- #  Return Type: series / dataframe
+ #  Return Type: series or dataframe or none
  #
  #
  #  Function Parameters:
@@ -2433,7 +3697,7 @@ def proc_line_chart_input(input_obj):
 
         return input_obj
 
-    elif (isinstance(input_obj, list) \
+    elif isinstance(input_obj, list \
           or isinstance(input_obj, np.ndarray)) \
             and len(input_obj) >= 2:
 
@@ -2462,7 +3726,7 @@ def proc_line_chart_input(input_obj):
  #      for both the data and labels.
  #
  #
- #  Return Type: array, array
+ #  Return Type: array, array or none, none
  #
  #
  #  Function Parameters:
@@ -2514,7 +3778,7 @@ def proc_pie_chart_input(input_obj):
  #      function returns None.
  #
  #
- #  Return Type: series
+ #  Return Type: series or none
  #
  #
  #  Function Parameters:
@@ -2566,7 +3830,7 @@ def proc_plot_chart_input(input_obj):
  #      function returns None for both data.
  #
  #
- #  Return Type: array, array
+ #  Return Type: array, array or none, none
  #
  #
  #  Function Parameters:
@@ -2619,7 +3883,7 @@ def proc_scatterplot_chart_input(input_obj):
  #      returns None for both data.
  #
  #
- #  Return Type: list, list
+ #  Return Type: list, list or none, none
  #
  #
  #  Function Parameters:
@@ -2717,6 +3981,10 @@ def proc_chart_input \
     elif chart_enum_value == chart_enum.PLOT.value:
 
         return proc_plot_chart_input(input_obj)
+
+    elif chart_enum_value == chart_enum.MULTILINE.value:
+
+        pass
 
     elif chart_enum_value == chart_enum.MULTISCATTER.value:
 
@@ -2916,15 +4184,28 @@ def regr_line \
 
 def plot_subplots(chart_dict):
 
-    return \
-        plt.subplots \
-            (figsize 
-                 = (chart_dict['figure']['width'], 
-                    chart_dict['figure']['length']),
-             nrows = chart_dict['figure']['nrows'], 
-             ncols = chart_dict['figure']['ncols'],
-             sharex = chart_dict['figure']['sharex'],
-             sharey = chart_dict['figure']['sharey'])
+    if chart_dict['figure']['stacked']:
+
+        return \
+            plt.subplots \
+                (chart_dict['figure']['nplots'], 
+                 figsize 
+                     = (chart_dict['figure']['width'], 
+                        chart_dict['figure']['length']),
+                 sharex = chart_dict['figure']['sharex'],
+                 sharey = chart_dict['figure']['sharey'])
+
+    else:
+
+        return \
+            plt.subplots \
+                (figsize 
+                     = (chart_dict['figure']['width'], 
+                        chart_dict['figure']['length']),
+                 nrows = chart_dict['figure']['nrows'], 
+                 ncols = chart_dict['figure']['ncols'],
+                 sharex = chart_dict['figure']['sharex'],
+                 sharey = chart_dict['figure']['sharey'])
 
 
 # In[70]:
@@ -3003,6 +4284,77 @@ def plot_figsize(chart_dict):
 
 #*******************************************************************************************
  #
+ #  Function Name:  plot_title_axes_stacked
+ #
+ #  Function Description:
+ #      The function plots the stacked multichart's title, x-axis label, and y-axis label.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         subplot          The parameter is the subplot object.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #  integer        idx              The parameter is the plot index.
+ #  integer        last_idx         The parameter is the last plot index.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_title_axes_stacked \
+        (subplot,
+         chart_dict,
+         idx,
+         last_idx):
+
+    if chart_dict['title']['display'] \
+        and chart_dict['title']['text'][idx] is not None:
+
+        subplot.set_title \
+            (chart_dict['title']['text'][idx],
+             fontdict = {'fontsize': chart_dict['title']['fontsize'], 
+                         'fontstyle': chart_dict['title']['fontstyle'],
+                         'fontweight': chart_dict['title']['fontweight']},
+             loc = chart_dict['title']['loc'], 
+             pad = chart_dict['title']['pad'])        
+
+    if chart_dict['xlabel']['display'] \
+        and chart_dict['xlabel']['text'][idx] is not None \
+        and idx == last_idx:
+
+        subplot.set_xlabel \
+            (chart_dict['xlabel']['text'][idx],  
+             fontsize = chart_dict['xlabel']['fontsize'], 
+             fontstyle = chart_dict['xlabel']['fontstyle'], 
+             fontweight = chart_dict['xlabel']['fontweight'],
+             labelpad = chart_dict['xlabel']['labelpad'],
+             loc = chart_dict['xlabel']['loc'])
+
+    if chart_dict['ylabel']['display'] \
+        and chart_dict['ylabel']['text'][idx] is not None:
+
+        subplot.set_ylabel \
+            (chart_dict['ylabel']['text'][idx],  
+             fontsize = chart_dict['ylabel']['fontsize'], 
+             fontstyle = chart_dict['ylabel']['fontstyle'], 
+             fontweight = chart_dict['ylabel']['fontweight'],
+             labelpad = chart_dict['ylabel']['labelpad'],
+             loc = chart_dict['ylabel']['loc'])
+
+
+# In[73]:
+
+
+#*******************************************************************************************
+ #
  #  Function Name:  plot_title_axes
  #
  #  Function Description:
@@ -3030,33 +4382,93 @@ def plot_title_axes \
         (chart_dict,
          idx = 0):
 
-    if chart_dict['title']['text'][idx] != None:
+    if chart_dict['title']['text'][idx] is not None \
+        and chart_dict['title']['display']:
 
         plt.title \
             (chart_dict['title']['text'][idx],
              fontdict = {'fontsize': chart_dict['title']['fontsize'], 
-                         'fontstyle': chart_dict['title']['fontstyle']},
+                         'fontstyle': chart_dict['title']['fontstyle'],
+                         'fontweight': chart_dict['title']['fontweight']},
+             loc = chart_dict['title']['loc'],
              pad = chart_dict['title']['pad'])
 
-
-    if chart_dict['xlabel']['text'] != None:
+    if chart_dict['xlabel']['text'][idx] is not None \
+        and chart_dict['xlabel']['display']:
 
         plt.xlabel \
-            (chart_dict['xlabel']['text'],
+            (chart_dict['xlabel']['text'][idx],
              fontdict = {'fontsize': chart_dict['xlabel']['fontsize'],
-                         'fontstyle': chart_dict['xlabel']['fontstyle']},
+                         'fontstyle': chart_dict['xlabel']['fontstyle'],
+                         'fontweight': chart_dict['title']['fontweight']},
+             loc = chart_dict['xlabel']['loc'],
              labelpad = chart_dict['xlabel']['pad'])
 
-    if chart_dict['ylabel']['text'] != None:
+    if chart_dict['ylabel']['text'][idx] is not None \
+        and chart_dict['ylabel']['display']:
 
         plt.ylabel \
-            (chart_dict['ylabel']['text'],
+            (chart_dict['ylabel']['text'][idx],
              fontdict = {'fontsize': chart_dict['ylabel']['fontsize'],
-                         'fontstyle': chart_dict['ylabel']['fontstyle']},
-             labelpad = chart_dict['ylabel']['pad'])
+                         'fontstyle': chart_dict['ylabel']['fontstyle'],
+                         'fontweight': chart_dict['title']['fontweight']},
+             loc = chart_dict['ylabel']['loc'],
+             labelpad = chart_dict['ylabel']['pad'])   
 
 
-# In[73]:
+# In[74]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_limits_stacked
+ #
+ #  Function Description:
+ #      The function sets the x-axis and y-axis limits for a stacked multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         subplot          The parameter is the subplot object.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_limits_stacked(subplot, chart_dict):
+
+    if chart_dict['xlim']['display']:
+
+        if chart_dict['xlim']['mode'] == 'set':
+
+            subplot.set_xlim \
+                (bottom = chart_dict['xlim']['set']['min'], 
+                 top = chart_dict['xlim']['set']['max'],
+                 emit = chart_dict['xlim']['emit'],
+                 auto = chart_dict['xlim']['auto'])
+
+
+    if chart_dict['ylim']['display']:
+
+        if chart_dict['ylim']['mode'] == 'set':
+
+            subplot.set_ylim \
+                (bottom = chart_dict['ylim']['set']['min'], 
+                 top = chart_dict['ylim']['set']['max'],
+                 emit = chart_dict['ylim']['emit'],
+                 auto = chart_dict['ylim']['auto'])
+
+
+# In[75]:
 
 
 #*******************************************************************************************
@@ -3085,7 +4497,7 @@ def plot_title_axes \
 
 def plot_limits(chart_dict):
 
-    if chart_dict['xlim']['display'] == True:
+    if chart_dict['xlim']['display']:
 
         if chart_dict['xlim']['mode'] == 'set':
 
@@ -3099,21 +4511,111 @@ def plot_limits(chart_dict):
             plt.xlim(right = chart_dict['xlim']['adjust']['right'])
 
 
-    if chart_dict['ylim']['display'] == True:
+    if chart_dict['ylim']['display']:
 
         if chart_dict['ylim']['mode'] == 'set':
 
-            plt.xlim \
+            plt.ylim \
                 (chart_dict['ylim']['set']['min'], 
                  chart_dict['ylim']['set']['max'])
         else:
 
-            plt.xlim(left = chart_dict['ylim']['adjust']['left'])
+            plt.ylim(left = chart_dict['ylim']['adjust']['left'])
 
-            plt.xlim(right = chart_dict['ylim']['adjust']['right']) 
+            plt.ylim(right = chart_dict['ylim']['adjust']['right']) 
 
 
-# In[74]:
+# In[76]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_ticks_stacked
+ #
+ #  Function Description:
+ #      The function plots the x-axis and y-axis ticks and chart grid 
+ #      for a stacked multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         subplot          The parameter is the subplot object.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #  integer        idx              The parameter is the plot index.
+ #  integer        last_idx         The parameter is the last plot index.
+ #  array          tick_lbls_array  The optional parameter is the tick labels.
+ #  boolean        boxplot_bool     The optional parameter indicates whether the chart 
+ #                                  is a boxplot.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_ticks_stacked \
+        (subplot,
+         chart_dict,
+         idx,
+         last_idx,
+         tick_lbls_array = np.array([], dtype = str),
+         boxplot_bool = False):
+
+    if not boxplot_bool:
+
+        if chart_dict['xticks']['display']:
+
+            if idx != last_idx:
+
+                subplot.set_xticklabels(labels = [])
+
+            subplot.tick_params \
+                (axis = 'x', 
+                 labelrotation = chart_dict['xticks']['rotation'], 
+                 labelsize = chart_dict['xticks']['fontsize'])
+
+    else:
+
+        if chart_dict['xticks']['display']:
+
+            ticks_idx_array = np.array([], dtype = int)
+
+            for idx, lbl in enumerate(tick_lbls_array):
+
+                ticks_idx_array = np.append(ticks_idx_array, idx + 1)
+
+
+            subplot.set_xticks(ticks_idx_array, tick_lbls_array)
+
+            subplot.tick_params \
+                (axis = 'x', 
+                 labelrotation = chart_dict['xticks']['rotation'], 
+                 labelsize = chart_dict['xticks']['fontsize'])
+
+
+    if chart_dict['yticks']['display']:
+
+        subplot.tick_params \
+            (axis = 'y', 
+             labelrotation = chart_dict['yticks']['rotation'], 
+             labelsize = chart_dict['yticks']['fontsize'])
+
+
+    if chart_dict['grid']['display']:
+
+        subplot.grid \
+            (visible = chart_dict['grid']['visible'],
+             which = chart_dict['grid']['which'],
+             axis =  chart_dict['grid']['axis'])   
+
+
+# In[77]:
 
 
 #*******************************************************************************************
@@ -3148,9 +4650,9 @@ def plot_ticks \
          tick_lbls_array = np.array([], dtype = str),
          boxplot_bool = False):
 
-    if boxplot_bool == False:
+    if not boxplot_bool:
 
-        if chart_dict['xticks']['display'] == True:
+        if chart_dict['xticks']['display']:
 
             plt.xticks \
                 (fontsize = chart_dict['xticks']['fontsize'], 
@@ -3158,7 +4660,7 @@ def plot_ticks \
 
     else:
 
-        if chart_dict['xticks']['display'] == True:
+        if chart_dict['xticks']['display']:
 
             ticks_idx_array = np.array([], dtype = int)
 
@@ -3170,18 +4672,18 @@ def plot_ticks \
             plt.xticks \
                 (ticks_idx_array, 
                  tick_lbls_array,
-                 fontsize = boxplot_chart_dict['xticks']['fontsize'], 
-                 rotation = boxplot_chart_dict['xticks']['rotation'])
+                 fontsize = chart_dict['xticks']['fontsize'], 
+                 rotation = chart_dict['xticks']['rotation'])
 
 
-    if boxplot_chart_dict['yticks']['display'] == True:
+    if chart_dict['yticks']['display']:
 
         plt.yticks \
-            (fontsize = boxplot_chart_dict['yticks']['fontsize'], 
-             rotation = boxplot_chart_dict['yticks']['rotation'])
+            (fontsize = chart_dict['yticks']['fontsize'], 
+             rotation = chart_dict['yticks']['rotation'])
 
 
-    if chart_dict['grid']['display'] == True:
+    if chart_dict['grid']['display']:
 
         plt.grid \
             (visible = chart_dict['grid']['visible'],
@@ -3189,7 +4691,53 @@ def plot_ticks \
              axis =  chart_dict['grid']['axis'])   
 
 
-# In[75]:
+# In[78]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_legend_stacked
+ #
+ #  Function Description:
+ #      The function plots the chart's legend for a stacked multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  array          plot_array       The parameter is the plot array.   
+ #  array          names_array      The parameter is the names array.   
+ #  object         axs              The parameter is the axes object.
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_legend_stacked \
+        (plot_array, 
+         names_array, 
+         axs, 
+         chart_dict):
+
+    if chart_dict['legend']['display']:
+
+        plt.legend \
+            (plot_array, 
+             names_array, 
+             loc = chart_dict['legend']['loc'],
+             fontsize = chart_dict['legend']['fontsize'],
+             bbox_to_anchor = chart_dict['legend']['bbox_to_anchor'])
+
+
+# In[79]:
 
 
 #*******************************************************************************************
@@ -3218,7 +4766,7 @@ def plot_ticks \
 
 def plot_legend(chart_dict):
 
-    if chart_dict['legend']['display'] == True:
+    if chart_dict['legend']['display']:
 
         plt.legend \
             (loc = chart_dict['legend']['loc'],
@@ -3226,7 +4774,7 @@ def plot_legend(chart_dict):
              bbox_to_anchor = chart_dict['legend']['bbox_to_anchor'])
 
 
-# In[76]:
+# In[80]:
 
 
 #*******************************************************************************************
@@ -3271,7 +4819,7 @@ def plot_regr_line \
              chart_dict['degree'][idx])
 
 
-# In[77]:
+# In[81]:
 
 
 #*******************************************************************************************
@@ -3303,7 +4851,7 @@ def plot_peaks \
         (input_series, 
          chart_dict):
 
-    if chart_dict['peaks']['display'] == True:
+    if chart_dict['peaks']['display']:
 
         x_array \
             = dtypesx.cnv_data_to_array \
@@ -3330,7 +4878,7 @@ def plot_peaks \
                  color = chart_dict['peaks']['color'][1])
 
 
-# In[78]:
+# In[82]:
 
 
 #*******************************************************************************************
@@ -3362,7 +4910,7 @@ def plot_suptitle_axes \
         (figure,
          chart_dict):
 
-    if chart_dict['suptitle']['text'] != None:
+    if chart_dict['suptitle']['text'] is not None:
 
         figure.suptitle \
             (t = chart_dict['suptitle']['text'], 
@@ -3372,9 +4920,9 @@ def plot_suptitle_axes \
              verticalalignment = chart_dict['suptitle']['verticalalignment'],
              fontproperties = chart_dict['suptitle']['fontproperties'])
 
-    if chart_dict['supxlabel']['text'] != None:
+    if chart_dict['supxlabel']['text'] is not None:
 
-        figure.suptitle \
+        figure.supxlabel \
             (t = chart_dict['supxlabel']['text'], 
              x = chart_dict['supxlabel']['x'],
              y = chart_dict['supxlabel']['y'],
@@ -3382,9 +4930,9 @@ def plot_suptitle_axes \
              verticalalignment = chart_dict['supxlabel']['verticalalignment'],
              fontproperties = chart_dict['supxlabel']['fontproperties'])
 
-    if chart_dict['supylabel']['text'] != None:
+    if chart_dict['supylabel']['text'] is not None:
 
-        figure.suptitle \
+        figure.supylabel \
             (t = chart_dict['supylabel']['text'], 
              x = chart_dict['supylabel']['x'],
              y = chart_dict['supylabel']['y'],
@@ -3393,7 +4941,7 @@ def plot_suptitle_axes \
              fontproperties = chart_dict['supylabel']['fontproperties'])
 
 
-# In[79]:
+# In[83]:
 
 
 #*******************************************************************************************
@@ -3422,7 +4970,7 @@ def plot_suptitle_axes \
 
 def plot_tight_layout(chart_dict):
 
-    if chart_dict['tight_layout']['display'] == True:
+    if chart_dict['tight_layout']['display']:
 
         plt.tight_layout \
             (pad = chart_dict['tight_layout']['pad'],
@@ -3431,7 +4979,44 @@ def plot_tight_layout(chart_dict):
              rect = chart_dict['tight_layout']['rect'])
 
 
-# In[80]:
+# In[84]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_subplots_adjust
+ #
+ #  Function Description:
+ #      The function plots width and height spaces for subplots.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dictionary     chart_dict       The parameter is the chart dictionary.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_subplots_adjust(chart_dict):
+
+    if chart_dict['figure']['wspace'] is not None \
+        and chart_dict['figure']['hspace'] is not None:
+
+        plt.plot_subplots_adjust \
+            (wspace = chart_dict['figure']['wspace'], 
+             hspace = chart_dict['figure']['hspace'])
+
+
+# In[85]:
 
 
 #*******************************************************************************************
@@ -3463,22 +5048,7 @@ def plot_bar_chart_series \
     (input_series,
      chart_dict):
 
-    if chart_dict['params']['horizontal'] == False:
-
-        plt.bar \
-            (input_series.keys(),
-             input_series,
-             width = chart_dict['vertical']['width'],
-             bottom = chart_dict['vertical']['bottom'],
-             align = chart_dict['params']['align'],
-             color = chart_dict['params']['color'],
-             edgecolor = chart_dict['params']['edgecolor'],
-             linewidth = chart_dict['params']['linewidth'],
-             tick_label = chart_dict['params']['tick_label'],
-             log = chart_dict['params']['log'],
-             alpha = chart_dict['params']['alpha'])
-
-    else:
+    if chart_dict['params']['horizontal']:
 
         plt.barh \
             (input_series.keys(),
@@ -3493,8 +5063,23 @@ def plot_bar_chart_series \
              log = chart_dict['params']['log'],
              alpha = chart_dict['params']['alpha'])
 
+    else: 
 
-# In[81]:
+        plt.bar \
+            (input_series.keys(),
+             input_series,
+             width = chart_dict['vertical']['width'],
+             bottom = chart_dict['vertical']['bottom'],
+             align = chart_dict['params']['align'],
+             color = chart_dict['params']['color'],
+             edgecolor = chart_dict['params']['edgecolor'],
+             linewidth = chart_dict['params']['linewidth'],
+             tick_label = chart_dict['params']['tick_label'],
+             log = chart_dict['params']['log'],
+             alpha = chart_dict['params']['alpha'])
+
+
+# In[86]:
 
 
 #*******************************************************************************************
@@ -3526,7 +5111,7 @@ def plot_bar_chart_df \
     (input_df,
      chart_dict):
 
-    if chart_dict['params']['horizontal'] == True:
+    if chart_dict['params']['horizontal']:
 
         input_df \
             .plot.barh \
@@ -3558,7 +5143,7 @@ def plot_bar_chart_df \
 
 
 
-# In[82]:
+# In[87]:
 
 
 #*******************************************************************************************
@@ -3599,7 +5184,7 @@ def plot_bar_chart \
         plot_bar_chart_df(input_obj, chart_dict)
 
 
-# In[83]:
+# In[88]:
 
 
 #*******************************************************************************************
@@ -3646,7 +5231,7 @@ def plot_boxplot_chart \
          showmeans = chart_dict['params']['showmeans'])
 
 
-# In[84]:
+# In[89]:
 
 
 #*******************************************************************************************
@@ -3700,7 +5285,7 @@ def plot_histogram_chart \
          alpha = chart_dict['params']['alpha'])
 
 
-# In[85]:
+# In[90]:
 
 
 #*******************************************************************************************
@@ -3708,7 +5293,7 @@ def plot_histogram_chart \
  #  Function Name:  plot_line_chart
  #
  #  Function Description:
- #      The function plots a line chart only.
+ #      The function plots a line chart only from a series or dataframe.
  #
  #
  #  Return Type: n/a
@@ -3752,7 +5337,7 @@ def plot_line_chart \
              use_index = chart_dict['params']['use_index'])   
 
 
-# In[86]:
+# In[91]:
 
 
 #*******************************************************************************************
@@ -3807,7 +5392,7 @@ def plot_pie_chart \
          normalize = chart_dict['params']['normalize'])
 
 
-# In[87]:
+# In[92]:
 
 
 #*******************************************************************************************
@@ -3847,7 +5432,7 @@ def plot_plot_chart \
              alpha = chart_dict['params']['alpha'])
 
 
-# In[88]:
+# In[93]:
 
 
 #*******************************************************************************************
@@ -3893,7 +5478,279 @@ def plot_scatterplot_chart \
              edgecolors = chart_dict['marker']['edgecolors'])
 
 
-# In[89]:
+# In[94]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_line_multichart_stacked
+ #
+ #  Function Description:
+ #      The function plots a stacked line multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dataframe      input_df         The parameter is the input dataframe.
+ #  string         suptitle         The parameter is the multichart suptitle.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_line_multichart_stacked \
+        (input_df,
+         suptitle):
+
+    global line_multichart_dict
+
+
+    line_multichart_dict['suptitle']['text'] \
+        = suptitle
+
+    line_multichart_dict['figure']['nplots'] \
+        = dtypesx.rtn_data_obj_size(input_df)
+
+    last_idx \
+        = line_multichart_dict['figure']['nplots'] - 1
+
+
+    fig, axs = plot_subplots(line_multichart_dict)
+
+    plot_suptitle_axes(fig, line_multichart_dict)
+
+
+    legend_plot_array = np.array([], dtype = object)
+
+    legend_names_array = np.array([], dtype = str)
+
+
+    if line_chart_dict['ylabel']['text'][0] is None: ylabel_bool = True
+
+    else: ylabel_bool = False
+
+
+    for idx, subplot in enumerate(axs):
+
+        curr_series = input_df.iloc[:,idx]
+
+        line_subplot, \
+            = subplot.plot \
+                (curr_series, 
+                 color = line_chart_dict['line']['color'][idx])
+
+
+        legend_plot_array = np.append(legend_plot_array, line_subplot)
+
+        legend_names_array = np.append(legend_names_array, curr_series.name)
+
+
+        if ylabel_bool:
+
+            line_chart_dict['ylabel']['text'] = legend_names_array
+
+
+        plot_title_axes_stacked(subplot, line_chart_dict, idx, last_idx)
+
+        plot_limits_stacked(subplot, line_chart_dict)
+
+        plot_ticks_stacked(subplot, line_chart_dict, idx, last_idx)
+
+
+    plot_legend_stacked \
+        (legend_plot_array, 
+         legend_names_array, 
+         axs, 
+         line_chart_dict)
+
+    plot_subplots_adjust(line_multichart_dict)
+
+
+    line_chart_dict['ylabel']['text'] = [None]
+
+    logx.save_matplotlib_image(line_multichart_dict['suptitle']['text'])
+
+
+    plt.show()
+
+
+# In[95]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_line_multichart
+ #
+ #  Function Description:
+ #      The function plots a line multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dataframe      input_df         The parameter is the input dataframe.
+ #  string         suptitle         The parameter is the multichart suptitle.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_line_multichart \
+        (input_df,
+         suptitle):
+
+    global line_multichart_dict
+
+
+    line_multichart_dict['suptitle']['text'] \
+        = suptitle
+
+    line_multichart_dict['figure']['nplots'] \
+        = dtypesx.rtn_data_obj_size(input_df)
+
+
+    nrows, ncols = mathx.calc_rows_and_cols(line_multichart_dict)
+
+
+    line_multichart_dict['figure']['nrows'] = nrows
+
+    line_multichart_dict['figure']['ncols'] = ncols
+
+
+    fig, axs = plot_subplots(line_multichart_dict)
+
+    plot_suptitle_axes(fig, line_multichart_dict)
+
+
+    for col_idx in range(line_multichart_dict['figure']['nplots']):
+
+        plot_subplot(line_multichart_dict, col_idx)
+
+        plot_line_chart(input_df.iloc[:, col_idx], line_chart_dict)
+
+
+        plot_title_axes(line_chart_dict, col_idx)
+
+        plot_limits(line_chart_dict)
+
+        plot_ticks(line_chart_dict)
+
+
+        plot_tight_layout(line_multichart_dict)
+
+
+    logx.save_matplotlib_image(suptitle)
+
+    plt.show()
+
+
+# In[96]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  plot_scatterplot_multichart
+ #
+ #  Function Description:
+ #      The function plots a scatterplot multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  object         input_obj        The parameter is the input object.
+ #  string         suptitle         The parameter is the multichart suptitle.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def plot_scatterplot_multichart \
+        (input_obj,
+         suptitle):
+
+    global scatterplot_multichart_dict
+
+
+    scatterplot_multichart_dict['suptitle']['text'] \
+        = suptitle
+
+    scatterplot_multichart_dict['figure']['nplots'] \
+        = dtypesx.rtn_data_obj_size(input_obj)
+
+
+    nrows, ncols = mathx.calc_rows_and_cols(scatterplot_multichart_dict)
+
+
+    scatterplot_multichart_dict['figure']['nrows'] = nrows
+
+    scatterplot_multichart_dict['figure']['ncols'] = ncols
+
+
+    fig, axs = plot_subplots(scatterplot_multichart_dict)
+
+    plot_suptitle_axes(fig, scatterplot_multichart_dict)
+
+
+    x_list, y_list \
+        = proc_chart_input(input_obj, chart_enum.MULTISCATTER.value) 
+
+    for idx in range(scatterplot_multichart_dict['figure']['nplots']):
+
+        plot_subplot(scatterplot_multichart_dict, idx)
+
+
+        x_array = dtypesx.cnv_data_to_array(x_list[idx])
+
+        y_array = dtypesx.cnv_data_to_array(y_list[idx])
+
+
+        plot_scatterplot_chart \
+            (x_array, y_array, 
+             scatterplot_chart_dict)
+
+
+        plot_title_axes(scatterplot_chart_dict, idx)
+
+        plot_limits(scatterplot_chart_dict)
+
+        plot_ticks(scatterplot_chart_dict)
+
+
+        plot_regr_line(x_array, y_array, regr_line_dict, idx)
+
+
+        plot_tight_layout(scatterplot_multichart_dict)
+
+
+    logx.save_matplotlib_image(suptitle)
+
+    plt.show()
+
+
+# In[97]:
 
 
 #*******************************************************************************************
@@ -3947,12 +5804,12 @@ def bar_chart \
     plot_legend(bar_chart_dict)
 
 
-    logx.save_plot_image(title)
+    logx.save_matplotlib_image(title)
 
     plt.show()    
 
 
-# In[90]:
+# In[98]:
 
 
 #*******************************************************************************************
@@ -3992,8 +5849,7 @@ def boxplot_chart \
     plot_figsize(boxplot_chart_dict)
 
 
-    data_list, tick_lbls_array \
-        = proc_chart_input(input_obj, chart_enum.BOXPLOT.value)
+    data_list, tick_lbls_array = proc_chart_input(input_obj, chart_enum.BOXPLOT.value)
 
     plot_boxplot_chart(data_list, tick_lbls_array, boxplot_chart_dict)
 
@@ -4005,12 +5861,12 @@ def boxplot_chart \
     plot_ticks(boxplot_chart_dict, tick_lbls_array, True)
 
 
-    logx.save_plot_image(title)
+    logx.save_matplotlib_image(title)
 
     plt.show()
 
 
-# In[91]:
+# In[99]:
 
 
 #*******************************************************************************************
@@ -4064,12 +5920,12 @@ def histogram_chart \
     plot_legend(histogram_chart_dict)
 
 
-    logx.save_plot_image(title)
+    logx.save_matplotlib_image(title)
 
     plt.show()
 
 
-# In[92]:
+# In[100]:
 
 
 #*******************************************************************************************
@@ -4123,12 +5979,12 @@ def line_chart \
     plot_legend(line_chart_dict)
 
 
-    logx.save_plot_image(title)
+    logx.save_matplotlib_image(title)
 
     plt.show()
 
 
-# In[93]:
+# In[101]:
 
 
 #*******************************************************************************************
@@ -4168,8 +6024,7 @@ def pie_chart \
     plot_figsize(scatterplot_chart_dict)
 
 
-    data_array, labels_array \
-        = proc_chart_input(input_obj, chart_enum.PIE.value)
+    data_array, labels_array = proc_chart_input(input_obj, chart_enum.PIE.value)
 
     plot_pie_chart(data_array, labels_array, pie_chart_dict)
 
@@ -4179,12 +6034,12 @@ def pie_chart \
     plot_legend(pie_chart_dict)
 
 
-    logx.save_plot_image(title)
+    logx.save_matplotlib_image(title)
 
     plt.show()   
 
 
-# In[94]:
+# In[102]:
 
 
 #*******************************************************************************************
@@ -4240,12 +6095,12 @@ def plot_chart \
     plot_legend(plot_chart_dict)
 
 
-    logx.save_plot_image(title)
+    logx.save_matplotlib_image(title)
 
     plt.show()
 
 
-# In[95]:
+# In[103]:
 
 
 #*******************************************************************************************
@@ -4285,8 +6140,7 @@ def scatterplot_chart \
     plot_figsize(scatterplot_chart_dict)
 
 
-    x_array, y_array \
-        = proc_chart_input(input_obj, chart_enum.SCATTER.value)
+    x_array, y_array = proc_chart_input(input_obj, chart_enum.SCATTER.value)
 
     plot_scatterplot_chart(x_array, y_array, scatterplot_chart_dict)
 
@@ -4301,12 +6155,51 @@ def scatterplot_chart \
     plot_regr_line(x_array, y_array, regr_line_dict)
 
 
-    logx.save_plot_image(title)
+    logx.save_matplotlib_image(title)
 
     plt.show()
 
 
-# In[96]:
+# In[104]:
+
+
+#*******************************************************************************************
+ #
+ #  Function Name:  line_multichart
+ #
+ #  Function Description:
+ #      The function plots a line multichart.
+ #
+ #
+ #  Return Type: n/a
+ #
+ #
+ #  Function Parameters:
+ #
+ #  Type           Name             Description
+ #  ------------   --------------   --------------------------------------------------
+ #  dataframe      input_df         The parameter is the input dataframe.
+ #  string         suptitle         The parameter is the multichart suptitle.
+ #
+ #
+ #  Date                Description                                 Programmer
+ #  ---------------     ------------------------------------        ------------------
+ #  02/24/2026          Initial Development                         Nicholas J. George
+ #
+ #******************************************************************************************/
+
+def line_multichart \
+        (input_df,
+         suptitle):
+
+    if line_multichart_dict['figure']['stacked']: 
+
+        plot_line_multichart_stacked(input_df, suptitle)
+
+    else: plot_line_multichart(input_df, suptitle)
+
+
+# In[105]:
 
 
 #*******************************************************************************************
@@ -4338,63 +6231,9 @@ def scatterplot_multichart \
         (input_obj,
          suptitle):
 
-    global scatterplot_multichart_dict
+    if scatterplot_multichart_dict['figure']['stacked']: pass
 
-
-    scatterplot_multichart_dict['suptitle']['text'] = suptitle
-
-    scatterplot_multichart_dict['figure']['nplots'] \
-        = dtypesx.rtn_data_obj_size(input_obj)
-
-
-    rows, columns \
-        = mathx.calc_clst_factors \
-            (scatterplot_multichart_dict['figure']['nplots'])
-
-    scatterplot_multichart_dict['figure']['nrows'] = rows
-
-    scatterplot_multichart_dict['figure']['ncols'] = columns
-
-
-    fig, axs = plot_subplots(scatterplot_multichart_dict)
-
-    plot_suptitle_axes(fig, scatterplot_multichart_dict)
-
-
-    x_list, y_list \
-        = proc_chart_input(input_obj, chart_enum.MULTISCATTER.value) 
-
-    for idx in range(scatterplot_multichart_dict['figure']['nplots']):
-
-        plot_subplot(scatterplot_multichart_dict, idx)
-
-
-        x_array = dtypesx.cnv_data_to_array(x_list[idx])
-
-        y_array = dtypesx.cnv_data_to_array(y_list[idx])
-
-
-        plot_scatterplot_chart \
-            (x_array, y_array, 
-             scatterplot_chart_dict)
-
-
-        plot_title_axes(scatterplot_chart_dict, idx)
-
-        plot_limits(scatterplot_chart_dict)
-
-        plot_ticks(scatterplot_chart_dict)
-
-
-        plot_regr_line(x_array, y_array, regr_line_dict, idx)
-
-
-        plot_tight_layout(scatterplot_multichart_dict)
-
-
-    logx.save_plot_image(suptitle)
-
-    plt.show()
+    else: plot_scatterplot_multichart(input_obj, suptitle)
 
 
 # In[ ]:
