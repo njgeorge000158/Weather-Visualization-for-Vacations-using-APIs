@@ -1,0 +1,225 @@
+
+Timepoint: 2026/03/18 23:55:37
+Program execution begins...
+
+
+
+
+                 city  latitude  longitude  temperature  humidity  cloudiness  \
+city_id                                                                         
+0          blackwater  -23.5833   148.8833        79.29        60          97   
+1         egilsstadir   65.2653   -14.3948        37.31        75          75   
+2         vilyuchinsk   52.9306   158.4028        35.87        93         100   
+3           grytviken  -54.2811   -36.5092        44.73        75           7   
+4        longyearbyen   78.2186    15.6401        30.04        69          75   
+...               ...       ...        ...          ...       ...         ...   
+722          tolanaro  -25.0319    46.9987        84.27        70          20   
+723         carry out    5.3509     5.5076        82.71        76          10   
+724         nantucket   41.2835   -70.0995        19.51        86           0   
+725           the jar   54.5611   100.5792        35.29        79         100   
+726             child    1.8639     9.7658        76.86       100          20   
+
+         wind_speed country            date_time  
+city_id                                           
+0              8.75      AU  2026-03-18 23:43:10  
+1              9.22      IS  2026-03-18 23:43:11  
+2             18.19      RU  2026-03-18 23:43:12  
+3             21.74      GS  2026-03-18 23:43:14  
+4             17.27      SJ  2026-03-18 23:43:15  
+...             ...     ...                  ...  
+722            9.22      MG  2026-03-18 23:53:34  
+723            3.56      NG  2026-03-18 23:53:35  
+724            0.00      US  2026-03-18 23:53:36  
+725            6.15      RU  2026-03-18 23:53:38  
+726            2.30      GQ  2026-03-18 23:53:38  
+
+[727 rows x 9 columns]
+
+
+
+           city  latitude  longitude  temperature  humidity  cloudiness  \
+0    queenstown  -31.8976    26.8753        70.12        59           1   
+1   tambacounda   13.7539   -13.7586        82.45        47           0   
+2       pagouda    9.7525     1.3278        77.52        53           0   
+3            on   22.5667    59.5289        86.45        46           0   
+4  in the straw  -24.0944    25.0298        77.09        56           0   
+
+   wind_speed country            date_time  
+0        2.73      ZA  2026-03-18 23:35:34  
+1        9.22      SN  2026-03-18 23:45:52  
+2        4.61      TG  2026-03-18 23:47:21  
+3        7.52      OM  2026-03-18 23:48:47  
+4        8.86      BW  2026-03-18 23:50:44  
+
+
+
+           city  latitude  longitude  temperature  humidity  cloudiness  \
+0    queenstown  -31.8976    26.8753        70.12        59           1   
+1   tambacounda   13.7539   -13.7586        82.45        47           0   
+2       pagouda    9.7525     1.3278        77.52        53           0   
+3            on   22.5667    59.5289        86.45        46           0   
+4  in the straw  -24.0944    25.0298        77.09        56           0   
+
+   wind_speed country            date_time hotel_name  
+0        2.73      ZA  2026-03-18 23:35:34        NaN  
+1        9.22      SN  2026-03-18 23:45:52        NaN  
+2        4.61      TG  2026-03-18 23:47:21        NaN  
+3        7.52      OM  2026-03-18 23:48:47        NaN  
+4        8.86      BW  2026-03-18 23:50:44        NaN  
+
+
+Timepoint: 2026/03/18 23:55:46
+STARTING HOTEL SEARCH...
+
+
+
+
+Timepoint: 2026/03/18 23:55:48
+Located the following hotel...Queens Hotel in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:55:49
+Located the following hotel...The Tamba relay in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:55:52
+Located the following hotel...Sur Hotel in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:55:53
+HOTEL SEARCH COMPLETE...
+
+
+
+
+
+          city  latitude  longitude  temperature  humidity  cloudiness  \
+0   queenstown  -31.8976    26.8753        70.12        59           1   
+1  tambacounda   13.7539   -13.7586        82.45        47           0   
+2           on   22.5667    59.5289        86.45        46           0   
+
+   wind_speed country            date_time       hotel_name  
+0        2.73      ZA  2026-03-18 23:35:34     queens hotel  
+1        9.22      SN  2026-03-18 23:45:52  the tamba relay  
+2        7.52      OM  2026-03-18 23:48:47        sur hotel  
+
+
+
+          city  latitude  longitude  temperature  humidity  cloudiness  \
+0   queenstown  -31.8976    26.8753        70.12        59           1   
+1  tambacounda   13.7539   -13.7586        82.45        47           0   
+2           on   22.5667    59.5289        86.45        46           0   
+
+   wind_speed country            date_time       hotel_name restaurant_name  
+0        2.73      ZA  2026-03-18 23:35:34     queens hotel             NaN  
+1        9.22      SN  2026-03-18 23:45:52  the tamba relay             NaN  
+2        7.52      OM  2026-03-18 23:48:47        sur hotel             NaN  
+
+
+Timepoint: 2026/03/18 23:55:56
+STARTING RESTAURANT SEARCH...
+
+
+
+
+Timepoint: 2026/03/18 23:55:58
+Located the following restaurant...N6 Road House in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:56:00
+Located the following restaurant...The Tamba relay in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:56:02
+Located the following restaurant...Kunnath Restaurant in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:56:02
+RESTAURANT SEARCH COMPLETE...
+
+
+
+
+
+          city  latitude  longitude  temperature  humidity  cloudiness  \
+0   queenstown  -31.8976    26.8753        70.12        59           1   
+1  tambacounda   13.7539   -13.7586        82.45        47           0   
+2           on   22.5667    59.5289        86.45        46           0   
+
+   wind_speed country            date_time       hotel_name  \
+0        2.73      ZA  2026-03-18 23:35:34     queens hotel   
+1        9.22      SN  2026-03-18 23:45:52  the tamba relay   
+2        7.52      OM  2026-03-18 23:48:47        sur hotel   
+
+      restaurant_name  
+0       n6 road house  
+1     the tamba relay  
+2  kunnath restaurant  
+
+
+
+          city  latitude  longitude  temperature  humidity  cloudiness  \
+0   queenstown  -31.8976    26.8753        70.12        59           1   
+1  tambacounda   13.7539   -13.7586        82.45        47           0   
+2           on   22.5667    59.5289        86.45        46           0   
+
+   wind_speed country            date_time       hotel_name  \
+0        2.73      ZA  2026-03-18 23:35:34     queens hotel   
+1        9.22      SN  2026-03-18 23:45:52  the tamba relay   
+2        7.52      OM  2026-03-18 23:48:47        sur hotel   
+
+      restaurant_name tourist_attraction  
+0       n6 road house                NaN  
+1     the tamba relay                NaN  
+2  kunnath restaurant                NaN  
+
+
+Timepoint: 2026/03/18 23:56:05
+STARTING TOURISM ATTRACTION SEARCH...
+
+
+
+
+Timepoint: 2026/03/18 23:56:07
+Located the following tourism attraction...Steam Train in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:56:10
+Located the following tourism attraction...Naama Coast in queenstown, ZA
+
+
+
+
+Timepoint: 2026/03/18 23:56:10
+TOURISM ATTRACTION SEARCH COMPLETE...
+
+
+
+
+
+         city  latitude  longitude  temperature  humidity  cloudiness  \
+0  queenstown  -31.8976    26.8753        70.12        59           1   
+1          on   22.5667    59.5289        86.45        46           0   
+
+   wind_speed country            date_time    hotel_name     restaurant_name  \
+0        2.73      ZA  2026-03-18 23:35:34  queens hotel       n6 road house   
+1        7.52      OM  2026-03-18 23:48:47     sur hotel  kunnath restaurant   
+
+  tourist_attraction  
+0        steam train  
+1        naama coast  
+
