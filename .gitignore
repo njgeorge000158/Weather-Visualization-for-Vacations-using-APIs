@@ -15,7 +15,7 @@ matplotlibx.py
 pandasx.py
 
 # API keys
-weather_api_keys.py
+weather_api.py
 
 # Distribution / packaging
 .Python
