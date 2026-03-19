@@ -321,9 +321,7 @@ def set_tooltip_cols(upd_obj):
 
     global folium_dict
 
-    upd_array = dtypesx.cnv_data_to_array(upd_obj)
-
-    folium_dict['tooltip']['cols'] = upd_array
+    folium_dict['tooltip']['cols'] = dtypesx.cnv_data_to_array(upd_obj)
 
 
 # In[10]:
@@ -409,9 +407,7 @@ def clean_folium_df(input_df):
 
 def random_css4_color_name():
 
-    css4_colors = np.array(list(mcolors.CSS4_COLORS.keys()), dtype = str)
-
-    return random.choice(css4_colors)
+    return random.choice(np.array(list(mcolors.CSS4_COLORS.keys()), dtype = str))
 
 
 # In[12]:
@@ -520,9 +516,7 @@ def rtn_coords(row):
 
 def rtn_radius(row): 
 
-    return \
-        row[folium_dict['params']['size']] \
-            * folium_dict['circle']['radius_scale']
+    return row[folium_dict['params']['size']] * folium_dict['circle']['radius_scale']
 
 
 # In[15]:
@@ -555,6 +549,7 @@ def rtn_radius(row):
 def rtn_fill_color(idx):
 
     if folium_dict['circle']['fill_color'] is None: return random_css4_color_name()
+
     else: return folium_dict['circle']['fill_color'][idx]
 
 
@@ -632,9 +627,7 @@ def rtn_tooltip(row):
  #
  #******************************************************************************************/
 
-def add_circle_markers \
-        (clean_df,
-         folium_map):
+def add_circle_markers(clean_df, folium_map):
 
     if folium_dict['tooltip']['display']:
 
@@ -658,8 +651,8 @@ def add_circle_markers \
             popup \
                 = folium.Popup \
                     (rtn_tooltip(row),
-                     max_width = 100,
-                     max_height = 100)
+                     max_width = folium_dict['tooltip']['max_width'],
+                     max_height = folium_dict['tooltip']['max_height'])
 
             folium.CircleMarker(
                 location = rtn_coords(row),
@@ -703,9 +696,7 @@ def add_circle_markers \
  #
  #******************************************************************************************/
 
-def disp_folium_circles_df \
-        (input_df,
-         title):
+def disp_folium_circles_df(input_df, title):
 
     folium_map \
         = folium.Map \
@@ -762,9 +753,7 @@ def disp_folium_circles_df \
  #
  #******************************************************************************************/
 
-def disp_hvplot_circles_df \
-        (input_df,
-         title):
+def disp_hvplot_circles_df(input_df, title):
 
     hvplot_overlay \
         = input_df \
@@ -783,6 +772,7 @@ def disp_hvplot_circles_df \
                  tiles = hvplot_dict['tiles'],
                  title = title,
                  hover_cols = hvplot_dict['hover_cols'])
+
 
     logx.save_map_image(hvplot_overlay, title, 'hvplot')
 

@@ -23,14 +23,14 @@
  #  rtn_weather_df
  #  rtn_city_weather_styler
  #
- #  set_vacation_temp_rng
- #  set_vacation_humid_rng
- #  set_vacation_cloud_rng
- #  set_vacation_wind_speed_rng
+ #  set_vac_temp_rng
+ #  set_vac_humid_rng
+ #  set_vac_cloud_rng
+ #  set_vac_wind_speed_rng
  #
- #  search_category_rename
- #  finalize_vacation_df
- #  update_location_vacation_df
+ #  srch_cat_rename
+ #  final_vac_df
+ #  upd_loc_vac_df
  #
  #
  #  Date                Description                                 Programmer
@@ -42,6 +42,7 @@
 import logx
 import pandasx
 
+import copy
 import requests
 
 import datetime as dt
@@ -51,7 +52,7 @@ import pandas as pd
 from citipy import citipy
 from deep_translator import GoogleTranslator
 
-from weather_api_keys import weather_api_key, geoapify_key
+from weather_api import weather_key, geoapify_key
 
 pd.options.mode.chained_assignment = None
 
@@ -129,8 +130,8 @@ config_dict \
  #
  #******************************************************************************************/
 
-def get_config_dict(): return config_dict
-def get_weather_dict(): return config_dict['weather']
+def get_config_dict(): return copy.deepcopy(config_dict)
+def get_weather_dict(): return copy.deepcopy(config_dict['weather'])
 
 
 # In[5]:
@@ -197,7 +198,7 @@ def set_weather_dict(input_dict):
 
     global config_dict
 
-    config_dict['weather'] = input_dict
+    config_dict['weather'] = copy.deepcopy(input_dict)
 
 
 # In[7]:
@@ -296,12 +297,11 @@ def rtn_city_names_array():
  #
  #******************************************************************************************/
 
-def rtn_weather_df \
-        (cities_array):
+def rtn_weather_df(cities_array):
 
     query_url \
         = f"{config_dict['data']['weathermap_url']}/data/2.5/weather?appid=" \
-          + f"{weather_api_key}&units={config_dict['params']['units']}&q="
+          + f"{weather_key}&units={config_dict['params']['units']}&q="
 
 
     city_weather_dict_list = []
@@ -397,14 +397,10 @@ def rtn_weather_df \
  #
  #******************************************************************************************/
 
-def rtn_city_weather_styler \
-        (input_df,
-         caption):
-
-    temp_df = input_df.copy()
+def rtn_city_weather_styler(input_df, caption):
 
     return \
-        temp_df \
+        input_df.copy() \
             .style \
             .set_caption(caption) \
             .set_table_styles(pandasx.style_dict['table_styles']) \
@@ -424,7 +420,7 @@ def rtn_city_weather_styler \
 
 #*******************************************************************************************
  #
- #  Function Name:  set_vacation_temp_rng
+ #  Function Name:  set_vac_temp_rng
  #
  #  Function Description:
  #      This subroutine sets the vacation temperature range in Fahrenheit.
@@ -447,12 +443,9 @@ def rtn_city_weather_styler \
  #
  #******************************************************************************************/
 
-def set_vacation_temp_rng \
-        (min_temp_int,
-         max_temp_int):
+def set_vac_temp_rng(min_temp_int, max_temp_int):
 
     global config_dict
-
 
     min_temp_int = int(min_temp_int)
 
@@ -482,7 +475,7 @@ def set_vacation_temp_rng \
 
 #*******************************************************************************************
  #
- #  Function Name:  set_vacation_humid_rng
+ #  Function Name:  set_vac_humid_rng
  #
  #  Function Description:
  #      This function sets the vacation humidity range.
@@ -505,12 +498,9 @@ def set_vacation_temp_rng \
  #
  #******************************************************************************************/
 
-def set_vacation_humid_rng \
-        (min_humid_int,
-         max_humid_int):
+def set_vac_humid_rng(min_humid_int, max_humid_int):
 
     global config_dict
-
 
     min_humid_int = int(min_humid_int)
 
@@ -540,7 +530,7 @@ def set_vacation_humid_rng \
 
 #*******************************************************************************************
  #
- #  Function Name:  set_vacation_cloud_rng
+ #  Function Name:  set_vac_cloud_rng
  #
  #  Function Description:
  #      This function sets the vacation cloudiness range.
@@ -563,9 +553,7 @@ def set_vacation_humid_rng \
  #
  #******************************************************************************************/
 
-def set_vacation_cloud_rng \
-        (min_cloud_int,
-         max_cloud_int):
+def set_vac_cloud_rng(min_cloud_int, max_cloud_int):
 
     global config_dict
 
@@ -597,7 +585,7 @@ def set_vacation_cloud_rng \
 
 #*******************************************************************************************
  #
- #  Function Name:  set_vacation_wind_speed_rng
+ #  Function Name:  set_vac_wind_speed_rng
  #
  #  Function Description:
  #      This function sets the vacation wind speed range.
@@ -622,12 +610,9 @@ def set_vacation_cloud_rng \
  #
  #******************************************************************************************/
 
-def set_vacation_wind_speed_rng \
-        (min_wind_speed_int,
-         max_wind_speed_int):
+def set_vac_wind_speed_rng(min_wind_speed_int, max_wind_speed_int):
 
     global config_dict
-
 
     min_wind_speed_int = int(min_wind_speed_int)
 
@@ -658,7 +643,7 @@ def set_vacation_wind_speed_rng \
 
 #*******************************************************************************************
  #
- #  Function Name:  search_category_rename
+ #  Function Name:  srch_cat_rename
  #
  #  Function Description:
  #      This function verifies and renames the search category for a column name.
@@ -671,7 +656,7 @@ def set_vacation_wind_speed_rng \
  #
  #  Type           Name             Description
  #  ------------   --------------   -------------------------------------------------- 
- #  string         search_category  The parameter is a search category.
+ #  string         search_cat       The parameter is a search category.
  #
  #
  #  Date                Description                                 Programmer
@@ -680,30 +665,28 @@ def set_vacation_wind_speed_rng \
  #
  #******************************************************************************************/
 
-def search_category_rename \
-        (search_category):
+def srch_cat_rename(search_cat):
 
-    new_category_name = ''
+    new_cat_name = ''
 
-    found_bool = False
+    fnd_bool = False
 
 
     for cat in config_dict['search_cat']:
 
-        if search_category == \
-            config_dict['search_cat'][len(config_dict['search_cat']) - 1 ]:
+        if cat == search_cat:
 
-            new_category_name = search_category.replace('.', ' ')
-
-        else:
-
-            new_category_name = search_category.rsplit('.', 1)[1]
+            fnd_bool = True
 
 
-        found_bool = True
+            if search_cat == config_dict['search_cat'][len(config_dict['search_cat']) - 1 ]:
+
+                new_cat_name = search_cat.replace('.', ' ')
+
+            else: new_cat_name = search_cat.rsplit('.', 1)[1]
 
 
-    return new_category_name, found_bool
+    return new_cat_name, fnd_bool
 
 
 # In[15]:
@@ -711,7 +694,7 @@ def search_category_rename \
 
 #*******************************************************************************************
  #
- #  Function Name:  finalize_vacation_df
+ #  Function Name:  final_vac_df
  #
  #  Function Description:
  #      This function finalizes and returns the vacation dataframe with the location 
@@ -737,21 +720,20 @@ def search_category_rename \
  #
  #******************************************************************************************/
 
-def finalize_vacation_df \
+def final_vac_df \
         (input_df,
          column_name,
          city_name_array,
          loc_name_array):
 
-    new_df \
-        = input_df.apply \
-            (lambda x: x[input_df['city'].isin(city_name_array)])
+    new_df = input_df.apply(lambda x: x[input_df['city'].isin(city_name_array)])
 
     new_df.reset_index(drop = True, inplace = True)
 
     new_df[column_name] = pd.Series(loc_name_array)
 
     new_df[column_name] = new_df[column_name].str.lower()
+
 
     return new_df     
 
@@ -761,7 +743,7 @@ def finalize_vacation_df \
 
 #*******************************************************************************************
  #
- #  Function Name:  update_location_vacation_df
+ #  Function Name:  upd_loc_vac_df
  #
  #  Function Description:
  #      This function takes a dataframe of vacation data, populates the location name 
@@ -785,10 +767,12 @@ def finalize_vacation_df \
  #
  #******************************************************************************************/
 
-def update_location_vacation_df \
+def upd_loc_vac_df \
         (input_df,
          column_name,
          search_category = 'accommodation.hotel'):
+
+    city_name_array = loc_name_array = np.array([], dtype = str)
 
     params_dict \
         = {'categories': [search_category],
@@ -798,18 +782,13 @@ def update_location_vacation_df \
            'lang': config_dict['vac_loc']['lang_desig'],
            'apiKey': geoapify_key}
 
-    category_name, found_bool = search_category_rename(search_category)
+
+    category_name, found_bool = srch_cat_rename(search_category)
 
     if found_bool == False: return input_df
 
 
     logx.print_and_log_text(f'STARTING {category_name.upper()} SEARCH...\n\n')
-
-
-    city_name_array = np.array([], dtype = str)
-
-    loc_name_array = np.array([], dtype = str)
-
 
     for i, row in input_df.iterrows():
 
@@ -830,9 +809,7 @@ def update_location_vacation_df \
                 (url = config_dict['data']['geoapify_url'], 
                  params = params_dict).json()
 
-        if len(response_dict['features']) <= 0:
-
-            continue
+        if len(response_dict['features']) <= 0: continue
 
 
         for j, location in enumerate(response_dict['features']):
@@ -854,9 +831,8 @@ def update_location_vacation_df \
 
                 break
 
-            except:
+            except: continue
 
-                continue
 
         city_name_array = np.append(city_name_array, row['city'])
 
@@ -864,16 +840,12 @@ def update_location_vacation_df \
 
 
     new_df \
-        = finalize_vacation_df \
-            (input_df,
-             column_name,
-             city_name_array,
-             loc_name_array)
-
-    new_df = new_df.dropna()
-
+        = final_vac_df \
+            (input_df, column_name, city_name_array, loc_name_array) \
+                .dropna()
 
     logx.print_and_log_text(f'{category_name.upper()} SEARCH COMPLETE...\n\n')
+
 
     return new_df
 

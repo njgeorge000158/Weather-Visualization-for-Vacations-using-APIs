@@ -72,10 +72,7 @@ CONSTANT_LOCAL_FILE_NAME = 'mathx.py'
  #
  #******************************************************************************************/
 
-def rtn_regr_model_eqn_coef \
-        (x_array, 
-         y_array,
-         degree_int):
+def rtn_regr_model_eqn_coef(x_array, y_array, degree_int):
 
     return np.poly1d(np.polyfit(x_array, y_array, degree_int))
 
@@ -108,13 +105,9 @@ def rtn_regr_model_eqn_coef \
  #
  #******************************************************************************************/
 
-def rtn_poly_line_array \
-        (x_array, 
-         y_array):
+def rtn_poly_line_array(x_array, y_array):
 
-    samples_int = abs(int((x_array.max() - y_array.min()) / 2))
-
-    return np.linspace(x_array.min(), x_array.max(), samples_int)
+    return np.linspace(x_array.min(), x_array.max(), abs(int((x_array.max() - y_array.min()) / 2)))
 
 
 # In[5]:
@@ -147,9 +140,7 @@ def rtn_poly_line_array \
  #
  #******************************************************************************************/
 
-def rtn_eqn_as_text \
-        (model_eqn_array,
-         coef_prec_int):
+def rtn_eqn_as_text(model_eqn_array, coef_prec_int):
 
     degree_int = len(model_eqn_array)
 
@@ -175,14 +166,10 @@ def rtn_eqn_as_text \
 
             final_eqn = final_eqn + ' + ' + temp_eqn
 
-
         degree_int -= 1
 
 
-    final_eqn = 'y = ' + final_eqn
-
-
-    return final_eqn
+    return 'y = ' + final_eqn
 
 
 # In[6]:
@@ -214,10 +201,7 @@ def rtn_eqn_as_text \
  #
  #******************************************************************************************/
 
-def rtn_r_sqr \
-        (x_array, 
-         y_array, 
-         degree_int):
+def rtn_r_sqr(x_array, y_array, degree_int):
 
     coef_flt_array = np.polyfit(x_array, y_array, degree_int)
 
@@ -268,11 +252,7 @@ def is_perf_sqr(input_obj):
 
     input_int = int(abs(input_obj))
 
-
-    if input_int == 0 \
-        or input_int == 1:
-
-        return True
+    if input_int == 0 or input_int == 1: return True
 
 
     x_int = input_int // 2
@@ -284,10 +264,7 @@ def is_perf_sqr(input_obj):
 
         x_int = (x_int + (input_int // x_int)) // 2
 
-        if x_int in seen: 
-
-            return False
-
+        if x_int in seen: return False
 
         seen.add(x_int)
 
@@ -328,6 +305,7 @@ def calc_clst_factors(positive_int):
 
     a, b, i = 1, c, 0
 
+
     while a < b:
 
         i += 1
@@ -337,6 +315,7 @@ def calc_clst_factors(positive_int):
             a = i
 
             b = c // a
+
 
     return b, a
 
@@ -370,9 +349,7 @@ def calc_clst_factors(positive_int):
 
 def calc_rows_and_cols(chart_dict):
 
-    nrows, ncols = calc_clst_factors(chart_dict['figure']['nplots'])
-
-    return nrows, ncols
+    return calc_clst_factors(chart_dict['figure']['nplots'])
 
 
 # In[ ]:

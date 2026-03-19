@@ -77,21 +77,13 @@ CONSTANT_LOCAL_FILE_NAME = 'dtypesx.py'
 
 def cnv_data_to_array(input_obj):
 
-    if isinstance(input_obj, np.ndarray):
+    if isinstance(input_obj, np.ndarray): return input_obj
 
-        return input_obj
+    elif isinstance(input_obj, pd.Series): return input_obj.to_numpy()
 
-    elif isinstance(input_obj, pd.Series):
+    elif isinstance(input_obj, list): return np.array(input_obj)
 
-        return input_obj.to_numpy()
-
-    elif isinstance(input_obj, list):
-
-        return np.array(input_obj)
-
-    elif isinstance(input_obj, tuple):
-
-        return np.array(input_obj)
+    elif isinstance(input_obj, tuple): return np.array(input_obj)
 
     else: return None
 
@@ -136,24 +128,16 @@ def cnv_to_pct_chg \
 
     for i, ele in enumerate(input_array):
 
-        if i != 0:
+        if i > 0 and input_array[i - 1] != 0.0:
 
-            if input_array[i - 1] != 0.0:
-
-                temp_array[i] \
-                    = ((ele - input_array[i - 1]) / input_array[i - 1]) * 100
+            temp_array[i] = ((ele - input_array[i - 1]) / input_array[i - 1]) * 100
 
 
-    final_series \
-        = pd.Series(temp_array, index = input_series.index)
+    final_series = pd.Series(temp_array, index = input_series.index)
 
-    final_series \
-        = final_series.drop(final_series.index[0])
+    final_series = final_series.drop(final_series.index[0])
 
-
-    if round_int >= 0:
-
-        final_series = final_series.round(round_int)
+    if round_int >= 0: final_series = final_series.round(round_int)
 
 
     return final_series
@@ -189,8 +173,7 @@ def cnv_to_pct_chg \
 
 def cnv_dts_idxs_to_date(input_series):
 
-    dates_array \
-        = np.array([], dtype = 'datetime64[D]')
+    dates_array = np.array([], dtype = 'datetime64[D]')
 
 
     for ts in input_series.index.to_numpy():
@@ -199,11 +182,7 @@ def cnv_dts_idxs_to_date(input_series):
 
         tmp_ts.to_pydatetime()
 
-
-        tmp_date = tmp_ts.date()
-
-
-        dates_array = np.append(dates_array, tmp_date)
+        dates_array = np.append(dates_array, tmp_ts.date())
 
 
     return dates_array
@@ -238,18 +217,11 @@ def cnv_dts_idxs_to_date(input_series):
 
 def rtn_data_obj_size(input_obj):
 
-    if isinstance(input_obj, list) \
-        or isinstance(input_obj, np.ndarray):
+    if isinstance(input_obj, list) or isinstance(input_obj, np.ndarray): return len(input_obj[0])
 
-        return len(input_obj[0])
+    elif isinstance(input_obj, dict): return len(next(iter(input_obj.values())))
 
-    elif isinstance(input_obj, dict):
-
-        return len(next(iter(input_obj.values())))
-
-    elif isinstance(input_obj, pd.DataFrame):
-
-        return len(input_obj.columns)
+    elif isinstance(input_obj, pd.DataFrame): return len(input_obj.columns)
 
     else: return None
 
@@ -284,28 +256,18 @@ def rtn_data_obj_size(input_obj):
 
 def rtn_rows_with_unq_idxs(input_series):
 
-    tmp_series = input_series.copy()
-
-    tmp_series.dropna(inplace = True)
-
+    tmp_series = input_series.dropna()
 
     last_idx_int = len(tmp_series) - 1
 
-
-    idx_array = np.array([], dtype = int)
-
-    values_array = np.array([], dtype = int)
+    idx_array = values_array = np.array([], dtype = int)
 
 
     for idx, row in enumerate(tmp_series):
 
-        if idx < last_idx_int:
+        if idx < last_idx_int: cmp_date = (tmp_series.index[idx + 1]).date()
 
-            cmp_date = (tmp_series.index[idx + 1]).date()
-
-        elif idx == last_idx_int:
-
-            cmp_date = (tmp_series.index[idx - 1]).date()
+        elif idx == last_idx_int: cmp_date = (tmp_series.index[idx - 1]).date()
 
 
         if (tmp_series.index[idx]).date() != cmp_date:
@@ -350,17 +312,12 @@ def rtn_rows_with_unq_idxs(input_series):
 
 def rtn_date_idxs(input_series):
 
-    values_array \
-        = input_series.to_numpy()
+    values_array = input_series.to_numpy()
 
-    dates_array \
-        = cnv_dts_idxs_to_date(input_series)
+    dates_array = cnv_dts_idxs_to_date(input_series)
 
-    return \
-        pd.Series \
-            (values_array, 
-             index = dates_array,
-             name = input_series.name)
+
+    return pd.Series(values_array, index = dates_array, name = input_series.name)
 
 
 # In[9]:
@@ -492,14 +449,9 @@ def rtn_norm_date_idx(input_list):
         new_list = [ele[5:] for ele in curr_list]
 
 
-        if idx >= 1:
+        if idx >= 1: tmp_list = [ele for ele in tmp_list if ele in new_list]
 
-            tmp_list \
-                = [ele for ele in tmp_list if ele in new_list]
-
-        else:
-
-            tmp_list = new_list 
+        else: tmp_list = new_list 
 
 
     return tmp_list
@@ -541,10 +493,9 @@ def rtn_norm_series_list_df \
     curr_list = input_list.copy()
 
 
-    if omit_list is not None:
+    if omit_list is not None: 
 
-        curr_list \
-            = [x for i, x in enumerate(curr_list) if i not in omit_list]
+        curr_list = [x for i, x in enumerate(curr_list) if i not in omit_list]
 
 
     norm_idx_list = rtn_norm_date_idx(curr_list)
@@ -563,9 +514,7 @@ def rtn_norm_series_list_df \
 
         for j, x in enumerate(curr_list[idx]):
 
-            if str(curr_list[idx].index[j]) in norm_idx_list:
-
-                temp_list.append(x)
+            if str(curr_list[idx].index[j]) in norm_idx_list: temp_list.append(x)
 
 
         norm_series = pd.Series(temp_list, index = norm_idx_list)

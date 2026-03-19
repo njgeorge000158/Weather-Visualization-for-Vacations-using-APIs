@@ -1280,9 +1280,7 @@ scatterplot_multichart_def_dict = copy.deepcopy(scatterplot_multichart_dict)
  #
  #******************************************************************************************/
 
-def stacked_bar_chart_setup \
-        (stacked_bool = True,
-         lgnd_disp_bool = True):
+def stacked_bar_chart_setup(stacked_bool = True, lgnd_disp_bool = True):
 
     global bar_chart_dict
 
@@ -1321,20 +1319,36 @@ def stacked_bar_chart_setup \
 def get_chart_dict(chart_type):
 
     if chart_type == chart_enum.BAR.value: return bar_chart_dict
+
     elif chart_type == chart_enum.BOXPLOT.value: return boxplot_chart_dict
+
     elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict
+
     elif chart_type == chart_enum.LINE.value: return line_chart_dict
+
     elif chart_type == chart_enum.PIE.value: return pie_chart_dict
+
     elif chart_type == chart_enum.PLOT.value: return plot_chart_dict
+
     elif chart_type == chart_enum.SCATTER.value: return scatterplot_chart_dict
+
     elif chart_type == chart_enum.REGR_LINE.value: return regr_line_dict
+
     elif chart_type == chart_enum.MULTIBAR.value: return bar_multichart_dict
+
     elif chart_type == chart_enum.MULTIBOXPLOT.value: return boxplot_multichart_dict
+
     elif chart_type == chart_enum.MULTIHISTOGRAM.value: return histogram_multichart_dict
+
     elif chart_type == chart_enum.MULTILINE.value: return line_multichart_dict
+
     elif chart_type == chart_enum.MULTIPIE.value: return pie_multichart_dict
+
     elif chart_type == chart_enum.MULTIPLOT.value: return plot_multichart_dict
+
     elif chart_type == chart_enum.MULTISCATTER.value: return scatterplot_multichart_dict
+
+    else: return None
 
 
 # In[22]:
@@ -1367,20 +1381,36 @@ def get_chart_dict(chart_type):
 def get_chart_def_dict(chart_type):
 
     if chart_type == chart_enum.BAR.value: return copy.deepcopy(bar_chart_def_dict)
+
     elif chart_type == chart_enum.BOXPLOT.value: return copy.deepcopy(boxplot_chart_def_dict)
+
     elif chart_type == chart_enum.HISTOGRAM.value: return copy.deepcopy(histogram_chart_def_dict)
+
     elif chart_type == chart_enum.LINE.value: return copy.deepcopy(line_chart_def_dict)
+
     elif chart_type == chart_enum.PIE.value: return copy.deepcopy(pie_chart_def_dict)
+
     elif chart_type == chart_enum.PLOT.value: return copy.deepcopy(plot_chart_def_dict)
+
     elif chart_type == chart_enum.SCATTER.value: return copy.deepcopy(scatterplot_chart_def_dict)
+
     elif chart_type == chart_enum.REGR_LINE.value: return copy.deepcopy(regr_line_def_dict)
+
     elif chart_type == chart_enum.MULTIBAR.value: return copy.deepcopy(bar_multichart_def_dict)
+
     elif chart_type == chart_enum.MULTIBOXPLOT.value: return copy.deepcopy(boxplot_multichart_def_dict)
+
     elif chart_type == chart_enum.MULTIHISTOGRAM.value: return copy.deepcopy(histogram_multichart_def_dict)
+
     elif chart_type == chart_enum.MULTILINE.value: return copy.deepcopy(line_multichart_def_dict)
+
     elif chart_type == chart_enum.MULTIPIE.value: return copy.deepcopy(pie_multichart_def_dict)
+
     elif chart_type == chart_enum.MULTIPLOT.value: return copy.deepcopy(plot_multichart_def_dict)
+
     elif chart_type == chart_enum.MULTISCATTER.value: return copy.deepcopy(scatterplot_multichart_def_dict)
+
+    else: return None
 
 
 # In[23]:
@@ -1413,12 +1443,19 @@ def get_chart_def_dict(chart_type):
 def get_titles(chart_type):
 
     if chart_type == chart_enum.BAR.value: return bar_chart_dict['title']['text']
+
     elif chart_type == chart_enum.BOXPLOT.value: return boxplot_chart_dict['title']['text']
+
     elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict['title']['text']
+
     elif chart_type == chart_enum.LINE.value: return line_chart_dict['title']['text']
+
     elif chart_type == chart_enum.PIE.value: return pie_chart_dict['title']['text']
+
     elif chart_type == chart_enum.PLOT.value: return plot_chart_dict['title']['text']
+
     elif chart_type == chart_enum.SCATTER.value: return scatterplot_chart_dict['title']['text']
+
     else: return None
 
 
@@ -1524,16 +1561,21 @@ def get_xylabels(chart_type):
  #
  #******************************************************************************************/
 
-def get_chart_colors \
-        (chart_type,
-         cat = ''):
+def get_chart_colors(chart_type, cat = ''):
 
     if chart_type == chart_enum.BAR.value: return bar_chart_dict['params']['color']
+
     elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict['params']['color']
+
     elif chart_type == chart_enum.LINE.value: return line_chart_dict[cat]['color']
+
     elif chart_type == chart_enum.PIE.value: return pie_chart_dict['params']['colors']
+
     elif chart_type == chart_enum.PLOT.value: return plot_chart_dict[cat]['color']
+
     elif chart_type == chart_enum.SCATTER.value: return scatterplot_chart_dict['marker']['color']
+
+    else: return None
 
 
 # In[26]:
@@ -1566,10 +1608,16 @@ def get_chart_colors \
 def get_legend_bbox_to_anchor(chart_type):
 
     if chart_type == chart_enum.BAR.value: return bar_chart_dict['legend']['bbox_to_anchor']
+
     elif chart_type == chart_enum.HISTOGRAM.value: return histogram_chart_dict['legend']['bbox_to_anchor']
+
     elif chart_type == chart_enum.LINE.value: return line_chart_dict['legend']['bbox_to_anchor']
+
     elif chart_type == chart_enum.PIE.value: return pie_chart_dict['legend']['bbox_to_anchor']
+
     elif chart_type == chart_enum.PLOT.value: return plot_chart_dict['legend']['bbox_to_anchor']
+
+    else: return None
 
 
 # In[27]:
@@ -1602,12 +1650,19 @@ def get_legend_bbox_to_anchor(chart_type):
 def get_multichart_stacked(chart_type):
 
     if chart_type == chart_enum.MULTIBAR.value: return bar_multichart_dict['figure']['stacked']
+
     elif chart_type == chart_enum.MULTIBOXPLOT.value: return boxplot_multichart_dict['figure']['stacked']
+
     elif chart_type == chart_enum.MULTIHISTOGRAM.value: return histogram_multichart_dict['figure']['stacked']
+
     elif chart_type == chart_enum.MULTILINE.value: return line_multichart_dict['figure']['stacked']
+
     elif chart_type == chart_enum.MULTIPIE.value: return pie_multichart_dict['figure']['stacked']
+
     elif chart_type == chart_enum.MULTIPLOT.value: return plot_multichart_dict['figure']['stacked']
+
     elif chart_type == chart_enum.MULTISCATTER.value: return scatterplot_multichart_dict['figure']['stacked']
+
     else: return None
 
 
@@ -1713,9 +1768,7 @@ def get_multichart_xysuplabels(chart_type):
  #
  #******************************************************************************************/
 
-def set_chart_dict \
-        (upd_dict,
-         chart_type):
+def set_chart_dict(upd_dict, chart_type):
 
     if chart_type == chart_enum.BAR.value: 
 
@@ -1806,7 +1859,6 @@ def set_chart_dict \
         global scatterplot_multichart_dict
 
         scatterplot_multichart_dict = copy.deepcopy(upd_dict)
-
 
 
 # In[30]:
@@ -1929,7 +1981,6 @@ def set_chart_def_dict(chart_type):
         scatterplot_multichart_dict = copy.deepcopy(scatterplot_multichart_def_dict)
 
 
-
 # In[31]:
 
 
@@ -1958,9 +2009,7 @@ def set_chart_def_dict(chart_type):
  #
  #******************************************************************************************/
 
-def set_titles \
-        (titles,
-         chart_type):
+def set_titles(titles, chart_type):
 
     if chart_type == chart_enum.BAR.value:
 
@@ -2062,10 +2111,7 @@ def set_titles \
  #
  #******************************************************************************************/
 
-def set_xylabels \
-        (xlabel,
-         ylabel,
-         chart_type):
+def set_xylabels(xlabel, ylabel, chart_type):
 
     if chart_type == chart_enum.BAR.value:
 
@@ -2209,10 +2255,7 @@ def set_xylabels \
  #
  #******************************************************************************************/
 
-def set_chart_colors \
-        (upd_obj,
-         chart_type,
-         cat = ''):
+def set_chart_colors(upd_obj, chart_type, cat = ''):
 
     if chart_type == chart_enum.BAR.value:
 
@@ -2328,10 +2371,7 @@ def set_chart_colors \
  #
  #******************************************************************************************/
 
-def set_legend_bbox_to_anchor \
-        (x_flt, 
-         y_flt,
-         chart_type):
+def set_legend_bbox_to_anchor(x_flt, y_flt, chart_type):
 
     if chart_type == chart_enum.BAR.value:
 
@@ -2392,9 +2432,7 @@ def set_legend_bbox_to_anchor \
  #
  #******************************************************************************************/
 
-def set_multichart_stacked \
-        (upd_bool,
-         chart_type):
+def set_multichart_stacked(upd_bool, chart_type):
 
     if chart_type == chart_enum.MULTIBAR.value:
 
@@ -2468,10 +2506,7 @@ def set_multichart_stacked \
  #
  #******************************************************************************************/
 
-def set_multichart_xysuplabels \
-        (xsuplabel,
-         ysuplabel,
-         chart_type):
+def set_multichart_xysuplabels(xsuplabel, ysuplabel, chart_type):
 
     if chart_type == chart_enum.MULTIBAR.value:
 
@@ -3152,25 +3187,16 @@ def set_regr_degree(input_obj):
 
     global regr_line_dict
 
-    if isinstance(input_obj, int):
 
-        regr_line_dict['degree'] = [abs(input_obj)]
+    if isinstance(input_obj, int): regr_line_dict['degree'] = [abs(input_obj)]
 
-    elif isinstance(input_obj, float):
+    elif isinstance(input_obj, float): regr_line_dict['degree'] = [int(abs(input_obj))]
 
-        regr_line_dict['degree'] = [int(abs(input_obj))]
+    elif isinstance(input_obj, list): regr_line_dict['degree'] = np.array(input_obj)
 
-    elif isinstance(input_obj, list):
+    elif isinstance(input_obj, np.ndarray): regr_line_dict['degree'] = input_obj
 
-        regr_line_dict['degree'] = np.array(input_obj)
-
-    elif isinstance(input_obj, np.ndarray):
-
-        regr_line_dict['degree'] = input_obj
-
-    elif isinstance(input_obj, pd.Series):
-
-        regr_line_dict['degree'] = input_obj.to_numpy()
+    elif isinstance(input_obj, pd.Series): regr_line_dict['degree'] = input_obj.to_numpy()
 
 
 # In[50]:
@@ -3209,23 +3235,15 @@ def set_regr_eqn_coords(x_crd_obj, y_crd_obj):
 
 
     if isinstance(x_crd_obj, int) \
-        or isinstance(x_crd_obj, float):
+        or isinstance(x_crd_obj, float): regr_line_dict['eqn_x_coord'] = [x_crd_obj]
 
-        regr_line_dict['eqn_x_coord'] = [x_crd_obj]
-
-    elif isinstance(x_crd_obj, list):
-
-        regr_line_dict['eqn_x_coord'] = x_crd_obj
+    elif isinstance(x_crd_obj, list): regr_line_dict['eqn_x_coord'] = x_crd_obj
 
 
     if isinstance(y_crd_obj, int) \
-        or isinstance(y_crd_obj, float):
+        or isinstance(y_crd_obj, float): regr_line_dict['eqn_y_coord'] = [y_crd_obj]
 
-        regr_line_dict['eqn_y_coord'] = [y_crd_obj]
-
-    elif isinstance(y_crd_obj, list):
-
-        regr_line_dict['eqn_y_coord'] = y_crd_obj  
+    elif isinstance(y_crd_obj, list): regr_line_dict['eqn_y_coord'] = y_crd_obj  
 
 
 # In[51]:
@@ -3409,13 +3427,33 @@ def set_pie_chart_explode(upd_obj):
  #
  #******************************************************************************************/
 
-def get_bar_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIBAR.value)
-def get_boxplot_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIBOXPLOT.value)
-def get_histogram_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIHISTOGRAM.value)
-def get_line_multichart_stacked(): get_multichart_stacked(chart_enum.MULTILINE.value)
-def get_pie_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIPIE.value)
-def get_plot_multichart_stacked(): get_multichart_stacked(chart_enum.MULTIPLOT.value)
-def get_scatterplot_multichart_stacked(): get_multichart_stacked(chart_enum.MULTISCATTER.value)
+def get_bar_multichart_stacked(): 
+
+    get_multichart_stacked(chart_enum.MULTIBAR.value)
+
+def get_boxplot_multichart_stacked(): 
+
+    get_multichart_stacked(chart_enum.MULTIBOXPLOT.value)
+
+def get_histogram_multichart_stacked(): 
+
+    get_multichart_stacked(chart_enum.MULTIHISTOGRAM.value)
+
+def get_line_multichart_stacked(): 
+
+    get_multichart_stacked(chart_enum.MULTILINE.value)
+
+def get_pie_multichart_stacked(): 
+
+    get_multichart_stacked(chart_enum.MULTIPIE.value)
+
+def get_plot_multichart_stacked(): 
+
+    get_multichart_stacked(chart_enum.MULTIPLOT.value)
+
+def get_scatterplot_multichart_stacked(): 
+
+    get_multichart_stacked(chart_enum.MULTISCATTER.value)
 
 
 # In[56]:
@@ -3445,13 +3483,33 @@ def get_scatterplot_multichart_stacked(): get_multichart_stacked(chart_enum.MULT
  #
  #******************************************************************************************/
 
-def set_bar_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIBAR.value)
-def set_boxplot_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIBOXPLOT.value)
-def set_histogram_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIHISTOGRAM.value)
-def set_line_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTILINE.value)
-def set_pie_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIPIE.value)
-def set_plot_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTIPLOT.value)
-def set_scatterplot_multichart_stacked(input_bool): set_multichart_stacked(input_bool, chart_enum.MULTISCATTER.value)
+def set_bar_multichart_stacked(input_bool): 
+
+    set_multichart_stacked(input_bool, chart_enum.MULTIBAR.value)
+
+def set_boxplot_multichart_stacked(input_bool): 
+
+    set_multichart_stacked(input_bool, chart_enum.MULTIBOXPLOT.value)
+
+def set_histogram_multichart_stacked(input_bool): 
+
+    set_multichart_stacked(input_bool, chart_enum.MULTIHISTOGRAM.value)
+
+def set_line_multichart_stacked(input_bool): 
+
+    set_multichart_stacked(input_bool, chart_enum.MULTILINE.value)
+
+def set_pie_multichart_stacked(input_bool): 
+
+    set_multichart_stacked(input_bool, chart_enum.MULTIPIE.value)
+
+def set_plot_multichart_stacked(input_bool): 
+
+    set_multichart_stacked(input_bool, chart_enum.MULTIPLOT.value)
+
+def set_scatterplot_multichart_stacked(input_bool): 
+
+    set_multichart_stacked(input_bool, chart_enum.MULTISCATTER.value)
 
 
 # In[57]:
@@ -3487,13 +3545,33 @@ def set_scatterplot_multichart_stacked(input_bool): set_multichart_stacked(input
  #
  #******************************************************************************************/
 
-def get_bar_multichart_xysuplabels(): return get_multichart_xy_suplabels(chart_enum.MULTIBAR.value)
-def get_boxplot_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTIBOXPLOT.value)
-def get_histogram_chart_xylabels(): return get_multichart_xysuplabels(chart_enum.MULTIHISTOGRAM.value)
-def get_line_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTILINE.value)
-def get_pie_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTIPIE.value)
-def get_plot_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTIPLOT.value)
-def get_scatterplot_multichart_xysuplabels(): return get_multichart_xysuplabels(chart_enum.MULTISCATTER.value)
+def get_bar_multichart_xysuplabels(): 
+
+    return get_multichart_xy_suplabels(chart_enum.MULTIBAR.value)
+
+def get_boxplot_multichart_xysuplabels(): 
+
+    return get_multichart_xysuplabels(chart_enum.MULTIBOXPLOT.value)
+
+def get_histogram_chart_xylabels(): 
+
+    return get_multichart_xysuplabels(chart_enum.MULTIHISTOGRAM.value)
+
+def get_line_multichart_xysuplabels(): 
+
+    return get_multichart_xysuplabels(chart_enum.MULTILINE.value)
+
+def get_pie_multichart_xysuplabels(): 
+
+    return get_multichart_xysuplabels(chart_enum.MULTIPIE.value)
+
+def get_plot_multichart_xysuplabels(): 
+
+    return get_multichart_xysuplabels(chart_enum.MULTIPLOT.value)
+
+def get_scatterplot_multichart_xysuplabels(): 
+
+    return get_multichart_xysuplabels(chart_enum.MULTISCATTER.value)
 
 
 # In[58]:
@@ -3592,15 +3670,11 @@ def set_scatterplot_multichart_xysuplabels(xsuplabel, ysuplabel):
 def proc_bar_chart_input(input_obj):
 
     if isinstance(input_obj, pd.Series) \
-        or isinstance(input_obj, pd.DataFrame):
-
-        return input_obj
+        or isinstance(input_obj, pd.DataFrame): return input_obj
 
     elif isinstance(input_obj, dict) \
         or isinstance(input_obj, list) \
-        or isinstance(input_obj, np.ndarray):
-
-        return pd.DataFrame(input_obj)
+        or isinstance(input_obj, np.ndarray): return pd.DataFrame(input_obj)
 
     else: return None
 
@@ -3637,8 +3711,7 @@ def proc_bar_chart_input(input_obj):
 
 def proc_boxplot_chart_input(input_obj):
 
-    if isinstance(input_obj, list) \
-        and len(input_obj) >= 2:
+    if isinstance(input_obj, list) and len(input_obj) >= 2:
 
         data = input_obj[0]
 
@@ -3950,9 +4023,7 @@ def proc_scatterplot_multichart_input(input_obj):
  #
  #******************************************************************************************/
 
-def proc_chart_input \
-        (input_obj,
-         chart_enum_value):
+def proc_chart_input(input_obj, chart_enum_value):
 
     if chart_enum_value == chart_enum.LINE.value:
 
@@ -4378,9 +4449,7 @@ def plot_title_axes_stacked \
  #
  #******************************************************************************************/
 
-def plot_title_axes \
-        (chart_dict,
-         idx = 0):
+def plot_title_axes(chart_dict, idx = 0):
 
     if chart_dict['title']['text'][idx] is not None \
         and chart_dict['title']['display']:
@@ -4847,9 +4916,7 @@ def plot_regr_line \
  #
  #******************************************************************************************/
 
-def plot_peaks \
-        (input_series, 
-         chart_dict):
+def plot_peaks(input_series, chart_dict):
 
     if chart_dict['peaks']['display']:
 
@@ -4906,9 +4973,7 @@ def plot_peaks \
  #
  #******************************************************************************************/
 
-def plot_suptitle_axes \
-        (figure,
-         chart_dict):
+def plot_suptitle_axes(figure, chart_dict):
 
     if chart_dict['suptitle']['text'] is not None:
 
@@ -5044,9 +5109,7 @@ def plot_subplots_adjust(chart_dict):
  #
  #******************************************************************************************/
 
-def plot_bar_chart_series \
-    (input_series,
-     chart_dict):
+def plot_bar_chart_series(input_series, chart_dict):
 
     if chart_dict['params']['horizontal']:
 
@@ -5107,9 +5170,7 @@ def plot_bar_chart_series \
  #
  #******************************************************************************************/
 
-def plot_bar_chart_df \
-    (input_df,
-     chart_dict):
+def plot_bar_chart_df(input_df, chart_dict):
 
     if chart_dict['params']['horizontal']:
 
@@ -5171,17 +5232,11 @@ def plot_bar_chart_df \
  #
  #******************************************************************************************/
 
-def plot_bar_chart \
-    (input_obj,
-     chart_dict):
+def plot_bar_chart(input_obj, chart_dict):
 
-    if isinstance(input_obj, pd.Series):
+    if isinstance(input_obj, pd.Series): plot_bar_chart_series(input_obj, chart_dict)
 
-        plot_bar_chart_series(input_obj, chart_dict)
-
-    elif isinstance(input_obj, pd.DataFrame):
-
-        plot_bar_chart_df(input_obj, chart_dict)
+    elif isinstance(input_obj, pd.DataFrame): plot_bar_chart_df(input_obj, chart_dict)
 
 
 # In[88]:
@@ -5213,10 +5268,7 @@ def plot_bar_chart \
  #
  #******************************************************************************************/
 
-def plot_boxplot_chart \
-        (data_list, 
-         tick_lbls_array,
-         chart_dict):
+def plot_boxplot_chart(data_list, tick_lbls_array, chart_dict):
 
     plt.boxplot \
         (x = data_list,
@@ -5259,9 +5311,7 @@ def plot_boxplot_chart \
  #
  #******************************************************************************************/
 
-def plot_histogram_chart \
-        (data_array,
-         chart_dict):
+def plot_histogram_chart(data_array, chart_dict):
 
     plt.hist \
         (data_array,
@@ -5313,9 +5363,7 @@ def plot_histogram_chart \
  #
  #******************************************************************************************/
 
-def plot_line_chart \
-        (input_obj,
-         chart_dict):
+def plot_line_chart(input_obj, chart_dict):
 
     input_obj \
         .plot \
@@ -5366,10 +5414,7 @@ def plot_line_chart \
  #
  #******************************************************************************************/
 
-def plot_pie_chart \
-        (data_array, 
-         labels_array, 
-         chart_dict):
+def plot_pie_chart(data_array, labels_array, chart_dict):
 
     plt.pie \
         (data_array,
@@ -5420,9 +5465,7 @@ def plot_pie_chart \
  #
  #******************************************************************************************/
 
-def plot_plot_chart \
-        (data_series, 
-         chart_dict):
+def plot_plot_chart(data_series, chart_dict):
 
     data_series \
         .plot \
@@ -5461,10 +5504,7 @@ def plot_plot_chart \
  #
  #******************************************************************************************/
 
-def plot_scatterplot_chart \
-        (x_array, 
-         y_array, 
-         chart_dict):
+def plot_scatterplot_chart(x_array, y_array, chart_dict):
 
     return \
         plt.scatter \
@@ -5506,9 +5546,7 @@ def plot_scatterplot_chart \
  #
  #******************************************************************************************/
 
-def plot_line_multichart_stacked \
-        (input_df,
-         suptitle):
+def plot_line_multichart_stacked(input_df, suptitle):
 
     global line_multichart_dict
 
@@ -5610,9 +5648,7 @@ def plot_line_multichart_stacked \
  #
  #******************************************************************************************/
 
-def plot_line_multichart \
-        (input_df,
-         suptitle):
+def plot_line_multichart(input_df, suptitle):
 
     global line_multichart_dict
 
@@ -5687,9 +5723,7 @@ def plot_line_multichart \
  #
  #******************************************************************************************/
 
-def plot_scatterplot_multichart \
-        (input_obj,
-         suptitle):
+def plot_scatterplot_multichart(input_obj, suptitle):
 
     global scatterplot_multichart_dict
 
@@ -5778,14 +5812,12 @@ def plot_scatterplot_multichart \
  #
  #******************************************************************************************/
 
-def bar_chart \
-        (input_obj,
-         title):
+def bar_chart(input_obj, title):
 
     global bar_chart_dict
 
-    bar_chart_dict['title']['text'] = [title]
 
+    bar_chart_dict['title']['text'] = [title]
 
     plot_figsize(bar_chart_dict)
 
@@ -5837,14 +5869,12 @@ def bar_chart \
  #
  #******************************************************************************************/
 
-def boxplot_chart \
-        (input_obj,
-         title):
+def boxplot_chart(input_obj, title):
 
     global boxplot_chart_dict
 
-    boxplot_chart_dict['title']['text'] = [title]
 
+    boxplot_chart_dict['title']['text'] = [title]
 
     plot_figsize(boxplot_chart_dict)
 
@@ -5894,14 +5924,12 @@ def boxplot_chart \
  #
  #******************************************************************************************/
 
-def histogram_chart \
-        (input_obj,
-         title):
+def histogram_chart(input_obj, title):
 
     global histogram_chart_dict
 
-    histogram_chart_dict['title']['text'] = [title]
 
+    histogram_chart_dict['title']['text'] = [title]        
 
     plot_figsize(histogram_chart_dict)
 
@@ -5953,14 +5981,12 @@ def histogram_chart \
  #
  #******************************************************************************************/
 
-def line_chart \
-        (input_obj,
-         title):
+def line_chart(input_obj, title):
 
     global line_chart_dict
 
-    line_chart_dict['title']['text'] = [title]
 
+    line_chart_dict['title']['text'] = [title]        
 
     plot_figsize(line_chart_dict)
 
@@ -6012,14 +6038,12 @@ def line_chart \
  #
  #******************************************************************************************/
 
-def pie_chart \
-        (input_obj,
-         title):
+def pie_chart(input_obj, title):
 
     global pie_chart_dict
 
-    pie_chart_dict['title']['text'] = [title]
 
+    pie_chart_dict['title']['text'] = [title]        
 
     plot_figsize(scatterplot_chart_dict)
 
@@ -6067,14 +6091,12 @@ def pie_chart \
  #
  #******************************************************************************************/
 
-def plot_chart \
-        (input_obj,
-         title):
+def plot_chart(input_obj, title):
 
     global plot_chart_dict
 
-    plot_chart_dict['title']['text'] = [title]
 
+    plot_chart_dict['title']['text'] = [title]        
 
     plot_figsize(histogram_chart_dict)
 
@@ -6128,14 +6150,12 @@ def plot_chart \
  #
  #******************************************************************************************/
 
-def scatterplot_chart \
-        (input_obj,
-         title):
+def scatterplot_chart(input_obj, title):
 
     global scatterplot_chart_dict
 
-    scatterplot_chart_dict['title']['text'] = [title]
 
+    scatterplot_chart_dict['title']['text'] = [title]
 
     plot_figsize(scatterplot_chart_dict)
 
@@ -6188,9 +6208,7 @@ def scatterplot_chart \
  #
  #******************************************************************************************/
 
-def line_multichart \
-        (input_df,
-         suptitle):
+def line_multichart(input_df, suptitle):
 
     if line_multichart_dict['figure']['stacked']: 
 
@@ -6227,9 +6245,7 @@ def line_multichart \
  #
  #******************************************************************************************/
 
-def scatterplot_multichart \
-        (input_obj,
-         suptitle):
+def scatterplot_multichart(input_obj, suptitle):
 
     if scatterplot_multichart_dict['figure']['stacked']: pass
 
