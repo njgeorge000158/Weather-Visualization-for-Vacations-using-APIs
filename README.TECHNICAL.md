@@ -54,7 +54,7 @@ matplotlibx.py
 
 pandasx.py
 
-weather_api_keys.py
+weather_api.py
 
 If the folders, logs and images, are not present, an Jupyter Notebook will create them. The folder, resources, contains the output file from weather.ipynb, cities_weather.csv, which is the input file for vacations.ipynb; the folder, logs, contains log files from testing the Jupyter Notebooks; and the folder, images, has the PNG and HTML files of the Jupyter Notebooks' tables and plots.
 
@@ -68,7 +68,7 @@ To place the Jupyter Notebook in Log Mode or Image Mode set the parameter for th
 
 #### Source code
 
-weather.ipynb, vacations.ipynb, citipyx.py, dtypesx.py, logx.py, mathx.py, matplotlibx.py, pandasx.py, weather_api_keys.py
+weather.ipynb, vacations.ipynb, citipyx.py, dtypesx.py, logx.py, mapx.py, mathx.py, matplotlibx.py, pandasx.py, weather_api.py
 
 #### Input files
 
