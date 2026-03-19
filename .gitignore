@@ -9,6 +9,7 @@ __pycache__/
 citipyx.py
 dtypesx.py
 logx.py
+mapx.py
 mathx.py
 matplotlibx.py
 pandasx.py
