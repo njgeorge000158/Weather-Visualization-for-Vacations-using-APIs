@@ -46,6 +46,8 @@ dtypesx.py
 
 logx.py
 
+mapx.py
+
 mathx.py
 
 matplotlibx.py
@@ -99,6 +101,8 @@ Jupyter Notebook, Pandas, Python 3.11.5
 |&rarr; [./dtypesx.py](./dtypesx.py)
 
 |&rarr; [./logx.py](./logx.py)
+
+|&rarr; [./mapx.py](./mapx.py)
 
 |&rarr; [./mathx.py](./mathx.py)
 
