@@ -1,69 +1,192 @@
 <!DOCTYPE html>
-<html lang="en" >
-  <head>
-    <meta charset="utf-8">
-    <title>vacationsFigure34HotelLocations</title>
-<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.holoviz.org/panel/1.8.7/dist/images/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://cdn.holoviz.org/panel/1.8.7/dist/images/favicon.ico"><link rel="apple-touch-icon" href="">    <style>
-      html, body {
-	display: flow-root;
-        box-sizing: border-box;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-<script type="esms-options">{"shimMode": true}</script>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_88f59b2ef0c618bac22b1e8948dcc55c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
 
-<script type="text/javascript" src="https://cdn.holoviz.org/panel/1.8.7/dist/bundled/reactiveesm/es-module-shims@^1.10.0/dist/es-module-shims.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.holoviz.org/panel/1.8.7/dist/panel.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@holoviz/geoviews@1.15.1/dist/geoviews.min.js"></script>
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
 
-<script type="text/javascript">
-  Bokeh.set_log_level("info");
-</script>  </head>
-  <body>
-    <div id="f618d546-c521-4ede-bb0e-8ecf3b046088" data-root-id="89a223cc-ad1d-41a5-9b34-9962dfdaaba6" style="display: contents;"></div>
-  
-    <script type="application/json" id="a35814e3-6951-48d5-a957-7584e1d29c3c">
-      {"116cf785-356a-492f-8f4f-8403dec92711":{"version":"3.8.2","title":"Bokeh Application","config":{"type":"object","name":"DocumentConfig","id":"a52ee668-3aaa-4f0f-a8c2-9ca62826002c","attributes":{"notifications":{"type":"object","name":"Notifications","id":"ae177c86-e039-49b8-a760-c7a5f0b01f2b"}}},"roots":[{"type":"object","name":"Row","id":"89a223cc-ad1d-41a5-9b34-9962dfdaaba6","attributes":{"name":"Row01147","tags":["embedded"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 300px));\n  -webkit-mask-size: auto calc(min(50%, 300px));\n}",{"type":"object","name":"ImportedStyleSheet","id":"201cdd5b-2489-43c6-a3a2-96519be9f02f","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/css/loading.css"}},{"type":"object","name":"ImportedStyleSheet","id":"78fa4fdd-3946-4bc0-847c-836bf45f571d","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/css/listpanel.css"}},{"type":"object","name":"ImportedStyleSheet","id":"ee837e30-7a8d-499f-842b-fd8bc8e3c948","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/bundled/theme/default.css"}},{"type":"object","name":"ImportedStyleSheet","id":"239e9849-f416-4e6d-8d03-0e533935e7c6","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/bundled/theme/native.css"}}],"min_width":1100,"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"Spacer","id":"fbecf3dc-e275-462c-893b-700146155564","attributes":{"name":"HSpacer01151","stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 300px));\n  -webkit-mask-size: auto calc(min(50%, 300px));\n}",{"id":"201cdd5b-2489-43c6-a3a2-96519be9f02f"},{"id":"ee837e30-7a8d-499f-842b-fd8bc8e3c948"},{"id":"239e9849-f416-4e6d-8d03-0e533935e7c6"}],"min_width":0,"margin":0,"sizing_mode":"stretch_width","align":"start"}},{"type":"object","name":"Figure","id":"a9a54464-1e51-4fa5-9dd7-7b7d7c4a95ad","attributes":{"width":1100,"height":550,"margin":[5,10],"sizing_mode":"fixed","align":"start","x_range":{"type":"object","name":"Range1d","id":"92dc90ce-561e-455f-9e33-cc4cbc3b70e1","attributes":{"name":"Longitude","tags":[[["Longitude",null]],[]],"start":-19981848.59739268,"end":19981848.59739268,"reset_start":-19981848.59739268,"reset_end":19981848.59739268,"min_interval":5}},"y_range":{"type":"object","name":"Range1d","id":"c2a10cd4-4e3f-4556-914e-aa74748fa042","attributes":{"name":"Latitude","tags":[[["Latitude",null]],{"type":"map","entries":[["invert_yaxis",false],["autorange",false]]}],"start":-7361865.918971622,"end":12932242.68188668,"reset_start":-7361865.918971622,"reset_end":12932242.68188668,"min_interval":5}},"x_scale":{"type":"object","name":"LinearScale","id":"b613816c-4bee-4615-ad72-0219003dc4fb"},"y_scale":{"type":"object","name":"LinearScale","id":"175edf71-3482-4911-9d1c-6f350f687140"},"title":{"type":"object","name":"Title","id":"dba2a584-34d0-4db3-bca7-c69da3684e22","attributes":{"text":"Figure 3.4: Hotel Locations","text_color":"black","text_font_size":"12pt"}},"renderers":[{"type":"object","name":"TileRenderer","id":"998401a1-31ed-4d69-b051-9fc0ed85d0d1","attributes":{"level":"underlay","tile_source":{"type":"object","name":"WMTSTileSource","id":"144e89f7-fde2-4286-ae70-ba3d57878a3f","attributes":{"url":"https://c.tile.openstreetmap.org/{Z}/{X}/{Y}.png","attribution":"&amp;copy; &lt;a href=\"https://www.openstreetmap.org/copyright\"&gt;OpenStreetMap&lt;/a&gt; contributors"}}}},{"type":"object","name":"GlyphRenderer","id":"b307806f-684b-4209-ba43-7f094dc46068","attributes":{"name":"color","data_source":{"type":"object","name":"ColumnDataSource","id":"3670280b-1d22-46af-97d6-b8a7cf66f794","attributes":{"selected":{"type":"object","name":"Selection","id":"431a484d-c3e8-493c-8fa8-6e5ec968b6f9","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"a2249747-9a43-4db5-b7f6-935fb6e25838"},"data":{"type":"map","entries":[["longitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/wEoANf/WAea7LWntcCnT5VXjjVGQcV35FeJp1BBEDjYEuk7cEFOJMbMU/FZwWHyEJQoAAAA"},"shape":[5],"dtype":"float64","order":"little"}],["latitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/xOcJeBq1a/lmP7o2GXRVNeDZ1l6ZlrtcHLs9qsWi1f1OTjZ+9KlPQU+BwHHxHoMKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}],["city",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["humidity",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/7NlYGDQBWJHILYHYjMgBgAZQqB/FAAAAA=="},"shape":[5],"dtype":"int32","order":"little"}],["hotel_name",["Simon Hotel","Rasesa Lodge","\u0641\u0646\u062f\u0642 \u0627\u0644\u0627\u0646\u062f\u0644\u0633","The Observatory","Hotel Cenci"]],["country",["GH","BW","SA","AU","AR"]],["color",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["size",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/8so8RPfZCvv8OddcqbxVSmHC7sS7R/IKzjEl+6p279f3uHYRl65qymyDgB0XUhKKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"c12567c9-160f-4cbd-a74e-751d08d43f48","attributes":{"filter":{"type":"object","name":"AllIndices","id":"405578e7-35d7-44b0-841a-5f74622f6355"}}},"glyph":{"type":"object","name":"Scatter","id":"e859385e-f8a4-41ca-9c43-6c4476267349","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"type":"object","name":"CategoricalColorMapper","id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7","attributes":{"palette":["#1f77b3","#ff7e0e","#2ba02b","#d62628","#9367bc"],"factors":["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]}}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"hatch_alpha":{"type":"value","value":0.7}}},"selection_glyph":{"type":"object","name":"Scatter","id":"5827e484-bcbd-45a6-a041-28098a047722","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"hatch_alpha":{"type":"value","value":0.7}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"e8d7241e-6cc3-4b52-8942-1b7971859251","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"hatch_alpha":{"type":"value","value":0.1}}},"hover_glyph":{"type":"object","name":"Scatter","id":"9b37001c-d9e1-4389-9464-cfc2104d93aa","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"hatch_alpha":{"type":"value","value":0.7}}},"muted_glyph":{"type":"object","name":"Scatter","id":"c8eaead0-816d-47d2-b9ca-cb998ab2bd0b","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"field","field":"color","transform":{"id":"3ab67786-5bb1-4b74-b7f3-64054e2201b7"}},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"TileRenderer","id":"3eeeaa71-e724-438d-bad6-9102ab717ed5","attributes":{"level":"underlay","tile_source":{"type":"object","name":"WMTSTileSource","id":"9fe0e21f-dad5-4993-879d-fe87f2c4d634","attributes":{"url":"https://c.tile.openstreetmap.org/{Z}/{X}/{Y}.png","attribution":"&amp;copy; &lt;a href=\"https://www.openstreetmap.org/copyright\"&gt;OpenStreetMap&lt;/a&gt; contributors"}}}},{"type":"object","name":"GlyphRenderer","id":"e3acaac0-23a3-4d6c-ba81-dfe7297530ac","attributes":{"name":"color","data_source":{"type":"object","name":"ColumnDataSource","id":"99374885-de27-46c7-baa3-eb2742f24492","attributes":{"selected":{"type":"object","name":"Selection","id":"0e997708-0929-4e92-a6c6-810c4c712c46","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"c0c81156-b135-456b-9ee7-3e7c897367f6"},"data":{"type":"map","entries":[["longitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/wEoANf/WAea7LWntcCnT5VXjjVGQcV35FeJp1BBEDjYEuk7cEFOJMbMU/FZwWHyEJQoAAAA"},"shape":[5],"dtype":"float64","order":"little"}],["latitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/xOcJeBq1a/lmP7o2GXRVNeDZ1l6ZlrtcHLs9qsWi1f1OTjZ+9KlPQU+BwHHxHoMKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}],["city",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["humidity",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/7NlYGDQBWJHILYHYjMgBgAZQqB/FAAAAA=="},"shape":[5],"dtype":"int32","order":"little"}],["hotel_name",["Simon Hotel","Rasesa Lodge","\u0641\u0646\u062f\u0642 \u0627\u0644\u0627\u0646\u062f\u0644\u0633","The Observatory","Hotel Cenci"]],["country",["GH","BW","SA","AU","AR"]],["color",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["size",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/8so8RPfZCvv8OddcqbxVSmHC7sS7R/IKzjEl+6p279f3uHYRl65qymyDgB0XUhKKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"6e031d6a-1ff9-4c27-acee-1abb92ec474c","attributes":{"filter":{"type":"object","name":"AllIndices","id":"015cf51e-ea9b-4431-a440-a1c6f2f9f7b1"}}},"glyph":{"type":"object","name":"Scatter","id":"983fdf97-e538-4e0e-a637-351e93a8a5c3","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"type":"object","name":"CategoricalColorMapper","id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a","attributes":{"palette":["#1f77b3","#ff7e0e","#2ba02b","#d62628","#9367bc"],"factors":["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]}}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"hatch_alpha":{"type":"value","value":0.7}}},"selection_glyph":{"type":"object","name":"Scatter","id":"31a45907-d436-4918-9410-d8ff62f56270","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"hatch_alpha":{"type":"value","value":0.7}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"6d25a0c0-c06c-4afd-ae4b-9022d517fd08","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"hatch_alpha":{"type":"value","value":0.1}}},"hover_glyph":{"type":"object","name":"Scatter","id":"3528c6b7-4ed6-4577-b046-55e8d95d4c80","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"hatch_alpha":{"type":"value","value":0.7}}},"muted_glyph":{"type":"object","name":"Scatter","id":"c4d27737-4dc1-442d-a6b4-9b480e51a76a","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"field","field":"color","transform":{"id":"86afbefa-8d35-4498-a79e-2c3eed7dc71a"}},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"593fbe87-8a4f-4702-b5e7-9e098863c20f","attributes":{"tools":[{"type":"object","name":"WheelZoomTool","id":"6e6d036d-fc34-4deb-888e-b3d8d22de3cb","attributes":{"renderers":"auto","zoom_on_axis":false}},{"type":"object","name":"BoxZoomTool","id":"cf905ddc-d86d-44f4-a231-7ca7feebc9ec","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"ab5ddca4-fbd5-4d52-aafe-ad726d94b139","attributes":{"syncable":false,"line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","handles":{"type":"object","name":"BoxInteractionHandles","id":"fcca625d-9ad2-4912-bac1-a6ed24c0008f","attributes":{"all":{"type":"object","name":"AreaVisuals","id":"1d711552-8d31-4b48-a07c-8b146e3c045e","attributes":{"fill_color":"white","hover_fill_color":"lightgray"}}}}}},"match_aspect":true}},{"type":"object","name":"HoverTool","id":"04c1ab29-6208-450c-aaef-736b33fd26f0","attributes":{"tags":["hv_created"],"renderers":[{"id":"b307806f-684b-4209-ba43-7f094dc46068"}],"tooltips":[["longitude","$x{custom}"],["latitude","$y{custom}"],["city","@{city}"],["humidity","@{humidity}"],["hotel_name","@{hotel_name}"],["country","@{country}"]],"formatters":{"type":"map","entries":[["$x",{"type":"object","name":"CustomJSHover","id":"606a643c-926f-4a18-8021-2e3f13b90190","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[0]).toFixed(4)\n    "}}],["$y",{"type":"object","name":"CustomJSHover","id":"38477880-86e7-4428-99ed-3b8407cb2084","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[1]).toFixed(4)\n    "}}]]},"sort_by":null}},{"type":"object","name":"SaveTool","id":"b890bcb1-edda-48e7-8cbc-1de876d641f4"},{"type":"object","name":"PanTool","id":"1fc49817-9942-4983-800e-32a01342a408"},{"type":"object","name":"ResetTool","id":"e0b5fc1f-593f-4ce3-afff-13eb051cf863"},{"type":"object","name":"HoverTool","id":"ae9c0775-ef28-4f99-aa36-e8d1d66fdbf3","attributes":{"tags":["hv_created"],"renderers":[{"id":"e3acaac0-23a3-4d6c-ba81-dfe7297530ac"}],"tooltips":[["longitude","$x{custom}"],["latitude","$y{custom}"],["city","@{city}"],["humidity","@{humidity}"],["hotel_name","@{hotel_name}"],["country","@{country}"]],"formatters":{"type":"map","entries":[["$x",{"type":"object","name":"CustomJSHover","id":"018c35dc-89a4-4730-915d-b5c9bfbda8ab","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[0]).toFixed(4)\n    "}}],["$y",{"type":"object","name":"CustomJSHover","id":"b9a07b5d-500f-44b5-81a1-004304b1989c","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[1]).toFixed(4)\n    "}}]]},"sort_by":null}}],"active_drag":{"id":"1fc49817-9942-4983-800e-32a01342a408"}}},"left":[{"type":"object","name":"LinearAxis","id":"df21f441-1b0e-4901-9bf4-d2f330c507fc","attributes":{"ticker":{"type":"object","name":"MercatorTicker","id":"8105343a-ae1e-40e6-af8f-88461c215942","attributes":{"mantissas":[1,2,5],"dimension":"lat"}},"formatter":{"type":"object","name":"MercatorTickFormatter","id":"fc2e1861-bfe8-4aa0-9218-fed8349f2504","attributes":{"dimension":"lat"}},"axis_label":"","major_label_policy":{"type":"object","name":"AllLabels","id":"6a452715-c401-4143-87b2-96953f28355a"}}}],"right":[{"type":"object","name":"Legend","id":"51b7bbea-25b8-4fd6-8e53-028823e0043b","attributes":{"location":[0,0],"click_policy":"mute","items":[{"type":"object","name":"LegendItem","id":"3aa79442-7e9f-44df-9549-b4ec3a224fab","attributes":{"label":{"type":"field","field":"color"},"renderers":[{"id":"b307806f-684b-4209-ba43-7f094dc46068"},{"id":"e3acaac0-23a3-4d6c-ba81-dfe7297530ac"}]}}]}}],"below":[{"type":"object","name":"LinearAxis","id":"718b325a-477c-4c76-8a18-f4bc49f40375","attributes":{"ticker":{"type":"object","name":"MercatorTicker","id":"97f2710e-52de-4994-afe7-e6deedcce50f","attributes":{"mantissas":[1,2,5],"dimension":"lon"}},"formatter":{"type":"object","name":"MercatorTickFormatter","id":"ba74e10c-ce58-443b-8f2f-e7c25714b95b","attributes":{"dimension":"lon"}},"axis_label":"","major_label_policy":{"type":"object","name":"AllLabels","id":"a48f0f3b-80ff-4acf-a339-43111c6f62af"}}}],"center":[{"type":"object","name":"Grid","id":"bc87608c-81ed-436e-b143-705ac880056e","attributes":{"axis":{"id":"718b325a-477c-4c76-8a18-f4bc49f40375"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"755aa292-6b8f-49cd-b336-1963dc83fa96","attributes":{"dimension":1,"axis":{"id":"df21f441-1b0e-4901-9bf4-d2f330c507fc"},"grid_line_color":null}}],"frame_width":1100,"frame_height":550,"min_border_top":10,"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"output_backend":"webgl","match_aspect":true}},{"type":"object","name":"Spacer","id":"fe99fcc6-7f1f-43b5-a7a3-bc484051eab6","attributes":{"name":"HSpacer01152","stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 300px));\n  -webkit-mask-size: auto calc(min(50%, 300px));\n}",{"id":"201cdd5b-2489-43c6-a3a2-96519be9f02f"},{"id":"ee837e30-7a8d-499f-842b-fd8bc8e3c948"},{"id":"239e9849-f416-4e6d-8d03-0e533935e7c6"}],"min_width":0,"margin":0,"sizing_mode":"stretch_width","align":"start"}}]}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"gap","kind":"Any","default":""},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"start","kind":"Any","default":0},{"name":"end","kind":"Any","default":100},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"ReactiveESM1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"JSComponent1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"ReactComponent1","properties":[{"name":"use_shadow_dom","kind":"Any","default":true},{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"AnyWidgetComponent1","properties":[{"name":"use_shadow_dom","kind":"Any","default":true},{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"max_notifications","kind":"Any","default":5},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_rendered","kind":"Any","default":false},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"TemplateEditor1","properties":[{"name":"layout","kind":"Any","default":[]}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"request_value1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"_synced","kind":"Any","default":null},{"name":"_request_sync","kind":"Any","default":0}]},{"type":"model","name":"holoviews.plotting.bokeh.raster.HoverModel","properties":[{"name":"xy","kind":"Any","default":null},{"name":"data","kind":"Any","default":null}]}]}}
-    </script>
-    <script type="text/javascript">
-      (function() {
-        const fn = function() {
-          Bokeh.safely(function() {
-            (function(root) {
-              function embed_document(root) {
-              const docs_json = document.getElementById('a35814e3-6951-48d5-a957-7584e1d29c3c').textContent;
-              const render_items = [{"docid":"116cf785-356a-492f-8f4f-8403dec92711","roots":{"89a223cc-ad1d-41a5-9b34-9962dfdaaba6":"f618d546-c521-4ede-bb0e-8ecf3b046088"},"root_ids":["89a223cc-ad1d-41a5-9b34-9962dfdaaba6"]}];
-              root.Bokeh.embed.embed_items(docs_json, render_items);
-              }
-              if (root.Bokeh !== undefined) {
-                embed_document(root);
-              } else {
-                let attempts = 0;
-                const timer = setInterval(function(root) {
-                  if (root.Bokeh !== undefined) {
-                    clearInterval(timer);
-                    embed_document(root);
-                  } else {
-                    attempts++;
-                    if (attempts > 100) {
-                      clearInterval(timer);
-                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
-                    }
-                  }
-                }, 10, root)
-              }
-            })(window);
-          });
-        };
-        if (document.readyState != "loading") fn();
-      else document.addEventListener("DOMContentLoaded", fn, {once: true});
-      })();
-    </script>
-  </body>
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <h3 align='left' style='
+                font-size:20.0px; 
+                color:black; 
+                font-style:bold; 
+                font-family:Arial;'>
+                <b>Figure 3.4: Hotel Locations</b>
+            </h3>
+         
+    
+            <div class="folium-map" id="map_88f59b2ef0c618bac22b1e8948dcc55c" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_88f59b2ef0c618bac22b1e8948dcc55c = L.map(
+                "map_88f59b2ef0c618bac22b1e8948dcc55c",
+                {
+                    center: [20.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": true,
+  "detectRetina": true,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_88f59b2ef0c618bac22b1e8948dcc55c);
+
+            
+
+        
+    
+            var tile_layer_25b77781d2382fb93b2d65d6358466ef = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_25b77781d2382fb93b2d65d6358466ef.addTo(map_88f59b2ef0c618bac22b1e8948dcc55c);
+        
+    
+            var circle_marker_f27b55165df80bb58d943edd7365aab3 = L.circleMarker(
+                [11.8, 76.6833],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "plum", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.68, "stroke": true, "weight": 1.0}
+            ).addTo(map_88f59b2ef0c618bac22b1e8948dcc55c);
+        
+    
+            circle_marker_f27b55165df80bb58d943edd7365aab3.bindTooltip(
+                `<div>
+                     Hotel_Name: khushi resort<br>City: gundlupet<br>Country: IN
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_65362ac62ed96784391c585bc1297c2e = L.circleMarker(
+                [-31.8976, 26.8753],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightyellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.08, "stroke": true, "weight": 1.0}
+            ).addTo(map_88f59b2ef0c618bac22b1e8948dcc55c);
+        
+    
+            circle_marker_65362ac62ed96784391c585bc1297c2e.bindTooltip(
+                `<div>
+                     Hotel_Name: queens hotel<br>City: queenstown<br>Country: ZA
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_47fde95a72c206c2a3319bd801c27fa7 = L.circleMarker(
+                [22.8909, -109.9124],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "aquamarine", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.72, "stroke": true, "weight": 1.0}
+            ).addTo(map_88f59b2ef0c618bac22b1e8948dcc55c);
+        
+    
+            circle_marker_47fde95a72c206c2a3319bd801c27fa7.bindTooltip(
+                `<div>
+                     Hotel_Name: comfort rooms<br>City: cape san lucas<br>Country: MX
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c763d871014682566fd4dc3d2a2f2483 = L.circleMarker(
+                [34.0633, -117.6509],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "cyan", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.04, "stroke": true, "weight": 1.0}
+            ).addTo(map_88f59b2ef0c618bac22b1e8948dcc55c);
+        
+    
+            circle_marker_c763d871014682566fd4dc3d2a2f2483.bindTooltip(
+                `<div>
+                     Hotel_Name: travelodge ontario<br>City: ontario<br>Country: US
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_13887a3424cfeebe2ede20507c3aa187 = L.circleMarker(
+                [27.3167, -112.2833],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "goldenrod", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.3999999999999995, "stroke": true, "weight": 1.0}
+            ).addTo(map_88f59b2ef0c618bac22b1e8948dcc55c);
+        
+    
+            circle_marker_13887a3424cfeebe2ede20507c3aa187.bindTooltip(
+                `<div>
+                     Hotel_Name: sun and sea<br>City: holy rosalia<br>Country: MX
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
 </html>

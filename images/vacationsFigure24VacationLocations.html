@@ -1,69 +1,224 @@
 <!DOCTYPE html>
-<html lang="en" >
-  <head>
-    <meta charset="utf-8">
-    <title>vacationsFigure24VacationLocations</title>
-<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.holoviz.org/panel/1.8.7/dist/images/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://cdn.holoviz.org/panel/1.8.7/dist/images/favicon.ico"><link rel="apple-touch-icon" href="">    <style>
-      html, body {
-	display: flow-root;
-        box-sizing: border-box;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-<script type="esms-options">{"shimMode": true}</script>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_519732d301e0c585d25569139ad561f8 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
 
-<script type="text/javascript" src="https://cdn.holoviz.org/panel/1.8.7/dist/bundled/reactiveesm/es-module-shims@^1.10.0/dist/es-module-shims.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.8.2.min.js"></script>
-<script type="text/javascript" src="https://cdn.holoviz.org/panel/1.8.7/dist/panel.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@holoviz/geoviews@1.15.1/dist/geoviews.min.js"></script>
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
 
-<script type="text/javascript">
-  Bokeh.set_log_level("info");
-</script>  </head>
-  <body>
-    <div id="fff8c73c-84e0-4001-9717-efad4608a957" data-root-id="52bb5234-c14d-4622-a35c-3ed6b24f4cd9" style="display: contents;"></div>
-  
-    <script type="application/json" id="ea69fab3-b132-442f-b06b-5bdcf03ec912">
-      {"63a65246-f1e0-4944-88ed-34879c036ce0":{"version":"3.8.2","title":"Bokeh Application","config":{"type":"object","name":"DocumentConfig","id":"0ed0fda8-11d7-4fb1-b652-78654e39671b","attributes":{"notifications":{"type":"object","name":"Notifications","id":"0ed54395-1305-43f7-a205-2b8b01ab8c0b"}}},"roots":[{"type":"object","name":"Row","id":"52bb5234-c14d-4622-a35c-3ed6b24f4cd9","attributes":{"name":"Row00769","tags":["embedded"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 300px));\n  -webkit-mask-size: auto calc(min(50%, 300px));\n}",{"type":"object","name":"ImportedStyleSheet","id":"a7a924ed-6b35-4f85-9b89-9a51a9663194","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/css/loading.css"}},{"type":"object","name":"ImportedStyleSheet","id":"fe42f736-101c-4a7a-a505-054cf6a30b0a","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/css/listpanel.css"}},{"type":"object","name":"ImportedStyleSheet","id":"747467e5-b720-4fbd-847b-25070f7ecff2","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/bundled/theme/default.css"}},{"type":"object","name":"ImportedStyleSheet","id":"d4a783d7-3255-4bcf-a633-aa23a391af3f","attributes":{"url":"https://cdn.holoviz.org/panel/1.8.7/dist/bundled/theme/native.css"}}],"min_width":1100,"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"Spacer","id":"f41c53ba-bf7c-4959-a36f-df87d61ebaad","attributes":{"name":"HSpacer00773","stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 300px));\n  -webkit-mask-size: auto calc(min(50%, 300px));\n}",{"id":"a7a924ed-6b35-4f85-9b89-9a51a9663194"},{"id":"747467e5-b720-4fbd-847b-25070f7ecff2"},{"id":"d4a783d7-3255-4bcf-a633-aa23a391af3f"}],"min_width":0,"margin":0,"sizing_mode":"stretch_width","align":"start"}},{"type":"object","name":"Figure","id":"6ac56689-7c78-45a5-bdc2-ad6e962bc99d","attributes":{"width":1100,"height":550,"margin":[5,10],"sizing_mode":"fixed","align":"start","x_range":{"type":"object","name":"Range1d","id":"92024b29-b2f0-44e5-aa6d-a368eeee0546","attributes":{"name":"Longitude","tags":[[["Longitude",null]],[]],"start":-19981848.59739268,"end":19981848.59739268,"reset_start":-19981848.59739268,"reset_end":19981848.59739268,"min_interval":5}},"y_range":{"type":"object","name":"Range1d","id":"73ceae61-7898-43f1-9fed-b8f399d5771e","attributes":{"name":"Latitude","tags":[[["Latitude",null]],{"type":"map","entries":[["invert_yaxis",false],["autorange",false]]}],"start":-7361865.918971622,"end":12932242.68188668,"reset_start":-7361865.918971622,"reset_end":12932242.68188668,"min_interval":5}},"x_scale":{"type":"object","name":"LinearScale","id":"f71cc42a-b6d4-4957-bd21-733d50d7eca6"},"y_scale":{"type":"object","name":"LinearScale","id":"d0493dc7-0da2-47d8-8a63-5cfd83d3bc63"},"title":{"type":"object","name":"Title","id":"99a4050c-9b58-4089-b241-8b64ccffe37a","attributes":{"text":"Figure 2.4: Vacation Locations","text_color":"black","text_font_size":"12pt"}},"renderers":[{"type":"object","name":"TileRenderer","id":"f4c46a40-842e-4587-a57e-eca8e576270e","attributes":{"level":"underlay","tile_source":{"type":"object","name":"WMTSTileSource","id":"d954256e-4c97-423f-9b8a-ae465fe2f1cb","attributes":{"url":"https://c.tile.openstreetmap.org/{Z}/{X}/{Y}.png","attribution":"&amp;copy; &lt;a href=\"https://www.openstreetmap.org/copyright\"&gt;OpenStreetMap&lt;/a&gt; contributors"}}}},{"type":"object","name":"GlyphRenderer","id":"dc89d3be-de05-4d2e-936c-ca4a57907de3","attributes":{"name":"color","data_source":{"type":"object","name":"ColumnDataSource","id":"021c90fe-4b61-4963-99f6-da1fab637a13","attributes":{"selected":{"type":"object","name":"Selection","id":"bffa15e5-3cac-4031-9cd3-764cd5dab0c6","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"b8f7509b-448e-43dd-abed-c0e936ff4715"},"data":{"type":"map","entries":[["longitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/wEoANf/WAea7LWntcCnT5VXjjVGQcV35FeJp1BBEDjYEuk7cEFOJMbMU/FZwWHyEJQoAAAA"},"shape":[5],"dtype":"float64","order":"little"}],["latitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/xOcJeBq1a/lmP7o2GXRVNeDZ1l6ZlrtcHLs9qsWi1f1OTjZ+9KlPQU+BwHHxHoMKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}],["city",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["humidity",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/7NlYGDQBWJHILYHYjMgBgAZQqB/FAAAAA=="},"shape":[5],"dtype":"int32","order":"little"}],["temperature",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/3tYJbLOvTDEIab/0FcNniCH64sLbLnMgx2Aog+rjgQ7LAFyrwuHOAAAzdbr5ygAAAA="},"shape":[5],"dtype":"float64","order":"little"}],["cloudiness",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/2NgYGBgZUAARiAGAP4hMM0UAAAA"},"shape":[5],"dtype":"int32","order":"little"}],["wind_speed",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/wvaIdf6OlDOQTOm/9BXDXEHBiioFlnn/vCXIpQv6wAABUjNxCgAAAA="},"shape":[5],"dtype":"float64","order":"little"}],["country",["GH","BW","SA","AU","AR"]],["color",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["size",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/8so8RPfZCvv8OddcqbxVSmHC7sS7R/IKzjEl+6p279f3uHYRl65qymyDgB0XUhKKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"f7eebf71-b0cc-40d4-a667-602ee836e05d","attributes":{"filter":{"type":"object","name":"AllIndices","id":"08131cfb-589d-476f-8bec-1b18d0dfc3fc"}}},"glyph":{"type":"object","name":"Scatter","id":"39ada35d-65d9-4c53-9d1e-0ec037e6b21f","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"type":"object","name":"CategoricalColorMapper","id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6","attributes":{"palette":["#1f77b3","#ff7e0e","#2ba02b","#d62628","#9367bc"],"factors":["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]}}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"hatch_alpha":{"type":"value","value":0.7}}},"selection_glyph":{"type":"object","name":"Scatter","id":"11fad881-b02b-41a1-8be5-02c2b9400317","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"hatch_alpha":{"type":"value","value":0.7}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"dbb7965c-9f4b-470c-882d-12e3ff5c7699","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"hatch_alpha":{"type":"value","value":0.1}}},"hover_glyph":{"type":"object","name":"Scatter","id":"70b3342a-bf58-4d5d-b9ac-a08b07f26625","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"hatch_alpha":{"type":"value","value":0.7}}},"muted_glyph":{"type":"object","name":"Scatter","id":"012cfede-0364-425b-9bd8-601d3f76986f","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"field","field":"color","transform":{"id":"1ecdb21d-a5c1-4f0a-8158-fd305bfe6ff6"}},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"TileRenderer","id":"e09c3c25-d000-494f-b861-f59270fec6bc","attributes":{"level":"underlay","tile_source":{"type":"object","name":"WMTSTileSource","id":"a943bb07-c9f2-4ecc-8fa9-a82e25ef44e3","attributes":{"url":"https://c.tile.openstreetmap.org/{Z}/{X}/{Y}.png","attribution":"&amp;copy; &lt;a href=\"https://www.openstreetmap.org/copyright\"&gt;OpenStreetMap&lt;/a&gt; contributors"}}}},{"type":"object","name":"GlyphRenderer","id":"9362053c-a71a-4968-8e6f-ee6c8f5f31c5","attributes":{"name":"color","data_source":{"type":"object","name":"ColumnDataSource","id":"7f261ce3-fef7-457d-8faf-fdf2fb691955","attributes":{"selected":{"type":"object","name":"Selection","id":"96a23ef1-07f9-473d-bb96-41d57dba1ef0","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"0617e052-a6da-4bd5-a783-7ec38ef8938b"},"data":{"type":"map","entries":[["longitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/wEoANf/WAea7LWntcCnT5VXjjVGQcV35FeJp1BBEDjYEuk7cEFOJMbMU/FZwWHyEJQoAAAA"},"shape":[5],"dtype":"float64","order":"little"}],["latitude",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/xOcJeBq1a/lmP7o2GXRVNeDZ1l6ZlrtcHLs9qsWi1f1OTjZ+9KlPQU+BwHHxHoMKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}],["city",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["humidity",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/7NlYGDQBWJHILYHYjMgBgAZQqB/FAAAAA=="},"shape":[5],"dtype":"int32","order":"little"}],["temperature",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/3tYJbLOvTDEIab/0FcNniCH64sLbLnMgx2Aog+rjgQ7LAFyrwuHOAAAzdbr5ygAAAA="},"shape":[5],"dtype":"float64","order":"little"}],["cloudiness",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/2NgYGBgZUAARiAGAP4hMM0UAAAA"},"shape":[5],"dtype":"int32","order":"little"}],["wind_speed",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/wvaIdf6OlDOQTOm/9BXDXEHBiioFlnn/vCXIpQv6wAABUjNxCgAAAA="},"shape":[5],"dtype":"float64","order":"little"}],["country",["GH","BW","SA","AU","AR"]],["color",["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]],["size",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAC/8so8RPfZCvv8OddcqbxVSmHC7sS7R/IKzjEl+6p279f3uHYRl65qymyDgB0XUhKKAAAAA=="},"shape":[5],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"55d56c49-69f3-4982-a274-3e79be3d3d5f","attributes":{"filter":{"type":"object","name":"AllIndices","id":"d4688ccc-5691-497f-aba0-b9fb5d161378"}}},"glyph":{"type":"object","name":"Scatter","id":"873db508-a6ed-4124-8447-8d3403f88cf3","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"type":"object","name":"CategoricalColorMapper","id":"57eafecc-006a-4303-8df2-35e16a6bd246","attributes":{"palette":["#1f77b3","#ff7e0e","#2ba02b","#d62628","#9367bc"],"factors":["kete krachi","mochudi","jeddah","port macquarie","san carlos centro"]}}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"hatch_alpha":{"type":"value","value":0.7}}},"selection_glyph":{"type":"object","name":"Scatter","id":"46f77765-3262-4cd2-aa2c-e0539dfbd1a0","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"hatch_alpha":{"type":"value","value":0.7}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"73fdd777-1b76-4bab-8e99-af5ff3472bb9","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"hatch_alpha":{"type":"value","value":0.1}}},"hover_glyph":{"type":"object","name":"Scatter","id":"560cea74-8896-43fa-8989-2a032df16232","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"line_alpha":{"type":"value","value":0.7},"fill_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"fill_alpha":{"type":"value","value":0.7},"hatch_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"hatch_alpha":{"type":"value","value":0.7}}},"muted_glyph":{"type":"object","name":"Scatter","id":"a28d0714-dba5-4e97-a212-23ca5d890b00","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"longitude"},"y":{"type":"field","field":"latitude"},"size":{"type":"field","field":"size"},"line_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"field","field":"color","transform":{"id":"57eafecc-006a-4303-8df2-35e16a6bd246"}},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"b3c410dc-b59a-465b-96aa-8554c37f3fd6","attributes":{"tools":[{"type":"object","name":"WheelZoomTool","id":"145a4203-615e-4435-91c3-e5b7fd225333","attributes":{"renderers":"auto","zoom_on_axis":false}},{"type":"object","name":"BoxZoomTool","id":"2be84321-463f-41f9-8c15-488594e2631b","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"91d7b128-d771-4e56-8107-5d8acd68e520","attributes":{"syncable":false,"line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","handles":{"type":"object","name":"BoxInteractionHandles","id":"fcca625d-9ad2-4912-bac1-a6ed24c0008f","attributes":{"all":{"type":"object","name":"AreaVisuals","id":"1d711552-8d31-4b48-a07c-8b146e3c045e","attributes":{"fill_color":"white","hover_fill_color":"lightgray"}}}}}},"match_aspect":true}},{"type":"object","name":"HoverTool","id":"0fb71eb9-129c-4721-9601-978e42dce474","attributes":{"tags":["hv_created"],"renderers":[{"id":"dc89d3be-de05-4d2e-936c-ca4a57907de3"}],"tooltips":[["longitude","$x{custom}"],["latitude","$y{custom}"],["city","@{city}"],["humidity","@{humidity}"],["temperature","@{temperature}"],["cloudiness","@{cloudiness}"],["wind_speed","@{wind_speed}"],["country","@{country}"]],"formatters":{"type":"map","entries":[["$x",{"type":"object","name":"CustomJSHover","id":"89a19f57-7b98-4e79-b79e-0131068677f9","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[0]).toFixed(4)\n    "}}],["$y",{"type":"object","name":"CustomJSHover","id":"0c4e0a06-315f-4641-af09-1d43575a75d3","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[1]).toFixed(4)\n    "}}]]},"sort_by":null}},{"type":"object","name":"SaveTool","id":"72ef4d30-31cb-4cf6-af48-d775378a2bcb"},{"type":"object","name":"PanTool","id":"cc53f67c-c2d8-4a19-a3a9-6eecc2713850"},{"type":"object","name":"ResetTool","id":"ca5e866d-ae58-4e8d-8440-6c53f47b573f"},{"type":"object","name":"HoverTool","id":"18f3552d-bc03-44c3-8eb5-ee66df6ed778","attributes":{"tags":["hv_created"],"renderers":[{"id":"9362053c-a71a-4968-8e6f-ee6c8f5f31c5"}],"tooltips":[["longitude","$x{custom}"],["latitude","$y{custom}"],["city","@{city}"],["humidity","@{humidity}"],["temperature","@{temperature}"],["cloudiness","@{cloudiness}"],["wind_speed","@{wind_speed}"],["country","@{country}"]],"formatters":{"type":"map","entries":[["$x",{"type":"object","name":"CustomJSHover","id":"ff74f865-405f-42ab-a698-6443d088e723","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[0]).toFixed(4)\n    "}}],["$y",{"type":"object","name":"CustomJSHover","id":"3372e43a-d93b-4ee7-87b6-faf73505e2cc","attributes":{"code":"\n        const projections = Bokeh.require(\"core/util/projections\");\n        const {snap_x, snap_y} = special_vars\n        const coords = projections.wgs84_mercator.invert(snap_x, snap_y)\n        return \"\" + (coords[1]).toFixed(4)\n    "}}]]},"sort_by":null}}],"active_drag":{"id":"cc53f67c-c2d8-4a19-a3a9-6eecc2713850"}}},"left":[{"type":"object","name":"LinearAxis","id":"bbc5144f-c53a-4382-b11e-f87ff9f8c198","attributes":{"ticker":{"type":"object","name":"MercatorTicker","id":"42bc70fb-411f-460d-82d6-8e34fed34752","attributes":{"mantissas":[1,2,5],"dimension":"lat"}},"formatter":{"type":"object","name":"MercatorTickFormatter","id":"89fb6997-f601-4c08-bea9-01c38cd4731c","attributes":{"dimension":"lat"}},"axis_label":"","major_label_policy":{"type":"object","name":"AllLabels","id":"4ba35c0a-09b5-4963-84bb-1ba0f71287b3"}}}],"right":[{"type":"object","name":"Legend","id":"c781a26b-c3ef-4e60-b1db-7c3373f8bb3a","attributes":{"location":[0,0],"click_policy":"mute","items":[{"type":"object","name":"LegendItem","id":"57b5df8c-38f0-4177-98bb-120bade8694b","attributes":{"label":{"type":"field","field":"color"},"renderers":[{"id":"dc89d3be-de05-4d2e-936c-ca4a57907de3"},{"id":"9362053c-a71a-4968-8e6f-ee6c8f5f31c5"}]}}]}}],"below":[{"type":"object","name":"LinearAxis","id":"0441921b-13d9-4763-a39a-c7f462d45125","attributes":{"ticker":{"type":"object","name":"MercatorTicker","id":"a351676d-2515-4c09-9435-da87a32372e5","attributes":{"mantissas":[1,2,5],"dimension":"lon"}},"formatter":{"type":"object","name":"MercatorTickFormatter","id":"8e05ecd8-0fea-4ae6-8c18-f9ad27958492","attributes":{"dimension":"lon"}},"axis_label":"","major_label_policy":{"type":"object","name":"AllLabels","id":"f07ae1c3-6c23-484c-871e-90996bcbed42"}}}],"center":[{"type":"object","name":"Grid","id":"af747782-ada2-42e9-ab8f-f7b609bf5a11","attributes":{"axis":{"id":"0441921b-13d9-4763-a39a-c7f462d45125"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"74233c55-5630-4fb1-af12-34704f2dc693","attributes":{"dimension":1,"axis":{"id":"bbc5144f-c53a-4382-b11e-f87ff9f8c198"},"grid_line_color":null}}],"frame_width":1100,"frame_height":550,"min_border_top":10,"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"output_backend":"webgl","match_aspect":true}},{"type":"object","name":"Spacer","id":"649679c5-228f-4015-b3f0-a218e0dcc00d","attributes":{"name":"HSpacer00774","stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 300px));\n  -webkit-mask-size: auto calc(min(50%, 300px));\n}",{"id":"a7a924ed-6b35-4f85-9b89-9a51a9663194"},{"id":"747467e5-b720-4fbd-847b-25070f7ecff2"},{"id":"d4a783d7-3255-4bcf-a633-aa23a391af3f"}],"min_width":0,"margin":0,"sizing_mode":"stretch_width","align":"start"}}]}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"gap","kind":"Any","default":""},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"start","kind":"Any","default":0},{"name":"end","kind":"Any","default":100},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"ReactiveESM1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"JSComponent1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"ReactComponent1","properties":[{"name":"use_shadow_dom","kind":"Any","default":true},{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"AnyWidgetComponent1","properties":[{"name":"use_shadow_dom","kind":"Any","default":true},{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"max_notifications","kind":"Any","default":5},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_rendered","kind":"Any","default":false},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"TemplateEditor1","properties":[{"name":"layout","kind":"Any","default":[]}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"request_value1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"_synced","kind":"Any","default":null},{"name":"_request_sync","kind":"Any","default":0}]},{"type":"model","name":"holoviews.plotting.bokeh.raster.HoverModel","properties":[{"name":"xy","kind":"Any","default":null},{"name":"data","kind":"Any","default":null}]}]}}
-    </script>
-    <script type="text/javascript">
-      (function() {
-        const fn = function() {
-          Bokeh.safely(function() {
-            (function(root) {
-              function embed_document(root) {
-              const docs_json = document.getElementById('ea69fab3-b132-442f-b06b-5bdcf03ec912').textContent;
-              const render_items = [{"docid":"63a65246-f1e0-4944-88ed-34879c036ce0","roots":{"52bb5234-c14d-4622-a35c-3ed6b24f4cd9":"fff8c73c-84e0-4001-9717-efad4608a957"},"root_ids":["52bb5234-c14d-4622-a35c-3ed6b24f4cd9"]}];
-              root.Bokeh.embed.embed_items(docs_json, render_items);
-              }
-              if (root.Bokeh !== undefined) {
-                embed_document(root);
-              } else {
-                let attempts = 0;
-                const timer = setInterval(function(root) {
-                  if (root.Bokeh !== undefined) {
-                    clearInterval(timer);
-                    embed_document(root);
-                  } else {
-                    attempts++;
-                    if (attempts > 100) {
-                      clearInterval(timer);
-                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
-                    }
-                  }
-                }, 10, root)
-              }
-            })(window);
-          });
-        };
-        if (document.readyState != "loading") fn();
-      else document.addEventListener("DOMContentLoaded", fn, {once: true});
-      })();
-    </script>
-  </body>
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <h3 align='left' style='
+                font-size:20.0px; 
+                color:black; 
+                font-style:bold; 
+                font-family:Arial;'>
+                <b>Figure 2.4: Vacation Locations</b>
+            </h3>
+         
+    
+            <div class="folium-map" id="map_519732d301e0c585d25569139ad561f8" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_519732d301e0c585d25569139ad561f8 = L.map(
+                "map_519732d301e0c585d25569139ad561f8",
+                {
+                    center: [20.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": true,
+  "detectRetina": true,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_519732d301e0c585d25569139ad561f8);
+
+            
+
+        
+    
+            var tile_layer_338d852c4aba3286fdd7339d7e765f40 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_338d852c4aba3286fdd7339d7e765f40.addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            var circle_marker_4bfcc7f1201216419ae4613f327fe0ea = L.circleMarker(
+                [11.8, 76.6833],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkblue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.68, "stroke": true, "weight": 1.0}
+            ).addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            circle_marker_4bfcc7f1201216419ae4613f327fe0ea.bindTooltip(
+                `<div>
+                     City: gundlupet<br>Country: IN<br>Latitude: 11.8<br>Longitude: 76.6833
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_267289fe85a73d9dcf22694cd4533868 = L.circleMarker(
+                [-31.8976, 26.8753],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "violet", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.08, "stroke": true, "weight": 1.0}
+            ).addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            circle_marker_267289fe85a73d9dcf22694cd4533868.bindTooltip(
+                `<div>
+                     City: queenstown<br>Country: ZA<br>Latitude: -31.8976<br>Longitude: 26.8753
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dd4c8aaf36e25b6d516f685838c9eb45 = L.circleMarker(
+                [-14.55, 48.7333],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "turquoise", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.199999999999999, "stroke": true, "weight": 1.0}
+            ).addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            circle_marker_dd4c8aaf36e25b6d516f685838c9eb45.bindTooltip(
+                `<div>
+                     City: bealana<br>Country: MG<br>Latitude: -14.55<br>Longitude: 48.7333
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_52774cc6e425dbb19bebdf5c7470d26c = L.circleMarker(
+                [22.8909, -109.9124],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "peru", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.72, "stroke": true, "weight": 1.0}
+            ).addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            circle_marker_52774cc6e425dbb19bebdf5c7470d26c.bindTooltip(
+                `<div>
+                     City: cape san lucas<br>Country: MX<br>Latitude: 22.8909<br>Longitude: -109.9124
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8b7521932cb60cc849d02a53fc53cc74 = L.circleMarker(
+                [7.9868, 117.0645],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "peachpuff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.56, "stroke": true, "weight": 1.0}
+            ).addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            circle_marker_8b7521932cb60cc849d02a53fc53cc74.bindTooltip(
+                `<div>
+                     City: balabac<br>Country: PH<br>Latitude: 7.9868<br>Longitude: 117.0645
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9091c3ea7c6ac23d6f4ed9563e5f99dc = L.circleMarker(
+                [34.0633, -117.6509],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "peru", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.04, "stroke": true, "weight": 1.0}
+            ).addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            circle_marker_9091c3ea7c6ac23d6f4ed9563e5f99dc.bindTooltip(
+                `<div>
+                     City: ontario<br>Country: US<br>Latitude: 34.0633<br>Longitude: -117.6509
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c3b853eaf463e99e3f72cee9d698477a = L.circleMarker(
+                [27.3167, -112.2833],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.3999999999999995, "stroke": true, "weight": 1.0}
+            ).addTo(map_519732d301e0c585d25569139ad561f8);
+        
+    
+            circle_marker_c3b853eaf463e99e3f72cee9d698477a.bindTooltip(
+                `<div>
+                     City: holy rosalia<br>Country: MX<br>Latitude: 27.3167<br>Longitude: -112.2833
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
 </html>
