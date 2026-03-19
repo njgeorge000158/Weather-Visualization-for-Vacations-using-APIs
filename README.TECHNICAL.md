@@ -12,6 +12,12 @@ In addition to those modules, the Jupyter Notebook requires the following to exe
 
 Here are the requisite Terminal commands for the installation of these peripheral modules:
 
+pip3 install -U citypy
+
+pip3 install -U deep-translator
+
+pip3 install -U folium
+
 pip3 install -U holoviews
 
 pip3 install -U hvplot
@@ -25,8 +31,6 @@ pip3 install -U scipy
 pip3 install -U dataframe-image
 
 pip3 install -U selenium
-
-pip3 install -U citypy
 
 ----
 
@@ -241,9 +245,9 @@ Jupyter Notebook, Pandas, Python 3.11.5
 
   &emsp; |&rarr; [./logs/20240420weather_log.txt](./logs/20240420weather_log.txt)
 
-  &emsp; |&rarr; [./logs/20260304vacations_log.txt](./logs/20260304vacations_log.txt)
+  &emsp; |&rarr; [./logs/20260318vacations_log.txt](./logs/20260318vacations_log.txt)
 
-  &emsp; |&rarr; [./logs/20260304weather_log.txt](./logs/20260304weather_log.txt)
+  &emsp; |&rarr; [./logs/20260318weather_log.txt](./logs/20260318weather_log.txt)
 
   &emsp; |&rarr; [./logs/README.md](./logs/README.md)
 
