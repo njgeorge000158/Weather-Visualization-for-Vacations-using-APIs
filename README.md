@@ -1,4 +1,4 @@
-[vacationsFigure44RestaurantLocations.html](https://github.com/user-attachments/files/26195067/vacationsFigure44RestaurantLocations.html)![weather](https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-from-APIs/assets/137228821/7a04bda6-ff8b-47df-b255-568d7c2076ab)
+(https://github.com/user-attachments/files/26195067/vacationsFigure44RestaurantLocations.html)![weather](https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-from-APIs/assets/137228821/7a04bda6-ff8b-47df-b255-568d7c2076ab)
 
 ----
 
