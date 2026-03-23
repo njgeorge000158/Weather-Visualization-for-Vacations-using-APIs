@@ -24,12 +24,6 @@ The second notebook, `vacations.ipynb`, reads `cities_weather.csv` as its input 
 
 <img width="1469" height="563" alt="vacationsTable53TouristAttractionLocations" src="https://github.com/user-attachments/assets/7e594815-f9e9-481d-a582-dcc5972b1691" />
 
-
-
-<img width="898" alt="Screenshot 2024-04-20 at 3 44 09 PM" src="https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-using-APIs/assets/137228821/6c8ffabb-c4b3-4fbf-9b9f-45503b43b478">
-
-<img width="1095" alt="Screenshot 2024-04-20 at 3 34 27 PM" src="https://github.com/njgeorge000158/Weather-Visualization-for-Vacations-using-APIs/assets/137228821/84f93882-03bd-46bb-b4ea-abf8b94b2eb8">
-
 ---
 
 ## **Workflow Summary**
